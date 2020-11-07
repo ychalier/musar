@@ -1,0 +1,74 @@
+[RULES]
+
+# Must follow the format: <field> <constraint> <scope>
+#
+# fields:
+# - album
+# - album_artist
+# - artist
+# - comment
+# - cover
+# - disc_num
+# - genre
+# - title
+# - track_num
+# - year
+#
+# constraints:
+# - distinct
+# - existing
+# - ordered
+# - unique
+# - valid_genre
+# - valid_cover
+#
+# scopes:
+# - album
+# - disc
+# - track
+
+title existing track
+artist existing track
+artist unique album
+album existing track
+album unique album
+album_artist existing track
+album_artist unique album
+disc_num ordered album
+track_num existing track
+track_num ordered disc
+track_num distinct disc
+genre existing track
+genre valid_genre track
+year existing track
+year unique album
+cover existing track
+cover unique album
+# cover valid_cover track
+
+[FORMATS]
+
+# All missing fields will be erased during formatting
+# Must follow the format: <field> <cleaner>*
+#
+# cleaner:
+# - erase
+# - featurings
+# - resize
+# - strip
+
+title strip featurings
+artist strip
+album strip
+album_artist strip
+disc_num
+track_num
+genre strip
+year
+cover resize
+composer strip
+
+[OPTIONS]
+cover_target_size = 600, 600
+cover_target_format = jpeg
+cover_target_encoding = RGB

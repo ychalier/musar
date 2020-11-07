@@ -1,0 +1,772 @@
+{
+    "standard": [{
+            "id": 0,
+            "label": "Blues"
+        },
+        {
+            "id": 1,
+            "label": "Classic Rock"
+        },
+        {
+            "id": 2,
+            "label": "Country"
+        },
+        {
+            "id": 3,
+            "label": "Dance"
+        },
+        {
+            "id": 4,
+            "label": "Disco"
+        },
+        {
+            "id": 5,
+            "label": "Funk"
+        },
+        {
+            "id": 6,
+            "label": "Grunge"
+        },
+        {
+            "id": 7,
+            "label": "Hip-Hop"
+        },
+        {
+            "id": 8,
+            "label": "Jazz"
+        },
+        {
+            "id": 9,
+            "label": "Metal"
+        },
+        {
+            "id": 10,
+            "label": "New Age"
+        },
+        {
+            "id": 11,
+            "label": "Oldies"
+        },
+        {
+            "id": 12,
+            "label": "Other"
+        },
+        {
+            "id": 13,
+            "label": "Pop"
+        },
+        {
+            "id": 14,
+            "label": "R&B"
+        },
+        {
+            "id": 15,
+            "label": "Rap"
+        },
+        {
+            "id": 16,
+            "label": "Reggae"
+        },
+        {
+            "id": 17,
+            "label": "Rock"
+        },
+        {
+            "id": 18,
+            "label": "Techno"
+        },
+        {
+            "id": 19,
+            "label": "Industrial"
+        },
+        {
+            "id": 20,
+            "label": "Alternative"
+        },
+        {
+            "id": 21,
+            "label": "Ska"
+        },
+        {
+            "id": 22,
+            "label": "Death Metal"
+        },
+        {
+            "id": 23,
+            "label": "Pranks"
+        },
+        {
+            "id": 24,
+            "label": "Soundtrack"
+        },
+        {
+            "id": 25,
+            "label": "Euro-Techno"
+        },
+        {
+            "id": 26,
+            "label": "Ambient"
+        },
+        {
+            "id": 27,
+            "label": "Trip-Hop"
+        },
+        {
+            "id": 28,
+            "label": "Vocal"
+        },
+        {
+            "id": 29,
+            "label": "Jazz+Funk"
+        },
+        {
+            "id": 30,
+            "label": "Fusion"
+        },
+        {
+            "id": 31,
+            "label": "Trance"
+        },
+        {
+            "id": 32,
+            "label": "Classical"
+        },
+        {
+            "id": 33,
+            "label": "Instrumental"
+        },
+        {
+            "id": 34,
+            "label": "Acid"
+        },
+        {
+            "id": 35,
+            "label": "House"
+        },
+        {
+            "id": 36,
+            "label": "Game"
+        },
+        {
+            "id": 37,
+            "label": "Sound Clip"
+        },
+        {
+            "id": 38,
+            "label": "Gospel"
+        },
+        {
+            "id": 39,
+            "label": "Noise"
+        },
+        {
+            "id": 40,
+            "label": "AlternRock"
+        },
+        {
+            "id": 41,
+            "label": "Bass"
+        },
+        {
+            "id": 42,
+            "label": "Soul"
+        },
+        {
+            "id": 43,
+            "label": "Punk"
+        },
+        {
+            "id": 44,
+            "label": "Space"
+        },
+        {
+            "id": 45,
+            "label": "Meditative"
+        },
+        {
+            "id": 46,
+            "label": "Instrumental Pop"
+        },
+        {
+            "id": 47,
+            "label": "Instrumental Rock"
+        },
+        {
+            "id": 48,
+            "label": "Ethnic"
+        },
+        {
+            "id": 49,
+            "label": "Gothic"
+        },
+        {
+            "id": 50,
+            "label": "Darkwave"
+        },
+        {
+            "id": 51,
+            "label": "Techno-Industrial"
+        },
+        {
+            "id": 52,
+            "label": "Electronic"
+        },
+        {
+            "id": 53,
+            "label": "Pop-Folk"
+        },
+        {
+            "id": 54,
+            "label": "Eurodance"
+        },
+        {
+            "id": 55,
+            "label": "Dream"
+        },
+        {
+            "id": 56,
+            "label": "Southern Rock"
+        },
+        {
+            "id": 57,
+            "label": "Comedy"
+        },
+        {
+            "id": 58,
+            "label": "Cult"
+        },
+        {
+            "id": 59,
+            "label": "Gangsta Rap"
+        },
+        {
+            "id": 60,
+            "label": "Top 40"
+        },
+        {
+            "id": 61,
+            "label": "Christian Rap"
+        },
+        {
+            "id": 62,
+            "label": "Pop / Funk"
+        },
+        {
+            "id": 63,
+            "label": "Jungle"
+        },
+        {
+            "id": 64,
+            "label": "Native American"
+        },
+        {
+            "id": 65,
+            "label": "Cabaret"
+        },
+        {
+            "id": 66,
+            "label": "New Wave"
+        },
+        {
+            "id": 67,
+            "label": "Psychedelic"
+        },
+        {
+            "id": 68,
+            "label": "Rave"
+        },
+        {
+            "id": 69,
+            "label": "Showtunes"
+        },
+        {
+            "id": 70,
+            "label": "Trailer"
+        },
+        {
+            "id": 71,
+            "label": "Lo-Fi"
+        },
+        {
+            "id": 72,
+            "label": "Tribal"
+        },
+        {
+            "id": 73,
+            "label": "Acid Punk"
+        },
+        {
+            "id": 74,
+            "label": "Acid Jazz"
+        },
+        {
+            "id": 75,
+            "label": "Polka"
+        },
+        {
+            "id": 76,
+            "label": "Retro"
+        },
+        {
+            "id": 77,
+            "label": "Musical"
+        },
+        {
+            "id": 78,
+            "label": "Rock & Roll"
+        }
+    ],
+    "Winamp": [{
+            "id": 79,
+            "label": "Hard Rock"
+        },
+        {
+            "id": 80,
+            "label": "Folk"
+        },
+        {
+            "id": 81,
+            "label": "Folk-Rock"
+        },
+        {
+            "id": 82,
+            "label": "National Folk"
+        },
+        {
+            "id": 83,
+            "label": "Swing"
+        },
+        {
+            "id": 84,
+            "label": "Fast Fusion"
+        },
+        {
+            "id": 85,
+            "label": "Bebob"
+        },
+        {
+            "id": 86,
+            "label": "Latin"
+        },
+        {
+            "id": 87,
+            "label": "Revival"
+        },
+        {
+            "id": 88,
+            "label": "Celtic"
+        },
+        {
+            "id": 89,
+            "label": "Bluegrass"
+        },
+        {
+            "id": 90,
+            "label": "Avantgarde"
+        },
+        {
+            "id": 91,
+            "label": "Gothic Rock"
+        },
+        {
+            "id": 92,
+            "label": "Progressive Rock"
+        },
+        {
+            "id": 93,
+            "label": "Psychedelic Rock"
+        },
+        {
+            "id": 94,
+            "label": "Symphonic Rock"
+        },
+        {
+            "id": 95,
+            "label": "Slow Rock"
+        },
+        {
+            "id": 96,
+            "label": "Big Band"
+        },
+        {
+            "id": 97,
+            "label": "Chorus"
+        },
+        {
+            "id": 98,
+            "label": "Easy Listening"
+        },
+        {
+            "id": 99,
+            "label": "Acoustic"
+        },
+        {
+            "id": 100,
+            "label": "Humour"
+        },
+        {
+            "id": 101,
+            "label": "Speech"
+        },
+        {
+            "id": 102,
+            "label": "Chanson"
+        },
+        {
+            "id": 103,
+            "label": "Opera"
+        },
+        {
+            "id": 104,
+            "label": "Chamber Music"
+        },
+        {
+            "id": 105,
+            "label": "Sonata"
+        },
+        {
+            "id": 106,
+            "label": "Symphony"
+        },
+        {
+            "id": 107,
+            "label": "Booty Bass"
+        },
+        {
+            "id": 108,
+            "label": "Primus"
+        },
+        {
+            "id": 109,
+            "label": "Porn Groove"
+        },
+        {
+            "id": 110,
+            "label": "Satire"
+        },
+        {
+            "id": 111,
+            "label": "Slow Jam"
+        },
+        {
+            "id": 112,
+            "label": "Club"
+        },
+        {
+            "id": 113,
+            "label": "Tango"
+        },
+        {
+            "id": 114,
+            "label": "Samba"
+        },
+        {
+            "id": 115,
+            "label": "Folklore"
+        },
+        {
+            "id": 116,
+            "label": "Ballad"
+        },
+        {
+            "id": 117,
+            "label": "Power Ballad"
+        },
+        {
+            "id": 118,
+            "label": "Rhythmic Soul"
+        },
+        {
+            "id": 119,
+            "label": "Freestyle"
+        },
+        {
+            "id": 120,
+            "label": "Duet"
+        },
+        {
+            "id": 121,
+            "label": "Punk Rock"
+        },
+        {
+            "id": 122,
+            "label": "Drum Solo"
+        },
+        {
+            "id": 123,
+            "label": "A Cappella"
+        },
+        {
+            "id": 124,
+            "label": "Euro-House"
+        },
+        {
+            "id": 125,
+            "label": "Dance Hall"
+        },
+        {
+            "id": 126,
+            "label": "Goa"
+        },
+        {
+            "id": 127,
+            "label": "Drum & Bass"
+        },
+        {
+            "id": 128,
+            "label": "Club-House"
+        },
+        {
+            "id": 129,
+            "label": "Hardcore"
+        },
+        {
+            "id": 130,
+            "label": "Terror"
+        },
+        {
+            "id": 131,
+            "label": "Indie"
+        },
+        {
+            "id": 132,
+            "label": "BritPop"
+        },
+        {
+            "id": 133,
+            "label": "Negerpunk"
+        },
+        {
+            "id": 134,
+            "label": "Polsk Punk"
+        },
+        {
+            "id": 135,
+            "label": "Beat"
+        },
+        {
+            "id": 136,
+            "label": "Christian Gangsta Rap"
+        },
+        {
+            "id": 137,
+            "label": "Heavy Metal"
+        },
+        {
+            "id": 138,
+            "label": "Black Metal"
+        },
+        {
+            "id": 139,
+            "label": "Crossover"
+        },
+        {
+            "id": 140,
+            "label": "Contemporary Christian"
+        },
+        {
+            "id": 141,
+            "label": "Christian Rock"
+        },
+        {
+            "id": 142,
+            "label": "Merengue"
+        },
+        {
+            "id": 143,
+            "label": "Salsa"
+        },
+        {
+            "id": 144,
+            "label": "Thrash Metal"
+        },
+        {
+            "id": 145,
+            "label": "Anime"
+        },
+        {
+            "id": 146,
+            "label": "JPop"
+        },
+        {
+            "id": 147,
+            "label": "Synthpop"
+        },
+        {
+            "id": 148,
+            "label": "Abstract"
+        },
+        {
+            "id": 149,
+            "label": "Art Rock"
+        },
+        {
+            "id": 150,
+            "label": "Baroque"
+        },
+        {
+            "id": 151,
+            "label": "Bhangra"
+        },
+        {
+            "id": 152,
+            "label": "Big Beat"
+        },
+        {
+            "id": 153,
+            "label": "Breakbeat"
+        },
+        {
+            "id": 154,
+            "label": "Chillout"
+        },
+        {
+            "id": 155,
+            "label": "Downtempo"
+        },
+        {
+            "id": 156,
+            "label": "Dub"
+        },
+        {
+            "id": 157,
+            "label": "EBM"
+        },
+        {
+            "id": 158,
+            "label": "Eclectic"
+        },
+        {
+            "id": 159,
+            "label": "Electro"
+        },
+        {
+            "id": 160,
+            "label": "Electroclash"
+        },
+        {
+            "id": 161,
+            "label": "Emo"
+        },
+        {
+            "id": 162,
+            "label": "Experimental"
+        },
+        {
+            "id": 163,
+            "label": "Garage"
+        },
+        {
+            "id": 164,
+            "label": "Global"
+        },
+        {
+            "id": 165,
+            "label": "IDM"
+        },
+        {
+            "id": 166,
+            "label": "Illbient"
+        },
+        {
+            "id": 167,
+            "label": "Industro-Goth"
+        },
+        {
+            "id": 168,
+            "label": "Jam Band"
+        },
+        {
+            "id": 169,
+            "label": "Krautrock"
+        },
+        {
+            "id": 170,
+            "label": "Leftfield"
+        },
+        {
+            "id": 171,
+            "label": "Lounge"
+        },
+        {
+            "id": 172,
+            "label": "Math Rock"
+        },
+        {
+            "id": 173,
+            "label": "New Romantic"
+        },
+        {
+            "id": 174,
+            "label": "Nu-Breakz"
+        },
+        {
+            "id": 175,
+            "label": "Post-Punk"
+        },
+        {
+            "id": 176,
+            "label": "Post-Rock"
+        },
+        {
+            "id": 177,
+            "label": "Psytrance"
+        },
+        {
+            "id": 178,
+            "label": "Shoegaze"
+        },
+        {
+            "id": 179,
+            "label": "Space Rock"
+        },
+        {
+            "id": 180,
+            "label": "Trop Rock"
+        },
+        {
+            "id": 181,
+            "label": "World Music"
+        },
+        {
+            "id": 182,
+            "label": "Neoclassical"
+        },
+        {
+            "id": 183,
+            "label": "Audiobook"
+        },
+        {
+            "id": 184,
+            "label": "Audio Theatre"
+        },
+        {
+            "id": 185,
+            "label": "Neue Deutsche Welle"
+        },
+        {
+            "id": 186,
+            "label": "Podcast"
+        },
+        {
+            "id": 187,
+            "label": "Indie Rock"
+        },
+        {
+            "id": 188,
+            "label": "G-Funk"
+        },
+        {
+            "id": 189,
+            "label": "Dubstep"
+        },
+        {
+            "id": 190,
+            "label": "Garage Rock"
+        },
+        {
+            "id": 191,
+            "label": "Psybient"
+        }
+    ]
+}
