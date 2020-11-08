@@ -2,6 +2,16 @@
 
 A Python module for validating and formatting audio tags. Improved version of [ychalier/musicatter](https://gist.github.com/ychalier/8dbb992e5a474e41cb6af0bab22c9fee).
 
+The Music Archivist is an automated tool for analyzing a set of audio tracks and checking whether their tags follow some logical rules such as "*Each track must have a title*" or "*All tracks must have the same album name*". The main purpose is to maintain the integrity and the uniformization of a large music library, by formatting new entries and checking on old ones. A configuration file is used to state the targetted tags standard. Formatting also allows for basic tag values cleaning operations, such as removing trailing spaces, unifying featurings declarations, resizing the covers to a fixed size and encoding them into a specific format. Audio files are finally renamed into a slug string formatted using validated audio tags.
+
+The default configuration will ensure the following:
+
+- Each track has one title
+- All tracks share the same album, artist, album artist, year and cover
+- All genres must be [standard ID3 genres](https://en.wikipedia.org/wiki/ID3#Genre_list_in_ID3v1[12])
+- Each track has a track number and a disc number, and those numberings are complete (no missing tracks)
+- Covers are 600x600 JPEG images, and are specified as ID3 *Front Covers*
+
 ## Getting Started
 
 ### Prerequisites
@@ -26,66 +36,58 @@ python -m musar [FOLDER] {check,format}
 
 ### Configuration
 
-Constraints on tags are expressed with a simplified logic grammar. Rules are always of the form:
+Configuration is written in a single text file, split into three parts. Check [config.txt](data/config.txt) for an example. Each part starts with a tag and contains instructions whose syntax is the following:
 
-```
-[FIELD] [CONSTRAINT] [SCOPE]
-```
+Tag         | Line Syntax                    | Purpose
+----------- | ------------------------------ | -------
+`[RULES]`   | `<field> <constraint> <scope>` | Set of logic rules for validating an album; resulting constraint is the conjunction of all the rules
+`[FORMATS]` | `<field> <cleaner>*`           | List of cleaners to apply to a tag value when formatting (ignored fields will simply be removed from the output file)
+`[OPTIONS]` | `<key>=<value>`                | Map of general purpose options
 
-#### Fields
+Fields, constraints, scopes and cleaners are keywords that correspond to a proper implementation in the module. Here is the list of available keywords:
 
-Field | Description
---- | ---
-`album` | The album tag
-`album_artist` | The album artist tag
-`artist` | The artist tag
-`comment` | The comment (only the first one is considered)
-`cover` | The cover (only the first one is considered)
-`disc_num` | The disc numbering (if a tuple, only the first element is considered for the constraint)
-`genre` | The genre tag
-`title` | The title tag
-`track_num` | The track numbering (if a tuple, only the first element is considered for the constraint)
-`year` | The date tag (only the year is considered)
-
-#### Constraints
-
-Constraint | Description
---- | ---
-`distinct` | All values in scope must be different (`None` included)
-`existing` | At least one value in scope is not `None`
-`ordered` | Every integer between the minimum value and the maximum value is in scope (at least once)
-`unique` | All values in scope must be the same (`None included`)
-`valid_genre` | Genre is a valid ID3 genre (see [genres.json](data/genres.json))
-`valid_cover` | Cover is a square
-
-#### Scopes
-
-Scope | Description
---- | ---
+Keyword | Description
+---- | ----
+**Field** | 
+`album`        | Album tag
+`album_artist` | Album artist tag
+`artist`       | Artist tag
+`comment`      | Comment (only the first one is considered)
+`cover`        | Cover (only the first one is considered)
+`disc_num`     | Disc number (if a tuple, only the first element is considered for the constraint)
+`genre`        | Genre tag
+`title`        | Title tag
+`track_num`    | Track number (if a tuple, only the first element is considered for the constraint)
+`year`         | Year tag (if a full date, only the year is considered)
+**Constraints** | 
+`distinct`    | All values in scope must be different (`None` included)
+`existing`    | At least one value in scope is not `None`
+`ordered`     | All integers between the minimal and maximal values exist in scope
+`unique`      | All values in scope must be the same (`None` included)
+`valid_genre` | At least one value in scope is a valid ID3 genre (see [genres.json](data/genres.json))
+`valid_cover` | At least one cover in scope is a square
+**Scopes** | 
 `album` | Group tracks per album
-`disc` | Group tracks per disc
+`disc`  | Group tracks per disc
 `track` | Each track is considered in a single group
-
-Those are used for the `check` action. For the actual formatting, rules are expressed as the following:
-
-```
-[FIELD] [CLEANER]*
-```
-
-#### Cleaners
-
-Scope | Description
---- | ---
-`erase` | Set the tag to `""`
+**Cleaners** | 
+`erase`      | Set the tag to `""`
 `featurings` | Format the featurings in the title into `(feat. X)`
-`resize` | Resize the cover to the specified shape with `cover_target_size`
-`strip` | Remove empty spaces at the beginning and the end of the tag
-
-Check [config.txt](data/config.txt) for a config file sample.
+`resize`     | Resize the cover to the specified shape defined in `cover_target_size`
+`strip`      | Remove empty spaces at the beginning and the end of the tag
 
 ## Contributing
 
 Contributions are welcomed. Open issues and pull requests when you want to submit something.
+
+**Draft Roadmap**
+
+- [ ] Add scanning features for summarizing the music library
+- [ ] Add [FFmpeg](https://ffmpeg.org/) integration for converting audio files
+- [ ] Allow for basic config modifications from argument parsing
+- [ ] Allow for field value extension when possible
+- [ ] Enhance logging and progress output
+- [ ] Add docstrings & documentation
 
 ## License
 
