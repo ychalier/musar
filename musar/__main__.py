@@ -1,9 +1,13 @@
 import argparse
 import logging
 import os
+import json
+import codecs
+import datetime
 import slugify
 import eyed3
 import musar
+import musar.accessors
 import musar.folder
 import musar.rules
 import musar.config
@@ -81,6 +85,8 @@ def build_argument_parser():
     )
     action_parser.add_parser("check")
     action_parser.add_parser("format")
+    index_parser = action_parser.add_parser("index")
+    index_parser.add_argument("output", type=str, help="output file")
     return parser
 
 
@@ -138,6 +144,43 @@ def load_folders(top, explore):
             break
 
 
+def extract_most_common_value(key, items):
+    values = dict()
+    for item in items:
+        value = item[key]
+        values.setdefault(value, 0)
+        values[value] += 1
+    return max(values.items(), key=lambda x: x[1])[0]
+
+
+def action_index(folder):
+    index = {
+        "path": folder.path,
+        "tracks": list(),
+        "info": dict(),
+    }
+    mgr = musar.accessors.Manager(None)
+    for path, track in folder.tracks.items():
+        item = {
+            "path": path,
+            "duration": track.info.time_secs
+        }
+        for name in ["title",
+                     "album_artist",
+                     "artist",
+                     "album",
+                     "track_num",
+                     "disc_num",
+                     "genre",
+                     "year"]:
+            item[name] = mgr[name].get(track)
+        index["tracks"].append(item)
+    for name in ["album_artist", "album", "genre", "year"]:
+        index["info"][name] = extract_most_common_value(name, index["tracks"])
+    index["info"]["duration"] = sum(map(lambda item: item["duration"], index["tracks"]))
+    return index
+
+
 def main():
     args = build_argument_parser().parse_args()
     if not args.verbose:
@@ -155,6 +198,7 @@ def main():
     if args.folder is None:
         print("A folder must be specified with -i.")
         return
+    index = list()
     for folder in load_folders(args.folder, args.explore):
         logging.info("Entering %s", folder.path)
         if args.action == "check":
@@ -168,6 +212,21 @@ def main():
             elif not valid:
                 logging.warning(
                     "Validation failed. Use -f to force formatting.")
+        elif args.action == "index":
+            index.append(action_index(folder))
+    if args.action == "index":
+        with codecs.open(args.output, "w", "utf8") as outfile:
+            data = {
+                "albums": index,
+                "info": {
+                    "date_generation": datetime.datetime.utcnow()\
+                        .replace(tzinfo=datetime.timezone.utc)\
+                        .isoformat(),
+                    "musar_version": musar.__version__,
+                    "root_folder": args.folder,
+                }
+            }
+            json.dump(data, outfile, sort_keys=True, indent=4)
 
 
 main()
