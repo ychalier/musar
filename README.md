@@ -82,7 +82,7 @@ Contributions are welcomed. Open issues and pull requests when you want to submi
 
 **Draft Roadmap**
 
-- [ ] Add scanning features for summarizing the music library
+- [x] ~~Add scanning features for summarizing the music library~~
 - [ ] Add [FFmpeg](https://ffmpeg.org/) integration for converting audio files
 - [ ] Allow for basic config modifications from argument parsing
 - [ ] Allow for field value extension when possible
