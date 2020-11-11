@@ -11,6 +11,7 @@ import musar.accessors
 import musar.folder
 import musar.rules
 import musar.config
+import musar.download
 
 
 def build_argument_parser():
@@ -87,6 +88,31 @@ def build_argument_parser():
     action_parser.add_parser("format")
     index_parser = action_parser.add_parser("index")
     index_parser.add_argument("output", type=str, help="output file")
+    download_parser = action_parser.add_parser("download")
+    download_parser.add_argument(
+        "playlist_url",
+        type=str,
+        help="URL of playlist to download")
+    download_parser.add_argument(
+        "-sd",
+        "--skip-download",
+        action="store_true",
+        help="skip the downloading step")
+    download_parser.add_argument(
+        "-st",
+        "--skip-tags",
+        action="store_true",
+        help="skip the tag setting step")
+    download_parser.add_argument(
+        "-et",
+        "--edit-tags",
+        action="store_true",
+        help="open Mp3tags at downloaded folder")
+    download_parser.add_argument(
+        "-ft",
+        "--format-tags",
+        action="store_true",
+        help="use musar to format downloaded tracks")
     return parser
 
 
@@ -181,7 +207,7 @@ def action_index(folder):
     return index
 
 
-def main():
+def main():  # pylint: disable=R0912
     args = build_argument_parser().parse_args()
     if not args.verbose:
         eyed3.log.setLevel("ERROR")
@@ -195,6 +221,10 @@ def main():
     logging.info("Starting Musar v%s", musar.__version__)
     if args.show_config:
         print(config)
+    if args.action == "download":
+        downloader = musar.download.PlaylistDownloader(config)
+        downloader.main(args.playlist_url, args)
+        return
     if args.folder is None:
         print("A folder must be specified with -i.")
         return

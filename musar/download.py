@@ -1,18 +1,19 @@
 import io
 import os
+import re
 import json
 import glob
 import subprocess
-import argparse
 import requests
 import shadow_useragent
 import PIL.Image
 import eyed3
 
 
-def download_video(video_url, output_filename):
+
+def download_video(youtube_dl_path, video_url, output_filename):
     command = [
-        "youtube-dlc",
+        youtube_dl_path,
         # "--verbose",
         "--extract-audio",
         "--audio-format",
@@ -21,50 +22,12 @@ def download_video(video_url, output_filename):
         output_filename,
         video_url
     ]
-    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    process.wait()
-
-
-def get_playlist_download_folder(data, download_folder):
-    return os.path.join(
-        download_folder,
-        data["contents"]["twoColumnBrowseResultsRenderer"]\
-            ["tabs"][0]["tabRenderer"]["content"]\
-            ["sectionListRenderer"]["contents"][0]\
-            ["itemSectionRenderer"]["contents"][0]\
-            ["playlistVideoListRenderer"]["playlistId"]
+    process = subprocess.Popen(
+        command,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE
     )
-
-
-def download_videos_from_json(data, download_folder):
-    video_array = data["contents"]["twoColumnBrowseResultsRenderer"]\
-                      ["tabs"][0]["tabRenderer"]["content"]\
-                      ["sectionListRenderer"]["contents"][0]\
-                      ["itemSectionRenderer"]["contents"][0]\
-                      ["playlistVideoListRenderer"]["contents"]
-    os.makedirs(download_folder, exist_ok=False)
-    for i, video_item in enumerate(video_array):
-        print("Downloading %d of %d" % (i + 1, len(video_array)))
-        video_id = video_item["playlistVideoRenderer"]["videoId"]
-        video_url = "https://www.youtube.com/watch?v=%s" % video_id
-        output_filename = os.path.join(
-            download_folder,
-            "%s.%%(ext)s" % str(i).zfill(3)
-        )
-        download_video(video_url, output_filename)
-
-
-def request_playlist_html(playlist_url, headers):
-    response = requests.get(playlist_url, headers=headers)
-    return response.text
-
-
-def extract_most_common(values):
-    occurrences = dict()
-    for value in values:
-        occurrences.setdefault(value, 0)
-        occurrences[value] += 1
-    return max(occurrences.items(), key=lambda x: x[1])[0]
+    process.wait()
 
 
 class YoutubePlaylistInfo:
@@ -143,79 +106,102 @@ class YoutubePlaylistInfo:
             audiofile.tag.save()
 
 
+def check_playlist_url(playlist_url):
+    match = re.match(
+        r"https?://www\.youtube\.com/playlist\?list=(.+)",
+        playlist_url.strip()
+    )
+    if match is None:
+        raise ValueError("Incorrect URL: %s" % playlist_url)
+    return match.group(1)
+
+
+class PlaylistDownloader:
+
+    def __init__(self, config):
+        self.config = config
+        self.html = None
+        self.data = None
+        self.info = YoutubePlaylistInfo()
+        self.headers = {
+            "User-Agent": "{}".format(shadow_useragent.ShadowUserAgent().percent(0.05)),
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+            "Accept-Language": "en-US,en;q=0.5",
+            "Connection": "keep-alive",
+            "Upgrade-Insecure-Requests": "1",
+            "Pragma": "no-cache",
+            "Cache-Control": "no-cache",
+        }
+
+    def main(self, playlist_url, flags):
+        playlist_id = check_playlist_url(playlist_url)
+        pdf = os.path.join(self.config.options.download_folder, playlist_id)
+        if not flags.skip_download or not flags.skip_tags:
+            self.html = request_playlist_html(playlist_url, self.headers)
+            self.data = extract_initial_data(self.html)
+        if not flags.skip_download:
+            video_array = self.data["contents"]["twoColumnBrowseResultsRenderer"]\
+                                   ["tabs"][0]["tabRenderer"]["content"]\
+                                   ["sectionListRenderer"]["contents"][0]\
+                                   ["itemSectionRenderer"]["contents"][0]\
+                                   ["playlistVideoListRenderer"]["contents"]
+            os.makedirs(pdf, exist_ok=False)
+            for i, video_item in enumerate(video_array):
+                print("Downloading %d of %d" % (i + 1, len(video_array)))
+                video_id = video_item["playlistVideoRenderer"]["videoId"]
+                video_url = "https://www.youtube.com/watch?v=%s" % video_id
+                output_filename = os.path.join(
+                    pdf,
+                    "%s.%%(ext)s" % str(i).zfill(3)
+                )
+                download_video(
+                    self.config.options.youtube_dl_path,
+                    video_url,
+                    output_filename
+                )
+        if not flags.skip_tags:
+            self.info.parse_from_json(self.data)
+            self.info.validate()
+            self.info.fetch_thumbnail(self.headers)
+            self.info.set_tags(pdf)
+        if flags.edit_tags:
+            command = [
+                self.config.options.mp3tag_path,
+                "/fp",
+                os.path.realpath(pdf),
+            ]
+            process = subprocess.Popen(command)
+            process.wait()
+        if flags.format_tags:
+            command = [
+                "python",
+                "-m",
+                "musar",
+                "--input",
+                pdf,
+                "--rename-hierarchy",
+                "format",
+            ]
+            process = subprocess.Popen(command)
+            process.wait()
+        os.startfile(pdf)
+
+
+def request_playlist_html(playlist_url, headers):
+    response = requests.get(playlist_url, headers=headers)
+    return response.text
+
+
+def extract_most_common(values):
+    occurrences = dict()
+    for value in values:
+        occurrences.setdefault(value, 0)
+        occurrences[value] += 1
+    return max(occurrences.items(), key=lambda x: x[1])[0]
+
+
 def extract_initial_data(html):
     for line in html.split("\n"):
         if line.strip().startswith('window["ytInitialData"]'):
             return json.loads(line.strip()[26:-1])
     return None
-
-
-def start_musar(pdf):
-    command = [
-        "python",
-        "-m",
-        "musar",
-        "--input",
-        pdf,
-        "--rename-hierarchy",
-        "format",
-    ]
-    subprocess.Popen(command)
-
-
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("playlist_url")
-    parser.add_argument(
-        "-o",
-        "--output",
-        type=str,
-        help="download folder",
-        default="download",
-        dest="download_folder"
-    )
-    parser.add_argument(
-        "-sd",
-        "--skip-download",
-        action="store_true",
-        help="skip the downloading step"
-    )
-    parser.add_argument(
-        "-st",
-        "--skip-tags",
-        action="store_true",
-        help="skip tags setting step"
-    )
-    parser.add_argument(
-        "-m",
-        "--musar",
-        action="store_true",
-        help="format downloaded data with musar"
-    )
-    args = parser.parse_args()
-    headers = {
-        "User-Agent": "{}".format(shadow_useragent.ShadowUserAgent().percent(0.05)),
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-        "Accept-Language": "en-US,en;q=0.5",
-        "Connection": "keep-alive",
-        "Upgrade-Insecure-Requests": "1",
-        "Pragma": "no-cache",
-        "Cache-Control": "no-cache",
-    }
-    html = request_playlist_html(args.playlist_url, headers)
-    data = extract_initial_data(html)
-    pdf = get_playlist_download_folder(data, args.download_folder)
-    print(os.path.realpath(pdf))
-    if not args.skip_download:
-        download_videos_from_json(data, pdf)
-    if not args.skip_tags:
-        playlist_info = YoutubePlaylistInfo().parse_from_json(data)
-        playlist_info.validate()
-        playlist_info.fetch_thumbnail(headers)
-        playlist_info.set_tags(pdf)
-    if args.musar:
-        start_musar(pdf)
-
-
-if __name__ == "__main__":
-    main()

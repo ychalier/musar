@@ -13,12 +13,18 @@ class Options:
         self.cover_target_size = 600, 600
         self.cover_target_format = "jpeg"
         self.cover_target_encoding = "RBG"
+        self.youtube_dl_path = "youtube-dl"
+        self.mp3tag_path = "Mp3tag.exe"
+        self.download_folder = "downloads"
 
     def __str__(self):
         return "\n".join([
             "cover_target_size=%d,%d" % self.cover_target_size,
             "cover_target_format=%s" % self.cover_target_format,
-            "cover_target_encoding=%s" % self.cover_target_encoding
+            "cover_target_encoding=%s" % self.cover_target_encoding,
+            "youtube_dl_path=%s" % self.youtube_dl_path,
+            "mp3tag_path=%s" % self.mp3tag_path,
+            "download_folder=%s" % self.download_folder,
         ])
 
     def load(self, line):

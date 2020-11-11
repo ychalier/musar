@@ -72,3 +72,6 @@ composer strip
 cover_target_size = 600, 600
 cover_target_format = jpeg
 cover_target_encoding = RGB
+youtube_dl_path = youtube-dl
+mp3tag_path = C:\Program Files (x86)\Mp3tag\Mp3tag.exe
+download_folder = downloads
