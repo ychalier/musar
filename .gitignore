@@ -123,3 +123,6 @@ dmypy.json
 .pyre/
 
 *.mp3
+*.webm
+*.html
+*.txt
