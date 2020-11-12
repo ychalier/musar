@@ -75,6 +75,14 @@ Keyword | Description
 `featurings` | Format the featurings in the title into `(feat. X)`
 `resize`     | Resize the cover to the specified shape defined in `cover_target_size`
 `strip`      | Remove empty spaces at the beginning and the end of the tag
+**Options**             |
+`cover_target_size`     | Size in pixels covers will be resized to when using the `resize` cleaner; value is of the form `width, height`
+`cover_target_format`   | Image file format, [supported by Pillow](https://pillow.readthedocs.io/en/stable/handbook/image-file-formats.html), to encode the cover
+`cover_target_encoding` | Color encoding scheme, must comply with the image file format (see [documentation](https://pillow.readthedocs.io/en/stable/handbook/image-file-formats.html) for details)
+`youtube_dl_path`       | Path to a [youtube-dl](https://youtube-dl.org/) executable, for the `download` feature
+`mp3tag_path`           | Path to a [Mp3tag](https://www.mp3tag.de/en/) executable, for the `download` feature (optional)
+`download_folder`       | Location for downloaded tracks; the folder structure (one folder per playlist, under the specified location) is created by the program
+`ffmpeg_path`           | Path to a [FFmpeg](https://ffmpeg.org/) executable, for the `convert` feature
 
 ## Contributing
 
