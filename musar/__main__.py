@@ -80,6 +80,12 @@ def build_argument_parser():
         type=str,
         help="target folder",
     )
+    parser.add_argument(
+        "-ec",
+        "--edit-config",
+        action="store_true",
+        help="edit default config before execution"
+    )
     action_parser = parser.add_subparsers(
         dest="action",
         help="action to perform",
@@ -222,10 +228,12 @@ def main():  # pylint: disable=R0912
         filename="musar.log",
         format='%(asctime)s %(levelname)s\t%(message)s',
         level=logging.INFO)
-    config = musar.config.Config.from_file(args.config)
     if args.version:
         print("The Music Archivist v%s" % musar.__version__)
     logging.info("Starting Musar v%s", musar.__version__)
+    config = musar.config.Config.from_file(args.config)
+    if args.edit_config:
+        config.edit()
     if args.show_config:
         print(config)
     if args.action == "download":

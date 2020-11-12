@@ -5,6 +5,7 @@ from . import scopes
 from . import rules
 from . import cleaners
 from . import formats
+from .text_editor import TextEditor
 
 
 class Options:
@@ -101,26 +102,39 @@ class Config:  # pylint: disable=R0902
     def _load_extension(self, line):
         self.extensions.add(line.strip())
 
-    def load(self, path):
+    def _load_text(self, text):
         current_category = None
+        for line in text.split("\n"):
+            if line.strip() == "" or line.strip().startswith("#"):
+                continue
+            match = re.search(r"\[(.*?)\]", line)
+            if match is not None:
+                current_category = match.group(1)
+                continue
+            if current_category == "RULES":
+                self._load_rule(line)
+            elif current_category == "FORMATS":
+                self._load_format(line)
+            elif current_category == "OPTIONS":
+                self.options.load(line)
+            elif current_category == "EXTENSIONS":
+                self._load_extension(line)
+
+    def load(self, path):
         with open(path) as infile:
-            for line in infile.readlines():
-                if line.strip() == "" or line.strip().startswith("#"):
-                    continue
-                match = re.search(r"\[(.*?)\]", line)
-                if match is not None:
-                    current_category = match.group(1)
-                    continue
-                if current_category == "RULES":
-                    self._load_rule(line)
-                elif current_category == "FORMATS":
-                    self._load_format(line)
-                elif current_category == "OPTIONS":
-                    self.options.load(line)
-                elif current_category == "EXTENSIONS":
-                    self._load_extension(line)
+            self._load_text(infile.read())
 
     def reset(self):
         for accessor in self._accessor_mgr.values():
             del accessor.memory
             accessor.memory = dict()
+
+    def edit(self):
+        current_config = self.__str__()
+        editor = TextEditor()
+        new_config = editor(current_config)
+        self.rules = list()
+        self.formats = list()
+        self.options = Options()
+        self.extensions = set()
+        self._load_text(new_config.strip())
