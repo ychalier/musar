@@ -16,6 +16,7 @@ class Options:
         self.youtube_dl_path = "youtube-dl"
         self.mp3tag_path = "Mp3tag.exe"
         self.download_folder = "downloads"
+        self.ffmpeg_path = "ffmpeg"
 
     def __str__(self):
         return "\n".join([
@@ -25,6 +26,7 @@ class Options:
             "youtube_dl_path=%s" % self.youtube_dl_path,
             "mp3tag_path=%s" % self.mp3tag_path,
             "download_folder=%s" % self.download_folder,
+            "ffmpeg_path=%s" % self.ffmpeg_path
         ])
 
     def load(self, line):
@@ -39,12 +41,13 @@ class Options:
         setattr(self, key, value)
 
 
-class Config:
+class Config:  # pylint: disable=R0902
 
     def __init__(self):
         self.rules = list()
         self.formats = list()
         self.options = Options()
+        self.extensions = set()
         self._accessor_mgr = accessors.Manager(self)
         self._constraint_mgr = constraints.Manager()
         self._scope_mgr = scopes.Manager()
@@ -53,7 +56,8 @@ class Config:
     def __str__(self):
         return "[RULES]\n" + "\n".join(map(str, self.rules))\
             + "\n\n[FORMATS]\n" + "\n".join(map(str, self.formats))\
-            + "\n\n[OPTIONS]\n" + str(self.options)
+            + "\n\n[OPTIONS]\n" + str(self.options)\
+            + "\n\n[EXTENSIONS]\n" + "\n".join(self.extensions)
 
     @classmethod
     def from_file(cls, path):
@@ -94,6 +98,9 @@ class Config:
             *cleaners_
         ))
 
+    def _load_extension(self, line):
+        self.extensions.add(line.strip())
+
     def load(self, path):
         current_category = None
         with open(path) as infile:
@@ -110,6 +117,8 @@ class Config:
                     self._load_format(line)
                 elif current_category == "OPTIONS":
                     self.options.load(line)
+                elif current_category == "EXTENSIONS":
+                    self._load_extension(line)
 
     def reset(self):
         for accessor in self._accessor_mgr.values():

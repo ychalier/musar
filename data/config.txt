@@ -75,3 +75,21 @@ cover_target_encoding = RGB
 youtube_dl_path = youtube-dl
 mp3tag_path = C:\Program Files (x86)\Mp3tag\Mp3tag.exe
 download_folder = downloads
+ffmpeg_path = ffmpeg
+
+[EXTENSIONS]
+# List of extension of files to be to be converted into MP3, one per line
+# Videos are valid input since FFmpeg will extract the audio track
+mp4
+webm
+avi
+mov
+mkv
+flv
+wmv
+ogg
+flac
+wav
+pcm
+aiff
+aac

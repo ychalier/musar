@@ -113,6 +113,13 @@ def build_argument_parser():
         "--format-tags",
         action="store_true",
         help="use musar to format downloaded tracks")
+    convert_parser = action_parser.add_parser("convert")
+    convert_parser.add_argument(
+        "-r",
+        "--remove-original",
+        action="store_true",
+        help="delete original files after conversion"
+    )
     return parser
 
 
@@ -160,11 +167,11 @@ def action_rename(folder, hierarchy):
                 os.path.dirname(filename), new_filename))
 
 
-def load_folders(top, explore):
+def load_folders(top, explore, allow_empty):
     for root, _, _ in os.walk(top, topdown=True):
         folder = musar.folder.Folder(root)
         folder.load()
-        if len(folder.tracks) > 0:
+        if allow_empty or len(folder.tracks) > 0:
             yield folder
         if not explore:
             break
@@ -229,7 +236,7 @@ def main():  # pylint: disable=R0912
         print("A folder must be specified with -i.")
         return
     index = list()
-    for folder in load_folders(args.folder, args.explore):
+    for folder in load_folders(args.folder, args.explore, args.action == "convert"):
         logging.info("Entering %s", folder.path)
         if args.action == "check":
             action_check(config, folder)
@@ -244,6 +251,8 @@ def main():  # pylint: disable=R0912
                     "Validation failed. Use -f to force formatting.")
         elif args.action == "index":
             index.append(action_index(folder))
+        elif args.action == "convert":
+            folder.convert(config, args.remove_original)
     if args.action == "index":
         with codecs.open(args.output, "w", "utf8") as outfile:
             data = {

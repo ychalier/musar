@@ -31,7 +31,7 @@ python setup.py install
 Execute the module with `python -m musar`. Use the `-h` or `--help` flag to show documentation. Most of the time, you will want something like this:
 
 ```
-python -m musar [FOLDER] {check,format,index,download}
+python -m musar [FOLDER] {check,format,index,download,convert}
 ```
 
 ### Configuration
@@ -84,7 +84,7 @@ Contributions are welcomed. Open issues and pull requests when you want to submi
 
 - [x] ~~Add scanning features for summarizing the music library~~
 - [x] ~~Add [youtube-dl](https://youtube-dl.org/) integration for downloading YouTube playlists~~
-- [ ] Add [FFmpeg](https://ffmpeg.org/) integration for converting audio files
+- [x] ~~Add [FFmpeg](https://ffmpeg.org/) integration for converting audio files~~
 - [ ] Allow for basic config modifications from argument parsing
 - [ ] Allow for field value extension when possible
 - [ ] Enhance logging and progress output

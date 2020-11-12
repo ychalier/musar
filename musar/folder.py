@@ -1,6 +1,7 @@
 import os
 import glob
 import logging
+import subprocess
 import eyed3
 import eyed3.mp3
 import slugify
@@ -42,3 +43,27 @@ class Folder:
         if mkdir:
             os.makedirs(base_folder, exist_ok=True)
         return base_folder
+
+    def convert(self, config, remove_original):
+        for extension in config.extensions:
+            for filename in glob.glob(os.path.join(self.path, "*." + extension)):
+                output_filename = os.path.splitext(filename)[0] + ".mp3"
+                command = [
+                    config.options.ffmpeg_path,
+                    "-i",
+                    filename,
+                    output_filename,
+                    "-y"
+                ]
+                process = subprocess.Popen(command)
+                process.wait()
+                if remove_original\
+                    and os.path.isfile(output_filename)\
+                    and os.path.getsize(output_filename) > 0:
+                    try:
+                        os.remove(filename)
+                    except PermissionError:
+                        logging.error(
+                            "Could not delete %s",
+                            os.path.realpath(filename)
+                        )
