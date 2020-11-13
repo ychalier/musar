@@ -41,7 +41,7 @@ python -m musar {format,download,index,convert}
 ```
 
 - **Action `format`** is the main feature of this module. It evaluates logical rules on the tracks of a given folder, and apply some cleaning on their tags.
-- **Action `download`** downloads tracks from a YouTube playlist.
+- **Action `download`** downloads tracks from a YouTube playlist with automatic tagging.
 - **Action `index`** creates a JSON file with info about tracks and albums under a given location.
 - **Action `convert`** converts files to MP3s under a given location.
 
