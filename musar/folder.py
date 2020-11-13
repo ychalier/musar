@@ -5,6 +5,16 @@ import subprocess
 import eyed3
 import eyed3.mp3
 import slugify
+from .accessors import Manager as AccessorManager
+
+
+def extract_most_common_value(key, items):
+    values = dict()
+    for item in items:
+        value = item[key]
+        values.setdefault(value, 0)
+        values[value] += 1
+    return max(values.items(), key=lambda x: x[1])[0]
 
 
 class Folder:
@@ -67,3 +77,30 @@ class Folder:
                             "Could not delete %s",
                             os.path.realpath(filename)
                         )
+
+    def index(self):
+        index = {
+            "path": self.path,
+            "tracks": list(),
+            "info": dict(),
+        }
+        mgr = AccessorManager(None)
+        for path, track in self.tracks.items():
+            item = {
+                "path": path,
+                "duration": track.info.time_secs
+            }
+            for name in ["title",
+                         "album_artist",
+                         "artist",
+                         "album",
+                         "track_num",
+                         "disc_num",
+                         "genre",
+                         "year"]:
+                item[name] = mgr[name].get(track)
+            index["tracks"].append(item)
+        for name in ["album_artist", "album", "genre", "year"]:
+            index["info"][name] = extract_most_common_value(name, index["tracks"])
+        index["info"]["duration"] = sum(map(lambda item: item["duration"], index["tracks"]))
+        return index

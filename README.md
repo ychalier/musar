@@ -22,7 +22,7 @@ You will need a working Python 3 installation, and some binaries:
 - [Mp3tag](https://www.mp3tag.de/en/), optional for the download feature
 - [FFmpeg](https://ffmpeg.org/), required for the convert feature
 
-Those binaries do not need to be in `PATH` since their execution path can be written in the configuration file, yet it can be useful to always have them on hand.
+Those binaries are not required for the main feature (action called `format`) of this module. They do not need to be in `PATH` since their execution path can be written in the configuration file, yet it can be useful to always have them on hand.
 
 ### Installation
 
@@ -37,8 +37,13 @@ python setup.py install
 Execute the module with `python -m musar`. Use the `-h` or `--help` flag to show documentation. Most of the time, you will want something like this:
 
 ```
-python -m musar -i [FOLDER] {check,format,index,download,convert}
+python -m musar {format,download,index,convert}
 ```
+
+- **Action `format`** is the main feature of this module. It evaluates logical rules on the tracks of a given folder, and apply some cleaning on their tags.
+- **Action `download`** downloads tracks from a YouTube playlist.
+- **Action `index`** creates a JSON file with info about tracks and albums under a given location.
+- **Action `convert`** converts files to MP3s under a given location.
 
 ### Configuration
 

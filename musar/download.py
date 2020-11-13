@@ -177,10 +177,9 @@ class PlaylistDownloader:
                 "python",
                 "-m",
                 "musar",
-                "--input",
+                "format",
                 pdf,
                 "--rename-hierarchy",
-                "format",
             ]
             process = subprocess.Popen(command)
             process.wait()
