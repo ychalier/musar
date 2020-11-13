@@ -1,0 +1,1036 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.1" />
+<title>musar API documentation</title>
+<meta name="description" content="The Music Archivist, a Python module for validating and formatting audio tags." />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Package <code>musar</code></h1>
+</header>
+<section id="section-intro">
+<p>The Music Archivist, a Python module for validating and formatting audio tags.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python"># pylint: disable=R0913
+&#34;&#34;&#34;The Music Archivist, a Python module for validating and formatting audio tags.
+&#34;&#34;&#34;
+
+__version__ = &#34;2.0.0&#34;
+__author__ = &#34;Yohan Chalier&#34;
+__license__ = &#34;MIT&#34;
+__email__ = &#34;yohan@chalier.fr&#34;
+
+import os
+import logging
+import json
+import codecs
+import datetime
+import slugify
+
+from .config import Config
+from .download import PlaylistDownloader
+from .folder import Folder
+from .misc import most_common_list_value
+
+
+def load_config(path, edit=False):
+    &#34;&#34;&#34;Load a config file.
+
+    Parameters
+    ----------
+    path : str
+        Path to the text file to load.
+    edit : bool
+        If `True`, a `curses` window will show up allowing user to edit the
+        loaded configuration before any further step.
+
+    Returns
+    -------
+    musar.config.Config
+        The loaded configuration.
+
+    &#34;&#34;&#34;
+    logging.info(&#34;Loading config from %s&#34;, os.path.realpath(path))
+    config = Config.from_file(path)
+    if edit:
+        config.edit()
+    return config
+
+
+def iter_folders(top, explore=False, allow_empty=False):
+    &#34;&#34;&#34;Builds an iterator for folders containing MP3 files.
+
+    Parameters
+    ----------
+    top : str
+        Path to the root folder.
+    explore : bool
+        If `True`, every subfolder will be recursively explored. Otherwise,
+        only the root folder is considered.
+    allow_empty : bool
+        If `False`, folders without any MP3 files in them will be ignored.
+
+    Returns
+    -------
+    Iterator[musar.folder.Folder]
+        Iterator over found folders.
+
+    &#34;&#34;&#34;
+    logging.info(&#34;Exploring folders from %s&#34;, os.path.realpath(top))
+    for root, _, _ in os.walk(top, topdown=True):
+        logging.info(&#34;Exploring folder %s&#34;, os.path.realpath(root))
+        folder = Folder(root)
+        folder.load()
+        if allow_empty or len(folder.tracks) &gt; 0:
+            yield folder
+        if not explore:
+            break
+
+
+def action_check(config, folder):
+    &#34;&#34;&#34;Apply logic rules on a folder&#39;s tracks.
+
+    Parameters
+    ----------
+    config : musar.config.Config
+        Configuration containing the rules to apply.
+    folder : musar.folder.Folder
+        Folder to check.
+
+    Returns
+    -------
+    bool
+        Returns `True` if and only if the conjuction of rules is true.
+
+    &#34;&#34;&#34;
+    logging.info(&#34;Checking rules on folder %s&#34;, folder.path)
+    valid = True
+    if len(config.rules) == 0:
+        logging.warning(&#34;Checking album without any rule set up&#34;)
+    for rule in config.rules:
+        logging.debug(&#34;Checking rule %s&#34;, rule)
+        if not rule.validate(folder):
+            print(&#34;Violated %s&#34; % rule)
+            valid = False
+    return valid
+
+
+def action_extend(config, folder, fields):
+    &#34;&#34;&#34;Extend most common non-null field values to other tracks.
+
+    Parameters
+    ----------
+    config : musar.config.Config
+        A configuration to use the accessor manager of.
+    folder : musar.folder.Folder
+        Folder whose tracks fields will be extended.
+    fields : List[str]
+        List of accessor names of fields to extend.
+
+    &#34;&#34;&#34;
+    logging.info(&#34;Extending fields on folder %s&#34;, folder.path)
+    for field in fields:
+        if field not in config.accessor_mgr:
+            logging.error(&#34;Wrong accessor name: &#39;%s&#39;&#34;, field)
+            continue
+        values = list()
+        for track in folder:
+            value = config.accessor_mgr[field].get(track)
+            if value is not None:
+                values.append(value)
+        if len(values) == 0:
+            logging.error(&#34;Could not expand field %s: no non-null value found&#34;, field)
+            continue
+        common_value = most_common_list_value(values)
+        logging.info(&#34;Selected common value %s for field %s&#34;, common_value, field)
+        for track in folder:
+            config.accessor_mgr[field].set(track, common_value)
+
+
+def action_clean(config, folder):
+    &#34;&#34;&#34;Apply cleaners on the tracks of a folder.
+
+    Parameters
+    ----------
+    config : musar.config.Config
+        Configuration with the cleaners to apply.
+    folder : musar.folder.Folder
+        Folder whose tracks will be cleaned.
+
+    &#34;&#34;&#34;
+    logging.info(&#34;Cleaning tags of folder %s&#34;, folder.path)
+    # Emptying config accessors memory before properly setting them to store
+    # values before formatting.
+    logging.debug(&#34;Resetting config %s&#34;, config)
+    config.reset()
+    for fmt in config.formats:
+        fmt.prepare(folder)
+    logging.debug(&#34;Clearing all existing tags of folder %s&#34;, folder.path)
+    for track in folder:
+        track.tag.clear()
+    logging.debug(&#34;Writing new tags for folder %s&#34;, folder.path)
+    for fmt in config.formats:
+        fmt.set(folder)
+    for filename, track in folder.tracks.items():
+        track.tag.save(filename=filename)
+
+
+def generate_track_filename(track):
+    &#34;&#34;&#34;Generate a clean filename for a track. It is composed of disc numbering
+    if strictly greater than 1, track numbering and track title, all slugified.
+    Numberings are padded with 0s so explorer&#39;s ordering remains correct.
+
+    Parameters
+    ----------
+    track : eyed3.mp3.Mp3AudioFile
+        Track to generate the filename for.
+
+    Returns
+    -------
+    str
+        Generated filename.
+
+    &#34;&#34;&#34;
+    disc_current, disc_total = track.tag.disc_num
+    track_current, track_total = track.tag.track_num
+    title = slugify.slugify(track.tag.title[:50])
+    track_num_format = &#34;%.&#34; + str(len(str(track_total))) + &#34;d&#34;
+    filename = track_num_format % track_current + &#34;-&#34; + title + &#34;.mp3&#34;
+    if disc_total &gt; 1:
+        disc_num_format = &#34;%.&#34; + str(len(str(disc_total))) + &#34;d&#34;
+        filename = disc_num_format % disc_current + &#34;-&#34; + filename
+    return filename
+
+
+def action_rename(folder, rename_hierarchy):
+    &#34;&#34;&#34;Rename the tracks within a folder with clean filenames.
+
+    Parameters
+    ----------
+    folder : musar.folder.Folder
+        Folder with the tracks to rename.
+    rename_hierarchy : bool
+        If `True`, a folder hierarchy artist &gt; album is created within the
+        original folder and tracks are moved at the bottom of it.
+
+    &#34;&#34;&#34;
+    logging.info(&#34;Renaming tracks of folder %s&#34;, folder.path)
+    hierarchy_folder = folder.create_hierarchy(mkdir=rename_hierarchy)
+    for filename, track in folder.tracks.items():
+        new_filename = generate_track_filename(track)
+        if rename_hierarchy:
+            os.rename(filename, os.path.join(hierarchy_folder, new_filename))
+        else:
+            os.rename(filename, os.path.join(
+                os.path.dirname(filename), new_filename))
+
+
+def action_format(
+        config,
+        root,
+        check_only=False,
+        force=False,
+        rename=False,
+        rename_hierarchy=False,
+        explore=False,
+        extend=None
+        ):
+    &#34;&#34;&#34;Format the tracks within a folder.
+
+    Parameters
+    ----------
+    config : musar.config.Config
+        Configuration to follow.
+    root : str
+        Path to a root folder to look for audio tracks.
+    check_only : bool
+        If `True`, function will return after the check action.
+    force : bool
+        If `True`, function will try to format even if the checking failed.
+    rename : bool
+        If `True`, tracks are renamed once formatted.
+    rename_hierarchy : bool
+        If `True`, tracks are renamed once formatted and moved to a dedicated
+        folder. See `musar.action_rename` for details.
+    explore : bool
+        If `True`, subfolders will be explored for audio tracks.
+    extend : List[str]
+        If empty or `None`, ignored. Else it contains accessor names for fields
+        to extend. See `musar.action_extend` for details.
+
+    &#34;&#34;&#34;
+    for folder in iter_folders(root, explore, allow_empty=False):
+        valid = action_check(config, folder)
+        if not check_only and (valid or force):
+            if extend is not None and len(extend) &gt; 0:
+                action_extend(config, folder, extend)
+            action_clean(config, folder)
+            if rename or rename_hierarchy:
+                action_rename(folder, rename)
+        elif not check_only and not force:
+            logging.warning(
+                &#34;Validation failed. Use -f to force formatting.&#34;)
+
+
+def action_index(root, output):
+    &#34;&#34;&#34;Create a JSON index file of the music library.
+
+    Parameters
+    ----------
+    root : str
+        Path to the root folder to explore. Every subfolders are explored.
+    output : str
+        Path for the output JSON.
+
+    &#34;&#34;&#34;
+    index = list()
+    for folder in iter_folders(root, explore=True, allow_empty=False):
+        index.append(folder.index())
+    with codecs.open(output, &#34;w&#34;, &#34;utf8&#34;) as outfile:
+        data = {
+            &#34;albums&#34;: index,
+            &#34;info&#34;: {
+                &#34;date_generation&#34;: datetime.datetime.utcnow()
+                                   .replace(tzinfo=datetime.timezone.utc)
+                                   .isoformat(),
+                &#34;musar_version&#34;: __version__,
+                &#34;root_folder&#34;: root,
+            }
+        }
+        json.dump(data, outfile, sort_keys=True, indent=4)
+
+
+def action_convert(config, root, explore, remove_original):
+    &#34;&#34;&#34;Convert non MP3 files to MP3 using FFmpeg.
+
+    Parameters
+    ----------
+    config : musar.config.Config
+        The configuration contains options and more importantly the list of
+        file extensions that should be converted to MP3 when encountered.
+    root : str
+        Root folder to look for convertible files.
+    explore : bool
+        If `True`, subfolders are explored.
+    remove_original : bool
+        If `True`, original files are deleted once converted.
+
+    &#34;&#34;&#34;
+    for folder in iter_folders(root, explore, allow_empty=True):
+        folder.convert(config, remove_original)
+
+
+def action_download(
+        config,
+        playlist_url,
+        skip_download=False,
+        skip_tags=False,
+        edit_tags=False,
+        format_tags=False
+        ):
+    &#34;&#34;&#34;Download a YouTube playlist and automatically set the appropriate tags
+    to downloaded files. Requires an up-to-date youtube-dl executable.
+
+    Parameters
+    ----------
+    config : musar.config.Config
+        Configuration with executable paths.
+    playlist_url : str
+        URL of the playlist to download. The script is best suited for actual
+        album playlists, such as those automatically generated by YouTube.
+    skip_download : bool
+        If `True`, no downloading occurs, simply tag setting for already
+        downloaded files. Files must be in the correct downloads folder.
+    skip_tags : bool
+        If `True`, tags are not automatically set to the tracks.
+    edit_tags : bool
+        If `True`, opens the Mp3tag program on the downloaded folder.
+    format_tags : bool
+        If `True`, `musar.action_format` is called on downloaded files.
+
+    &#34;&#34;&#34;
+    downloader = PlaylistDownloader(config)
+    pdf = downloader.main(
+        playlist_url,
+        skip_download,
+        skip_tags,
+        edit_tags
+    )
+    if format_tags:
+        action_format(config, pdf, rename_hierarchy=True)</code></pre>
+</details>
+</section>
+<section>
+<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+<dl>
+<dt><code class="name"><a title="musar.accessors" href="accessors.html">musar.accessors</a></code></dt>
+<dd>
+<div class="desc"><p>Interface between eyed3 and musar.</p></div>
+</dd>
+<dt><code class="name"><a title="musar.cleaners" href="cleaners.html">musar.cleaners</a></code></dt>
+<dd>
+<div class="desc"><p>Field value cleaners.</p></div>
+</dd>
+<dt><code class="name"><a title="musar.config" href="config.html">musar.config</a></code></dt>
+<dd>
+<div class="desc"><p>Wrapper for configurable options and parameters.</p></div>
+</dd>
+<dt><code class="name"><a title="musar.constraints" href="constraints.html">musar.constraints</a></code></dt>
+<dd>
+<div class="desc"><p>Implementation of constraints over sets of values.</p></div>
+</dd>
+<dt><code class="name"><a title="musar.download" href="download.html">musar.download</a></code></dt>
+<dd>
+<div class="desc"><p>Tools to download YouTube playlists and set the appropriate audio tags.</p></div>
+</dd>
+<dt><code class="name"><a title="musar.folder" href="folder.html">musar.folder</a></code></dt>
+<dd>
+<div class="desc"><p>Wrapper for handling sets of tracks.</p></div>
+</dd>
+<dt><code class="name"><a title="musar.formats" href="formats.html">musar.formats</a></code></dt>
+<dd>
+<div class="desc"><p>Wrapper for applying several cleaners on one accessor value.</p></div>
+</dd>
+<dt><code class="name"><a title="musar.misc" href="misc.html">musar.misc</a></code></dt>
+<dd>
+<div class="desc"><p>General purpose classes and functions.</p></div>
+</dd>
+<dt><code class="name"><a title="musar.rules" href="rules.html">musar.rules</a></code></dt>
+<dd>
+<div class="desc"><p>Wrapper for expressing logical rules.</p></div>
+</dd>
+<dt><code class="name"><a title="musar.scopes" href="scopes.html">musar.scopes</a></code></dt>
+<dd>
+<div class="desc"><p>Scopes for grouping album tracks over some criteria.</p></div>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="musar.action_check"><code class="name flex">
+<span>def <span class="ident">action_check</span></span>(<span>config, folder)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Apply logic rules on a folder's tracks.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>config</code></strong> :&ensp;<code><a title="musar.config.Config" href="config.html#musar.config.Config">Config</a></code></dt>
+<dd>Configuration containing the rules to apply.</dd>
+<dt><strong><code>folder</code></strong> :&ensp;<code><a title="musar.folder.Folder" href="folder.html#musar.folder.Folder">Folder</a></code></dt>
+<dd>Folder to check.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>bool</code></dt>
+<dd>Returns <code>True</code> if and only if the conjuction of rules is true.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def action_check(config, folder):
+    &#34;&#34;&#34;Apply logic rules on a folder&#39;s tracks.
+
+    Parameters
+    ----------
+    config : musar.config.Config
+        Configuration containing the rules to apply.
+    folder : musar.folder.Folder
+        Folder to check.
+
+    Returns
+    -------
+    bool
+        Returns `True` if and only if the conjuction of rules is true.
+
+    &#34;&#34;&#34;
+    logging.info(&#34;Checking rules on folder %s&#34;, folder.path)
+    valid = True
+    if len(config.rules) == 0:
+        logging.warning(&#34;Checking album without any rule set up&#34;)
+    for rule in config.rules:
+        logging.debug(&#34;Checking rule %s&#34;, rule)
+        if not rule.validate(folder):
+            print(&#34;Violated %s&#34; % rule)
+            valid = False
+    return valid</code></pre>
+</details>
+</dd>
+<dt id="musar.action_clean"><code class="name flex">
+<span>def <span class="ident">action_clean</span></span>(<span>config, folder)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Apply cleaners on the tracks of a folder.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>config</code></strong> :&ensp;<code><a title="musar.config.Config" href="config.html#musar.config.Config">Config</a></code></dt>
+<dd>Configuration with the cleaners to apply.</dd>
+<dt><strong><code>folder</code></strong> :&ensp;<code><a title="musar.folder.Folder" href="folder.html#musar.folder.Folder">Folder</a></code></dt>
+<dd>Folder whose tracks will be cleaned.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def action_clean(config, folder):
+    &#34;&#34;&#34;Apply cleaners on the tracks of a folder.
+
+    Parameters
+    ----------
+    config : musar.config.Config
+        Configuration with the cleaners to apply.
+    folder : musar.folder.Folder
+        Folder whose tracks will be cleaned.
+
+    &#34;&#34;&#34;
+    logging.info(&#34;Cleaning tags of folder %s&#34;, folder.path)
+    # Emptying config accessors memory before properly setting them to store
+    # values before formatting.
+    logging.debug(&#34;Resetting config %s&#34;, config)
+    config.reset()
+    for fmt in config.formats:
+        fmt.prepare(folder)
+    logging.debug(&#34;Clearing all existing tags of folder %s&#34;, folder.path)
+    for track in folder:
+        track.tag.clear()
+    logging.debug(&#34;Writing new tags for folder %s&#34;, folder.path)
+    for fmt in config.formats:
+        fmt.set(folder)
+    for filename, track in folder.tracks.items():
+        track.tag.save(filename=filename)</code></pre>
+</details>
+</dd>
+<dt id="musar.action_convert"><code class="name flex">
+<span>def <span class="ident">action_convert</span></span>(<span>config, root, explore, remove_original)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Convert non MP3 files to MP3 using FFmpeg.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>config</code></strong> :&ensp;<code><a title="musar.config.Config" href="config.html#musar.config.Config">Config</a></code></dt>
+<dd>The configuration contains options and more importantly the list of
+file extensions that should be converted to MP3 when encountered.</dd>
+<dt><strong><code>root</code></strong> :&ensp;<code>str</code></dt>
+<dd>Root folder to look for convertible files.</dd>
+<dt><strong><code>explore</code></strong> :&ensp;<code>bool</code></dt>
+<dd>If <code>True</code>, subfolders are explored.</dd>
+<dt><strong><code>remove_original</code></strong> :&ensp;<code>bool</code></dt>
+<dd>If <code>True</code>, original files are deleted once converted.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def action_convert(config, root, explore, remove_original):
+    &#34;&#34;&#34;Convert non MP3 files to MP3 using FFmpeg.
+
+    Parameters
+    ----------
+    config : musar.config.Config
+        The configuration contains options and more importantly the list of
+        file extensions that should be converted to MP3 when encountered.
+    root : str
+        Root folder to look for convertible files.
+    explore : bool
+        If `True`, subfolders are explored.
+    remove_original : bool
+        If `True`, original files are deleted once converted.
+
+    &#34;&#34;&#34;
+    for folder in iter_folders(root, explore, allow_empty=True):
+        folder.convert(config, remove_original)</code></pre>
+</details>
+</dd>
+<dt id="musar.action_download"><code class="name flex">
+<span>def <span class="ident">action_download</span></span>(<span>config, playlist_url, skip_download=False, skip_tags=False, edit_tags=False, format_tags=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Download a YouTube playlist and automatically set the appropriate tags
+to downloaded files. Requires an up-to-date youtube-dl executable.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>config</code></strong> :&ensp;<code><a title="musar.config.Config" href="config.html#musar.config.Config">Config</a></code></dt>
+<dd>Configuration with executable paths.</dd>
+<dt><strong><code>playlist_url</code></strong> :&ensp;<code>str</code></dt>
+<dd>URL of the playlist to download. The script is best suited for actual
+album playlists, such as those automatically generated by YouTube.</dd>
+<dt><strong><code>skip_download</code></strong> :&ensp;<code>bool</code></dt>
+<dd>If <code>True</code>, no downloading occurs, simply tag setting for already
+downloaded files. Files must be in the correct downloads folder.</dd>
+<dt><strong><code>skip_tags</code></strong> :&ensp;<code>bool</code></dt>
+<dd>If <code>True</code>, tags are not automatically set to the tracks.</dd>
+<dt><strong><code>edit_tags</code></strong> :&ensp;<code>bool</code></dt>
+<dd>If <code>True</code>, opens the Mp3tag program on the downloaded folder.</dd>
+<dt><strong><code>format_tags</code></strong> :&ensp;<code>bool</code></dt>
+<dd>If <code>True</code>, <code><a title="musar.action_format" href="#musar.action_format">action_format()</a></code> is called on downloaded files.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def action_download(
+        config,
+        playlist_url,
+        skip_download=False,
+        skip_tags=False,
+        edit_tags=False,
+        format_tags=False
+        ):
+    &#34;&#34;&#34;Download a YouTube playlist and automatically set the appropriate tags
+    to downloaded files. Requires an up-to-date youtube-dl executable.
+
+    Parameters
+    ----------
+    config : musar.config.Config
+        Configuration with executable paths.
+    playlist_url : str
+        URL of the playlist to download. The script is best suited for actual
+        album playlists, such as those automatically generated by YouTube.
+    skip_download : bool
+        If `True`, no downloading occurs, simply tag setting for already
+        downloaded files. Files must be in the correct downloads folder.
+    skip_tags : bool
+        If `True`, tags are not automatically set to the tracks.
+    edit_tags : bool
+        If `True`, opens the Mp3tag program on the downloaded folder.
+    format_tags : bool
+        If `True`, `musar.action_format` is called on downloaded files.
+
+    &#34;&#34;&#34;
+    downloader = PlaylistDownloader(config)
+    pdf = downloader.main(
+        playlist_url,
+        skip_download,
+        skip_tags,
+        edit_tags
+    )
+    if format_tags:
+        action_format(config, pdf, rename_hierarchy=True)</code></pre>
+</details>
+</dd>
+<dt id="musar.action_extend"><code class="name flex">
+<span>def <span class="ident">action_extend</span></span>(<span>config, folder, fields)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Extend most common non-null field values to other tracks.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>config</code></strong> :&ensp;<code><a title="musar.config.Config" href="config.html#musar.config.Config">Config</a></code></dt>
+<dd>A configuration to use the accessor manager of.</dd>
+<dt><strong><code>folder</code></strong> :&ensp;<code><a title="musar.folder.Folder" href="folder.html#musar.folder.Folder">Folder</a></code></dt>
+<dd>Folder whose tracks fields will be extended.</dd>
+<dt><strong><code>fields</code></strong> :&ensp;<code>List[str]</code></dt>
+<dd>List of accessor names of fields to extend.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def action_extend(config, folder, fields):
+    &#34;&#34;&#34;Extend most common non-null field values to other tracks.
+
+    Parameters
+    ----------
+    config : musar.config.Config
+        A configuration to use the accessor manager of.
+    folder : musar.folder.Folder
+        Folder whose tracks fields will be extended.
+    fields : List[str]
+        List of accessor names of fields to extend.
+
+    &#34;&#34;&#34;
+    logging.info(&#34;Extending fields on folder %s&#34;, folder.path)
+    for field in fields:
+        if field not in config.accessor_mgr:
+            logging.error(&#34;Wrong accessor name: &#39;%s&#39;&#34;, field)
+            continue
+        values = list()
+        for track in folder:
+            value = config.accessor_mgr[field].get(track)
+            if value is not None:
+                values.append(value)
+        if len(values) == 0:
+            logging.error(&#34;Could not expand field %s: no non-null value found&#34;, field)
+            continue
+        common_value = most_common_list_value(values)
+        logging.info(&#34;Selected common value %s for field %s&#34;, common_value, field)
+        for track in folder:
+            config.accessor_mgr[field].set(track, common_value)</code></pre>
+</details>
+</dd>
+<dt id="musar.action_format"><code class="name flex">
+<span>def <span class="ident">action_format</span></span>(<span>config, root, check_only=False, force=False, rename=False, rename_hierarchy=False, explore=False, extend=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Format the tracks within a folder.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>config</code></strong> :&ensp;<code><a title="musar.config.Config" href="config.html#musar.config.Config">Config</a></code></dt>
+<dd>Configuration to follow.</dd>
+<dt><strong><code>root</code></strong> :&ensp;<code>str</code></dt>
+<dd>Path to a root folder to look for audio tracks.</dd>
+<dt><strong><code>check_only</code></strong> :&ensp;<code>bool</code></dt>
+<dd>If <code>True</code>, function will return after the check action.</dd>
+<dt><strong><code>force</code></strong> :&ensp;<code>bool</code></dt>
+<dd>If <code>True</code>, function will try to format even if the checking failed.</dd>
+<dt><strong><code>rename</code></strong> :&ensp;<code>bool</code></dt>
+<dd>If <code>True</code>, tracks are renamed once formatted.</dd>
+<dt><strong><code>rename_hierarchy</code></strong> :&ensp;<code>bool</code></dt>
+<dd>If <code>True</code>, tracks are renamed once formatted and moved to a dedicated
+folder. See <code><a title="musar.action_rename" href="#musar.action_rename">action_rename()</a></code> for details.</dd>
+<dt><strong><code>explore</code></strong> :&ensp;<code>bool</code></dt>
+<dd>If <code>True</code>, subfolders will be explored for audio tracks.</dd>
+<dt><strong><code>extend</code></strong> :&ensp;<code>List[str]</code></dt>
+<dd>If empty or <code>None</code>, ignored. Else it contains accessor names for fields
+to extend. See <code><a title="musar.action_extend" href="#musar.action_extend">action_extend()</a></code> for details.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def action_format(
+        config,
+        root,
+        check_only=False,
+        force=False,
+        rename=False,
+        rename_hierarchy=False,
+        explore=False,
+        extend=None
+        ):
+    &#34;&#34;&#34;Format the tracks within a folder.
+
+    Parameters
+    ----------
+    config : musar.config.Config
+        Configuration to follow.
+    root : str
+        Path to a root folder to look for audio tracks.
+    check_only : bool
+        If `True`, function will return after the check action.
+    force : bool
+        If `True`, function will try to format even if the checking failed.
+    rename : bool
+        If `True`, tracks are renamed once formatted.
+    rename_hierarchy : bool
+        If `True`, tracks are renamed once formatted and moved to a dedicated
+        folder. See `musar.action_rename` for details.
+    explore : bool
+        If `True`, subfolders will be explored for audio tracks.
+    extend : List[str]
+        If empty or `None`, ignored. Else it contains accessor names for fields
+        to extend. See `musar.action_extend` for details.
+
+    &#34;&#34;&#34;
+    for folder in iter_folders(root, explore, allow_empty=False):
+        valid = action_check(config, folder)
+        if not check_only and (valid or force):
+            if extend is not None and len(extend) &gt; 0:
+                action_extend(config, folder, extend)
+            action_clean(config, folder)
+            if rename or rename_hierarchy:
+                action_rename(folder, rename)
+        elif not check_only and not force:
+            logging.warning(
+                &#34;Validation failed. Use -f to force formatting.&#34;)</code></pre>
+</details>
+</dd>
+<dt id="musar.action_index"><code class="name flex">
+<span>def <span class="ident">action_index</span></span>(<span>root, output)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Create a JSON index file of the music library.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>root</code></strong> :&ensp;<code>str</code></dt>
+<dd>Path to the root folder to explore. Every subfolders are explored.</dd>
+<dt><strong><code>output</code></strong> :&ensp;<code>str</code></dt>
+<dd>Path for the output JSON.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def action_index(root, output):
+    &#34;&#34;&#34;Create a JSON index file of the music library.
+
+    Parameters
+    ----------
+    root : str
+        Path to the root folder to explore. Every subfolders are explored.
+    output : str
+        Path for the output JSON.
+
+    &#34;&#34;&#34;
+    index = list()
+    for folder in iter_folders(root, explore=True, allow_empty=False):
+        index.append(folder.index())
+    with codecs.open(output, &#34;w&#34;, &#34;utf8&#34;) as outfile:
+        data = {
+            &#34;albums&#34;: index,
+            &#34;info&#34;: {
+                &#34;date_generation&#34;: datetime.datetime.utcnow()
+                                   .replace(tzinfo=datetime.timezone.utc)
+                                   .isoformat(),
+                &#34;musar_version&#34;: __version__,
+                &#34;root_folder&#34;: root,
+            }
+        }
+        json.dump(data, outfile, sort_keys=True, indent=4)</code></pre>
+</details>
+</dd>
+<dt id="musar.action_rename"><code class="name flex">
+<span>def <span class="ident">action_rename</span></span>(<span>folder, rename_hierarchy)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Rename the tracks within a folder with clean filenames.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>folder</code></strong> :&ensp;<code><a title="musar.folder.Folder" href="folder.html#musar.folder.Folder">Folder</a></code></dt>
+<dd>Folder with the tracks to rename.</dd>
+<dt><strong><code>rename_hierarchy</code></strong> :&ensp;<code>bool</code></dt>
+<dd>If <code>True</code>, a folder hierarchy artist &gt; album is created within the
+original folder and tracks are moved at the bottom of it.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def action_rename(folder, rename_hierarchy):
+    &#34;&#34;&#34;Rename the tracks within a folder with clean filenames.
+
+    Parameters
+    ----------
+    folder : musar.folder.Folder
+        Folder with the tracks to rename.
+    rename_hierarchy : bool
+        If `True`, a folder hierarchy artist &gt; album is created within the
+        original folder and tracks are moved at the bottom of it.
+
+    &#34;&#34;&#34;
+    logging.info(&#34;Renaming tracks of folder %s&#34;, folder.path)
+    hierarchy_folder = folder.create_hierarchy(mkdir=rename_hierarchy)
+    for filename, track in folder.tracks.items():
+        new_filename = generate_track_filename(track)
+        if rename_hierarchy:
+            os.rename(filename, os.path.join(hierarchy_folder, new_filename))
+        else:
+            os.rename(filename, os.path.join(
+                os.path.dirname(filename), new_filename))</code></pre>
+</details>
+</dd>
+<dt id="musar.generate_track_filename"><code class="name flex">
+<span>def <span class="ident">generate_track_filename</span></span>(<span>track)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Generate a clean filename for a track. It is composed of disc numbering
+if strictly greater than 1, track numbering and track title, all slugified.
+Numberings are padded with 0s so explorer's ordering remains correct.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>track</code></strong> :&ensp;<code>eyed3.mp3.Mp3AudioFile</code></dt>
+<dd>Track to generate the filename for.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Generated filename.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_track_filename(track):
+    &#34;&#34;&#34;Generate a clean filename for a track. It is composed of disc numbering
+    if strictly greater than 1, track numbering and track title, all slugified.
+    Numberings are padded with 0s so explorer&#39;s ordering remains correct.
+
+    Parameters
+    ----------
+    track : eyed3.mp3.Mp3AudioFile
+        Track to generate the filename for.
+
+    Returns
+    -------
+    str
+        Generated filename.
+
+    &#34;&#34;&#34;
+    disc_current, disc_total = track.tag.disc_num
+    track_current, track_total = track.tag.track_num
+    title = slugify.slugify(track.tag.title[:50])
+    track_num_format = &#34;%.&#34; + str(len(str(track_total))) + &#34;d&#34;
+    filename = track_num_format % track_current + &#34;-&#34; + title + &#34;.mp3&#34;
+    if disc_total &gt; 1:
+        disc_num_format = &#34;%.&#34; + str(len(str(disc_total))) + &#34;d&#34;
+        filename = disc_num_format % disc_current + &#34;-&#34; + filename
+    return filename</code></pre>
+</details>
+</dd>
+<dt id="musar.iter_folders"><code class="name flex">
+<span>def <span class="ident">iter_folders</span></span>(<span>top, explore=False, allow_empty=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Builds an iterator for folders containing MP3 files.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>top</code></strong> :&ensp;<code>str</code></dt>
+<dd>Path to the root folder.</dd>
+<dt><strong><code>explore</code></strong> :&ensp;<code>bool</code></dt>
+<dd>If <code>True</code>, every subfolder will be recursively explored. Otherwise,
+only the root folder is considered.</dd>
+<dt><strong><code>allow_empty</code></strong> :&ensp;<code>bool</code></dt>
+<dd>If <code>False</code>, folders without any MP3 files in them will be ignored.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Iterator[<a title="musar.folder.Folder" href="folder.html#musar.folder.Folder">Folder</a>]</code></dt>
+<dd>Iterator over found folders.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def iter_folders(top, explore=False, allow_empty=False):
+    &#34;&#34;&#34;Builds an iterator for folders containing MP3 files.
+
+    Parameters
+    ----------
+    top : str
+        Path to the root folder.
+    explore : bool
+        If `True`, every subfolder will be recursively explored. Otherwise,
+        only the root folder is considered.
+    allow_empty : bool
+        If `False`, folders without any MP3 files in them will be ignored.
+
+    Returns
+    -------
+    Iterator[musar.folder.Folder]
+        Iterator over found folders.
+
+    &#34;&#34;&#34;
+    logging.info(&#34;Exploring folders from %s&#34;, os.path.realpath(top))
+    for root, _, _ in os.walk(top, topdown=True):
+        logging.info(&#34;Exploring folder %s&#34;, os.path.realpath(root))
+        folder = Folder(root)
+        folder.load()
+        if allow_empty or len(folder.tracks) &gt; 0:
+            yield folder
+        if not explore:
+            break</code></pre>
+</details>
+</dd>
+<dt id="musar.load_config"><code class="name flex">
+<span>def <span class="ident">load_config</span></span>(<span>path, edit=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Load a config file.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>path</code></strong> :&ensp;<code>str</code></dt>
+<dd>Path to the text file to load.</dd>
+<dt><strong><code>edit</code></strong> :&ensp;<code>bool</code></dt>
+<dd>If <code>True</code>, a <code>curses</code> window will show up allowing user to edit the
+loaded configuration before any further step.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="musar.config.Config" href="config.html#musar.config.Config">Config</a></code></dt>
+<dd>The loaded configuration.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def load_config(path, edit=False):
+    &#34;&#34;&#34;Load a config file.
+
+    Parameters
+    ----------
+    path : str
+        Path to the text file to load.
+    edit : bool
+        If `True`, a `curses` window will show up allowing user to edit the
+        loaded configuration before any further step.
+
+    Returns
+    -------
+    musar.config.Config
+        The loaded configuration.
+
+    &#34;&#34;&#34;
+    logging.info(&#34;Loading config from %s&#34;, os.path.realpath(path))
+    config = Config.from_file(path)
+    if edit:
+        config.edit()
+    return config</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<ul>
+<li><code><a title="musar.accessors" href="accessors.html">musar.accessors</a></code></li>
+<li><code><a title="musar.cleaners" href="cleaners.html">musar.cleaners</a></code></li>
+<li><code><a title="musar.config" href="config.html">musar.config</a></code></li>
+<li><code><a title="musar.constraints" href="constraints.html">musar.constraints</a></code></li>
+<li><code><a title="musar.download" href="download.html">musar.download</a></code></li>
+<li><code><a title="musar.folder" href="folder.html">musar.folder</a></code></li>
+<li><code><a title="musar.formats" href="formats.html">musar.formats</a></code></li>
+<li><code><a title="musar.misc" href="misc.html">musar.misc</a></code></li>
+<li><code><a title="musar.rules" href="rules.html">musar.rules</a></code></li>
+<li><code><a title="musar.scopes" href="scopes.html">musar.scopes</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="musar.action_check" href="#musar.action_check">action_check</a></code></li>
+<li><code><a title="musar.action_clean" href="#musar.action_clean">action_clean</a></code></li>
+<li><code><a title="musar.action_convert" href="#musar.action_convert">action_convert</a></code></li>
+<li><code><a title="musar.action_download" href="#musar.action_download">action_download</a></code></li>
+<li><code><a title="musar.action_extend" href="#musar.action_extend">action_extend</a></code></li>
+<li><code><a title="musar.action_format" href="#musar.action_format">action_format</a></code></li>
+<li><code><a title="musar.action_index" href="#musar.action_index">action_index</a></code></li>
+<li><code><a title="musar.action_rename" href="#musar.action_rename">action_rename</a></code></li>
+<li><code><a title="musar.generate_track_filename" href="#musar.generate_track_filename">generate_track_filename</a></code></li>
+<li><code><a title="musar.iter_folders" href="#musar.iter_folders">iter_folders</a></code></li>
+<li><code><a title="musar.load_config" href="#musar.load_config">load_config</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

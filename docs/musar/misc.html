@@ -1,0 +1,639 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.1" />
+<title>musar.misc API documentation</title>
+<meta name="description" content="General purpose classes and functions." />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>musar.misc</code></h1>
+</header>
+<section id="section-intro">
+<p>General purpose classes and functions.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;General purpose classes and functions.
+&#34;&#34;&#34;
+
+# pylint: disable=E1101
+import curses
+import PIL
+
+
+class TextEditor:
+    &#34;&#34;&#34;Text editor based on `curses`.
+
+    Attributes
+    ----------
+    array : List[str]
+        Text content model.
+    cursor : [int, int]
+        Position of the cursor within the text.
+    stdscr : curses.window
+        `curses` window for display the text.
+    clipboard : str
+        Text clipboard for copy-pasting.
+    scroll : int
+        Vertical line scrolling.
+    rows : int
+        Window number of rows.
+
+    &#34;&#34;&#34;
+
+    def __init__(self):
+        self.array = list()
+        self.cursor = [0, 0]
+        self.stdscr = None
+        self.clipboard = None
+        self.scroll = 0
+        self.rows = 0
+
+    def __call__(self, base_text=&#34;&#34;):
+        self.array = base_text.split(&#34;\n&#34;)
+        self.cursor = [0, 0]
+        self.stdscr = curses.initscr()
+        self.rows = self.stdscr.getmaxyx()[0]
+        curses.noecho()
+        curses.cbreak()
+        self.stdscr.keypad(True)
+        while True:
+            self._draw()
+            key = self.stdscr.getch()
+            break_loop = self._handle_key(key)
+            if break_loop:
+                break
+        curses.nocbreak()
+        self.stdscr.keypad(False)
+        curses.echo()
+        curses.endwin()
+        return &#34;\n&#34;.join(self.array)
+
+    def _move_cursor_left(self):
+        self.cursor[1] = max(0, self.cursor[1] - 1)
+
+    def _move_cursor_right(self):
+        self.cursor[1] = min(
+            len(self.array[self.cursor[0]]),
+            self.cursor[1] + 1
+        )
+
+    def _move_cursor_up(self):
+        self.cursor[0] = max(0, self.cursor[0] - 1)
+        self.cursor[1] = min(self.cursor[1], len(self.array[self.cursor[0]]))
+        if self.cursor[0] &lt; self.scroll:
+            self.scroll -= 1
+
+    def _move_cursor_down(self):
+        self.cursor[0] = min(len(self.array) - 1, self.cursor[0] + 1)
+        self.cursor[1] = min(self.cursor[1], len(self.array[self.cursor[0]]))
+        if self.cursor[0] &gt;= self.rows + self.scroll:
+            self.scroll += 1
+
+    def _handle_key(self, key):  # pylint: disable=R0912,R0915
+        if key in {
+                3,  # ^C
+                4,  # ^D
+                17,  # ^Q
+                23,  # ^W
+                24,  # ^X
+                27  # ESC
+            }:
+            return True
+        if key == 260:  # Left
+            self._move_cursor_left()
+        elif key == 261:  # Right
+            self._move_cursor_right()
+        elif key == 259:  # Up
+            self._move_cursor_up()
+        elif key == 258:  # Down
+            self._move_cursor_down()
+        elif key == 338:  # Page Down
+            for _ in range(self.rows):
+                self._move_cursor_down()
+        elif key == 339:  # Page Up
+            for _ in range(self.rows):
+                self._move_cursor_up()
+        elif key == 443:  # Ctrl+Left
+            for i in range(1, self.cursor[1] + 1):
+                target = self.cursor[1] - i
+                if target == 0 or self.array[self.cursor[0]][target - 1] == &#34; &#34;:
+                    self.cursor[1] = target
+                    break
+        elif key == 444:  # Ctrl+Right
+            for target in range(self.cursor[1] + 1, len(self.array[self.cursor[0]]) + 1):
+                if target == len(self.array[self.cursor[0]])\
+                    or self.array[self.cursor[0]][target - 1] == &#34; &#34;:
+                    self.cursor[1] = target
+                    break
+        elif key == 1:  # ^A
+            self.cursor[1] = 0
+        elif key == 5:  # ^E
+            self.cursor[1] = len(self.array[self.cursor[0]])
+        elif key == 10:  # ENTER
+            prev_line = self.array[self.cursor[0]][:self.cursor[1]]
+            next_line = self.array[self.cursor[0]][self.cursor[1]:]
+            self.array[self.cursor[0]] = prev_line
+            self.array.insert(self.cursor[0] + 1, next_line)
+            self._move_cursor_down()
+            self.cursor[1] = 0
+        elif key == 8:  # BACKSPACE
+            if self.cursor[1] == 0:
+                if self.cursor[0] &gt; 0:
+                    self.cursor[1] = len(self.array[self.cursor[0] - 1])
+                    self.array[self.cursor[0] - 1] =\
+                        self.array[self.cursor[0] - 1]\
+                        + self.array[self.cursor[0]]
+                    self.array.pop(self.cursor[0])
+                    self.cursor[0] = self.cursor[0] - 1
+            else:
+                self.array[self.cursor[0]] =\
+                    self.array[self.cursor[0]][:self.cursor[1] - 1]\
+                    + self.array[self.cursor[0]][self.cursor[1]:]
+                self.cursor[1] = max(0, self.cursor[1] - 1)
+        elif key == 330:  # DELETE:
+            if self.cursor[1] == len(self.array[self.cursor[0]]):
+                if self.cursor[0] &lt; len(self.array) - 1:
+                    self.array[self.cursor[0]] += self.array[self.cursor[0] + 1]
+                    self.array.pop(self.cursor[0] + 1)
+            else:
+                self.array[self.cursor[0]] =\
+                    self.array[self.cursor[0]][:self.cursor[1]]\
+                    + self.array[self.cursor[0]][self.cursor[1] + 1:]
+        elif key == 11:  # ^K
+            self.clipboard = self.array[self.cursor[0]]
+            self.array.pop(self.cursor[0])
+            self._move_cursor_up()
+            self._move_cursor_down()
+        elif key == 21:  # ^U
+            self.array.insert(self.cursor[0], self.clipboard)
+            self.cursor[1] = len(self.clipboard)
+        elif key &lt; 256:
+            self.array[self.cursor[0]] =\
+                self.array[self.cursor[0]][:self.cursor[1]]\
+                + chr(key)\
+                + self.array[self.cursor[0]][self.cursor[1]:]
+            self._move_cursor_right()
+        return False
+
+    def _draw(self):
+        self.stdscr.clear()
+        for i, line in enumerate(self.array[self.scroll:]):
+            if i &gt;= self.rows:
+                break
+            self.stdscr.addstr(i, 0, line)
+        self.stdscr.addstr(self.cursor[0] - self.scroll, self.cursor[1], &#34;&#34;)
+        self.stdscr.refresh()
+
+
+def most_common_list_value(values):
+    &#34;&#34;&#34;Select the most common value from a list.
+
+    Parameters
+    ----------
+    values : List[T]
+        Input list.
+
+    Returns
+    -------
+    T
+        Most common value.
+
+    &#34;&#34;&#34;
+    occurrences = dict()
+    for value in values:
+        occurrences.setdefault(value, 0)
+        occurrences[value] += 1
+    return max(occurrences.items(), key=lambda x: x[1])[0]
+
+
+def most_common_key_value(key, items):
+    &#34;&#34;&#34;Select the most common value for a key from a list of dictionnaries.
+
+    Parameters
+    ----------
+    key : T
+        Input dictionnary key.
+    items : List[Dict[T, U]]
+        Input dictionnaries.
+
+    Returns
+    -------
+    U
+        Most common value.
+
+    &#34;&#34;&#34;
+    values = [item[key] for item in items]
+    return most_common_list_value(values)
+
+
+class HashableImage:
+    &#34;&#34;&#34;Pillow image that can be hashed and quickly compared to another.
+
+    Parameters
+    ----------
+    image : PIL.Image.Image
+        Pillow image.
+
+    Attributes
+    ----------
+    hash : int
+        Image hash digest.
+    image : PIL.Image.Image
+
+    &#34;&#34;&#34;
+
+    def __init__(self, image):
+        self.image: PIL.Image.Image = image
+        self.hash: int = hash(self.image.tobytes())
+
+    def __hash__(self):
+        return self.hash
+
+    def __eq__(self, other):
+        return self.hash == other.hash</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="musar.misc.most_common_key_value"><code class="name flex">
+<span>def <span class="ident">most_common_key_value</span></span>(<span>key, items)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Select the most common value for a key from a list of dictionnaries.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>key</code></strong> :&ensp;<code>T</code></dt>
+<dd>Input dictionnary key.</dd>
+<dt><strong><code>items</code></strong> :&ensp;<code>List[Dict[T, U]]</code></dt>
+<dd>Input dictionnaries.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>U</code></dt>
+<dd>Most common value.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def most_common_key_value(key, items):
+    &#34;&#34;&#34;Select the most common value for a key from a list of dictionnaries.
+
+    Parameters
+    ----------
+    key : T
+        Input dictionnary key.
+    items : List[Dict[T, U]]
+        Input dictionnaries.
+
+    Returns
+    -------
+    U
+        Most common value.
+
+    &#34;&#34;&#34;
+    values = [item[key] for item in items]
+    return most_common_list_value(values)</code></pre>
+</details>
+</dd>
+<dt id="musar.misc.most_common_list_value"><code class="name flex">
+<span>def <span class="ident">most_common_list_value</span></span>(<span>values)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Select the most common value from a list.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>values</code></strong> :&ensp;<code>List[T]</code></dt>
+<dd>Input list.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>T</code></dt>
+<dd>Most common value.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def most_common_list_value(values):
+    &#34;&#34;&#34;Select the most common value from a list.
+
+    Parameters
+    ----------
+    values : List[T]
+        Input list.
+
+    Returns
+    -------
+    T
+        Most common value.
+
+    &#34;&#34;&#34;
+    occurrences = dict()
+    for value in values:
+        occurrences.setdefault(value, 0)
+        occurrences[value] += 1
+    return max(occurrences.items(), key=lambda x: x[1])[0]</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="musar.misc.HashableImage"><code class="flex name class">
+<span>class <span class="ident">HashableImage</span></span>
+<span>(</span><span>image)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Pillow image that can be hashed and quickly compared to another.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>image</code></strong> :&ensp;<code>PIL.Image.Image</code></dt>
+<dd>Pillow image.</dd>
+</dl>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>hash</code></strong> :&ensp;<code>int</code></dt>
+<dd>Image hash digest.</dd>
+<dt><strong><code>image</code></strong> :&ensp;<code>PIL.Image.Image</code></dt>
+<dd>&nbsp;</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class HashableImage:
+    &#34;&#34;&#34;Pillow image that can be hashed and quickly compared to another.
+
+    Parameters
+    ----------
+    image : PIL.Image.Image
+        Pillow image.
+
+    Attributes
+    ----------
+    hash : int
+        Image hash digest.
+    image : PIL.Image.Image
+
+    &#34;&#34;&#34;
+
+    def __init__(self, image):
+        self.image: PIL.Image.Image = image
+        self.hash: int = hash(self.image.tobytes())
+
+    def __hash__(self):
+        return self.hash
+
+    def __eq__(self, other):
+        return self.hash == other.hash</code></pre>
+</details>
+</dd>
+<dt id="musar.misc.TextEditor"><code class="flex name class">
+<span>class <span class="ident">TextEditor</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Text editor based on <code>curses</code>.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>array</code></strong> :&ensp;<code>List[str]</code></dt>
+<dd>Text content model.</dd>
+<dt><strong><code>cursor</code></strong> :&ensp;<code>[int, int]</code></dt>
+<dd>Position of the cursor within the text.</dd>
+<dt><strong><code>stdscr</code></strong> :&ensp;<code>curses.window</code></dt>
+<dd><code>curses</code> window for display the text.</dd>
+<dt><strong><code>clipboard</code></strong> :&ensp;<code>str</code></dt>
+<dd>Text clipboard for copy-pasting.</dd>
+<dt><strong><code>scroll</code></strong> :&ensp;<code>int</code></dt>
+<dd>Vertical line scrolling.</dd>
+<dt><strong><code>rows</code></strong> :&ensp;<code>int</code></dt>
+<dd>Window number of rows.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class TextEditor:
+    &#34;&#34;&#34;Text editor based on `curses`.
+
+    Attributes
+    ----------
+    array : List[str]
+        Text content model.
+    cursor : [int, int]
+        Position of the cursor within the text.
+    stdscr : curses.window
+        `curses` window for display the text.
+    clipboard : str
+        Text clipboard for copy-pasting.
+    scroll : int
+        Vertical line scrolling.
+    rows : int
+        Window number of rows.
+
+    &#34;&#34;&#34;
+
+    def __init__(self):
+        self.array = list()
+        self.cursor = [0, 0]
+        self.stdscr = None
+        self.clipboard = None
+        self.scroll = 0
+        self.rows = 0
+
+    def __call__(self, base_text=&#34;&#34;):
+        self.array = base_text.split(&#34;\n&#34;)
+        self.cursor = [0, 0]
+        self.stdscr = curses.initscr()
+        self.rows = self.stdscr.getmaxyx()[0]
+        curses.noecho()
+        curses.cbreak()
+        self.stdscr.keypad(True)
+        while True:
+            self._draw()
+            key = self.stdscr.getch()
+            break_loop = self._handle_key(key)
+            if break_loop:
+                break
+        curses.nocbreak()
+        self.stdscr.keypad(False)
+        curses.echo()
+        curses.endwin()
+        return &#34;\n&#34;.join(self.array)
+
+    def _move_cursor_left(self):
+        self.cursor[1] = max(0, self.cursor[1] - 1)
+
+    def _move_cursor_right(self):
+        self.cursor[1] = min(
+            len(self.array[self.cursor[0]]),
+            self.cursor[1] + 1
+        )
+
+    def _move_cursor_up(self):
+        self.cursor[0] = max(0, self.cursor[0] - 1)
+        self.cursor[1] = min(self.cursor[1], len(self.array[self.cursor[0]]))
+        if self.cursor[0] &lt; self.scroll:
+            self.scroll -= 1
+
+    def _move_cursor_down(self):
+        self.cursor[0] = min(len(self.array) - 1, self.cursor[0] + 1)
+        self.cursor[1] = min(self.cursor[1], len(self.array[self.cursor[0]]))
+        if self.cursor[0] &gt;= self.rows + self.scroll:
+            self.scroll += 1
+
+    def _handle_key(self, key):  # pylint: disable=R0912,R0915
+        if key in {
+                3,  # ^C
+                4,  # ^D
+                17,  # ^Q
+                23,  # ^W
+                24,  # ^X
+                27  # ESC
+            }:
+            return True
+        if key == 260:  # Left
+            self._move_cursor_left()
+        elif key == 261:  # Right
+            self._move_cursor_right()
+        elif key == 259:  # Up
+            self._move_cursor_up()
+        elif key == 258:  # Down
+            self._move_cursor_down()
+        elif key == 338:  # Page Down
+            for _ in range(self.rows):
+                self._move_cursor_down()
+        elif key == 339:  # Page Up
+            for _ in range(self.rows):
+                self._move_cursor_up()
+        elif key == 443:  # Ctrl+Left
+            for i in range(1, self.cursor[1] + 1):
+                target = self.cursor[1] - i
+                if target == 0 or self.array[self.cursor[0]][target - 1] == &#34; &#34;:
+                    self.cursor[1] = target
+                    break
+        elif key == 444:  # Ctrl+Right
+            for target in range(self.cursor[1] + 1, len(self.array[self.cursor[0]]) + 1):
+                if target == len(self.array[self.cursor[0]])\
+                    or self.array[self.cursor[0]][target - 1] == &#34; &#34;:
+                    self.cursor[1] = target
+                    break
+        elif key == 1:  # ^A
+            self.cursor[1] = 0
+        elif key == 5:  # ^E
+            self.cursor[1] = len(self.array[self.cursor[0]])
+        elif key == 10:  # ENTER
+            prev_line = self.array[self.cursor[0]][:self.cursor[1]]
+            next_line = self.array[self.cursor[0]][self.cursor[1]:]
+            self.array[self.cursor[0]] = prev_line
+            self.array.insert(self.cursor[0] + 1, next_line)
+            self._move_cursor_down()
+            self.cursor[1] = 0
+        elif key == 8:  # BACKSPACE
+            if self.cursor[1] == 0:
+                if self.cursor[0] &gt; 0:
+                    self.cursor[1] = len(self.array[self.cursor[0] - 1])
+                    self.array[self.cursor[0] - 1] =\
+                        self.array[self.cursor[0] - 1]\
+                        + self.array[self.cursor[0]]
+                    self.array.pop(self.cursor[0])
+                    self.cursor[0] = self.cursor[0] - 1
+            else:
+                self.array[self.cursor[0]] =\
+                    self.array[self.cursor[0]][:self.cursor[1] - 1]\
+                    + self.array[self.cursor[0]][self.cursor[1]:]
+                self.cursor[1] = max(0, self.cursor[1] - 1)
+        elif key == 330:  # DELETE:
+            if self.cursor[1] == len(self.array[self.cursor[0]]):
+                if self.cursor[0] &lt; len(self.array) - 1:
+                    self.array[self.cursor[0]] += self.array[self.cursor[0] + 1]
+                    self.array.pop(self.cursor[0] + 1)
+            else:
+                self.array[self.cursor[0]] =\
+                    self.array[self.cursor[0]][:self.cursor[1]]\
+                    + self.array[self.cursor[0]][self.cursor[1] + 1:]
+        elif key == 11:  # ^K
+            self.clipboard = self.array[self.cursor[0]]
+            self.array.pop(self.cursor[0])
+            self._move_cursor_up()
+            self._move_cursor_down()
+        elif key == 21:  # ^U
+            self.array.insert(self.cursor[0], self.clipboard)
+            self.cursor[1] = len(self.clipboard)
+        elif key &lt; 256:
+            self.array[self.cursor[0]] =\
+                self.array[self.cursor[0]][:self.cursor[1]]\
+                + chr(key)\
+                + self.array[self.cursor[0]][self.cursor[1]:]
+            self._move_cursor_right()
+        return False
+
+    def _draw(self):
+        self.stdscr.clear()
+        for i, line in enumerate(self.array[self.scroll:]):
+            if i &gt;= self.rows:
+                break
+            self.stdscr.addstr(i, 0, line)
+        self.stdscr.addstr(self.cursor[0] - self.scroll, self.cursor[1], &#34;&#34;)
+        self.stdscr.refresh()</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="musar" href="index.html">musar</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="musar.misc.most_common_key_value" href="#musar.misc.most_common_key_value">most_common_key_value</a></code></li>
+<li><code><a title="musar.misc.most_common_list_value" href="#musar.misc.most_common_list_value">most_common_list_value</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="musar.misc.HashableImage" href="#musar.misc.HashableImage">HashableImage</a></code></h4>
+</li>
+<li>
+<h4><code><a title="musar.misc.TextEditor" href="#musar.misc.TextEditor">TextEditor</a></code></h4>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

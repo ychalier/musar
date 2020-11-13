@@ -1,22 +1,33 @@
+"""Interface between eyed3 and musar.
+"""
 import io
 import PIL.Image
 import eyed3.id3.frames
-
-
-class HashableImage:
-
-    def __init__(self, image):
-        self.image: PIL.Image.Image = image
-        self.hash: int = hash(self.image.tobytes())
-
-    def __hash__(self):
-        return self.hash
-
-    def __eq__(self, other):
-        return self.hash == other.hash
+from .misc import HashableImage
 
 
 class Accessor:
+    """Placeholder class for accessors.
+
+    Parameters
+    ----------
+    config : musar.config.Config
+        A reference for the config associated with the accessor.
+        This is used for accessors that depend on configurable parameters.
+
+    Attributes
+    ----------
+    memory : Dict[str, Union[int, str, musar.misc.HashableImage]]
+        Memory buffer for the getter. Keys are track fullpaths and values are
+        possible field values.
+    config : musar.config.Config
+
+    """
+
+    NAME: str = None
+    """
+    Accessor name for identification in the config.
+    """
 
     def __init__(self, config):
         self.memory = dict()
@@ -26,6 +37,19 @@ class Accessor:
         raise NotImplementedError()
 
     def get(self, song):
+        """Basic value getter.
+
+        Parameters
+        ----------
+        song : eyed3.mp3.Mp3AudioFile
+            Song to read the value from.
+
+        Returns
+        -------
+        Union[int, str, musar.misc.HashableImage]
+            Read value.
+
+        """
         if song is None:
             return None
         if song in self.memory:
@@ -35,10 +59,35 @@ class Accessor:
         return value
 
     def set(self, song, value):
+        """Abstract value setter.
+
+        Parameters
+        ----------
+        song : eyed3.mp3.Mp3AudioFile
+            Track to set the value to.
+        value : Union[int, str, musar.misc.HashableImage]
+            Value to set.
+
+        """
         raise NotImplementedError()
 
 
 class TagAccessor(Accessor):
+    """Base class for simple accessors reading and setting tags without any
+    modification.
+
+    Parameters
+    ----------
+    config : musar.config.Config
+        Accessor config.
+    tag_name : str
+        Name of the `eyed3` tag involved.
+
+    Attributes
+    ----------
+    tag_name : str
+
+    """
 
     def __init__(self, config, tag_name):
         Accessor.__init__(self, config)
@@ -53,6 +102,8 @@ class TagAccessor(Accessor):
 
 
 class Title(TagAccessor):
+    """Track title accessor.
+    """
 
     NAME = "title"
 
@@ -61,6 +112,8 @@ class Title(TagAccessor):
 
 
 class Album(TagAccessor):
+    """Track album accessor.
+    """
 
     NAME = "album"
 
@@ -69,6 +122,8 @@ class Album(TagAccessor):
 
 
 class AlbumArtist(TagAccessor):
+    """Track album artist accessor.
+    """
 
     NAME = "album_artist"
 
@@ -77,6 +132,8 @@ class AlbumArtist(TagAccessor):
 
 
 class Artist(TagAccessor):
+    """Track artist accessor.
+    """
 
     NAME = "artist"
 
@@ -85,6 +142,8 @@ class Artist(TagAccessor):
 
 
 class Composer(TagAccessor):
+    """Track composer accessor.
+    """
 
     NAME = "composer"
 
@@ -93,12 +152,17 @@ class Composer(TagAccessor):
 
 
 class NumberAccessor(TagAccessor):
+    """Accessor for numbering fields (track number and disc number). eyed3
+    outputs value as a tuple: only the first element is considered.
+    """
 
     def _get(self, song):
         return getattr(song.tag, self.tag_name)[0]
 
 
 class DiscNumber(NumberAccessor):
+    """Track disc number accessor.
+    """
 
     NAME = "disc_num"
 
@@ -107,6 +171,8 @@ class DiscNumber(NumberAccessor):
 
 
 class TrackNumber(NumberAccessor):
+    """Track number accessor.
+    """
 
     NAME = "track_num"
 
@@ -115,6 +181,8 @@ class TrackNumber(NumberAccessor):
 
 
 class Genre(Accessor):
+    """Track genre accessor. Genre is represented by its surface string.
+    """
 
     NAME = "genre"
 
@@ -128,6 +196,8 @@ class Genre(Accessor):
 
 
 class Year(Accessor):
+    """Track year accessor. eyed3 uses dates but only the year is extracted.
+    """
 
     NAME = "year"
 
@@ -141,6 +211,8 @@ class Year(Accessor):
 
 
 class Cover(Accessor):
+    """Track cover accessor.
+    """
 
     NAME = "cover"
 
@@ -164,6 +236,8 @@ class Cover(Accessor):
 
 
 class Comment(Accessor):
+    """Track comment accessor.
+    """
 
     NAME = "comment"
 
@@ -177,6 +251,18 @@ class Comment(Accessor):
 
 
 class Manager(dict):
+    """Manager for accessing all the accessors.
+
+    Parameters
+    ----------
+    config : musar.config.Config
+        Configuration that will be shared to all accessors.
+
+    Attributes
+    ----------
+    Keys are accessor names and values are accessor instances.
+
+    """
 
     def __init__(self, config):
         super(Manager, self).__init__()

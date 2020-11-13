@@ -1,0 +1,735 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.1" />
+<title>musar.config API documentation</title>
+<meta name="description" content="Wrapper for configurable options and parameters." />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>musar.config</code></h1>
+</header>
+<section id="section-intro">
+<p>Wrapper for configurable options and parameters.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;Wrapper for configurable options and parameters.
+&#34;&#34;&#34;
+import re
+import logging
+from . import accessors
+from . import constraints
+from . import scopes
+from . import rules
+from . import cleaners
+from . import formats
+from .misc import TextEditor
+
+
+class Options:
+    &#34;&#34;&#34;Namespace for simple parameters.
+
+    Attributes
+    ----------
+    cover_target_size : Tuple[int, int]
+        Size covers will be resized to in `musar.cleaners.Resize`.
+    cover_target_format : str
+        Image file format for the cover (in Pillow).
+        See `musar.accessors.Cover`.
+    cover_target_encoding : str
+        Color format for the cover (in Pillow).
+        See `musar.accessors.Cover`.
+    youtube_dl_path : str
+        Path to the *youtube-dl* executable.
+    mp3tag_path : str
+        Path to the *Mp3tag* executable.
+    download_folder : str
+        Root folder for downloaded files.
+    ffmpeg_path : str
+        Path to the *FFmpeg* executable.
+
+    &#34;&#34;&#34;
+
+    def __init__(self):
+        self.cover_target_size = 600, 600
+        self.cover_target_format = &#34;jpeg&#34;
+        self.cover_target_encoding = &#34;RBG&#34;
+        self.youtube_dl_path = &#34;youtube-dl&#34;
+        self.mp3tag_path = &#34;Mp3tag.exe&#34;
+        self.download_folder = &#34;downloads&#34;
+        self.ffmpeg_path = &#34;ffmpeg&#34;
+
+    def __str__(self):
+        return &#34;\n&#34;.join([
+            &#34;cover_target_size=%d,%d&#34; % self.cover_target_size,
+            &#34;cover_target_format=%s&#34; % self.cover_target_format,
+            &#34;cover_target_encoding=%s&#34; % self.cover_target_encoding,
+            &#34;youtube_dl_path=%s&#34; % self.youtube_dl_path,
+            &#34;mp3tag_path=%s&#34; % self.mp3tag_path,
+            &#34;download_folder=%s&#34; % self.download_folder,
+            &#34;ffmpeg_path=%s&#34; % self.ffmpeg_path
+        ])
+
+    def load(self, line):
+        &#34;&#34;&#34;Load a configuration file line.
+
+        Parameters
+        ----------
+        line : str
+            Line to parse.
+
+        &#34;&#34;&#34;
+        split = line.strip().split(&#34;=&#34;)
+        if len(split) != 2:
+            return
+        key, value = tuple(map(lambda s: s.strip(), split))
+        if key not in self.__dict__:
+            return
+        if key == &#34;cover_target_size&#34;:
+            value = tuple(map(lambda s: int(s.strip()), value.split(&#34;,&#34;)))
+        setattr(self, key, value)
+
+
+class Config:  # pylint: disable=R0902
+    &#34;&#34;&#34;Global configuration.
+
+    Attributes
+    ----------
+    rules : List[musar.rules.Rule]
+        Rules that tracks should follow.
+    formats : List[musar.formats.Format]
+        Formats for cleaning the tag values.
+    options : musar.config.Options
+        General parameters.
+    extensions : Set[str]
+        Set of extensions for `musar.action_convert`.
+    accessor_mgr : musar.accessors.Manager
+        Accessors manager.
+    constraint_mgr : musar.constraints.Manager
+        Constraints manager.
+    scope_mgr : musar.scopes.Manager
+        Scopes manager.
+    cleaner_mgr : musar.cleaners.Manager
+        Cleaners manager.
+
+    &#34;&#34;&#34;
+
+    def __init__(self):
+        self.rules = list()
+        self.formats = list()
+        self.options = Options()
+        self.extensions = set()
+        self.accessor_mgr = accessors.Manager(self)
+        self.constraint_mgr = constraints.Manager()
+        self.scope_mgr = scopes.Manager()
+        self.cleaner_mgr = cleaners.Manager(self)
+
+    def __str__(self):
+        return &#34;[RULES]\n&#34; + &#34;\n&#34;.join(map(str, self.rules))\
+            + &#34;\n\n[FORMATS]\n&#34; + &#34;\n&#34;.join(map(str, self.formats))\
+            + &#34;\n\n[OPTIONS]\n&#34; + str(self.options)\
+            + &#34;\n\n[EXTENSIONS]\n&#34; + &#34;\n&#34;.join(self.extensions)
+
+    @classmethod
+    def from_file(cls, path):
+        &#34;&#34;&#34;Create a `Config` object from a text file.
+
+        Parameters
+        ----------
+        cls : type
+            Class to create.
+        path : str
+            Path to the text file to parse.
+
+        Returns
+        -------
+        musar.config.Config
+            Created config
+
+        &#34;&#34;&#34;
+        config = Config()
+        config.load(path)
+        return config
+
+    def _load_rule(self, line):
+        split = line.strip().split(&#34; &#34;)
+        if len(split) != 3:
+            return
+        accessor_name, constraint_name, scope_name = split
+        if accessor_name not in self.accessor_mgr:
+            return
+        if constraint_name not in self.constraint_mgr:
+            return
+        if scope_name not in self.scope_mgr:
+            return
+        self.rules.append(rules.Rule(
+            self.accessor_mgr[accessor_name],
+            self.constraint_mgr[constraint_name],
+            self.scope_mgr[scope_name]
+        ))
+
+    def _load_format(self, line):
+        split = line.strip().split(&#34; &#34;)
+        if len(split) == 0:
+            return
+        if split[0] not in self.accessor_mgr:
+            return
+        cleaners_ = list()
+        for cleaner_name in split[1:]:
+            if cleaner_name not in self.cleaner_mgr:
+                continue
+            cleaners_.append(self.cleaner_mgr[cleaner_name])
+        self.formats.append(formats.Format(
+            self.accessor_mgr[split[0]],
+            *cleaners_
+        ))
+
+    def _load_extension(self, line):
+        self.extensions.add(line.strip())
+
+    def _load_text(self, text):
+        current_category = None
+        for line in text.split(&#34;\n&#34;):
+            if line.strip() == &#34;&#34; or line.strip().startswith(&#34;#&#34;):
+                continue
+            match = re.search(r&#34;\[(.*?)\]&#34;, line)
+            if match is not None:
+                current_category = match.group(1)
+                continue
+            if current_category == &#34;RULES&#34;:
+                self._load_rule(line)
+            elif current_category == &#34;FORMATS&#34;:
+                self._load_format(line)
+            elif current_category == &#34;OPTIONS&#34;:
+                self.options.load(line)
+            elif current_category == &#34;EXTENSIONS&#34;:
+                self._load_extension(line)
+
+    def load(self, path):
+        &#34;&#34;&#34;Parse config from an external file.
+
+        Parameters
+        ----------
+        path : str
+            Path to the external config file.
+
+        &#34;&#34;&#34;
+        logging.info(&#34;Parsing file %s for config %s&#34;, path, repr(self))
+        with open(path) as infile:
+            self._load_text(infile.read())
+
+    def reset(self):
+        &#34;&#34;&#34;Reset the accessors memories.
+        &#34;&#34;&#34;
+        logging.info(&#34;Resetting config %s&#34;, repr(self))
+        for accessor in self.accessor_mgr.values():
+            del accessor.memory
+            accessor.memory = dict()
+
+    def edit(self):
+        &#34;&#34;&#34;Prompt user with a text editor for live editing the current config.
+        This will not modify the actual file.
+        &#34;&#34;&#34;
+        logging.info(&#34;Editing config %s&#34;, repr(self))
+        current_config = self.__str__()
+        editor = TextEditor()
+        new_config = editor(current_config)
+        self.rules = list()
+        self.formats = list()
+        self.options = Options()
+        self.extensions = set()
+        self._load_text(new_config.strip())</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="musar.config.Config"><code class="flex name class">
+<span>class <span class="ident">Config</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Global configuration.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>rules</code></strong> :&ensp;<code>List[<a title="musar.rules.Rule" href="rules.html#musar.rules.Rule">Rule</a>]</code></dt>
+<dd>Rules that tracks should follow.</dd>
+<dt><strong><code>formats</code></strong> :&ensp;<code>List[<a title="musar.formats.Format" href="formats.html#musar.formats.Format">Format</a>]</code></dt>
+<dd>Formats for cleaning the tag values.</dd>
+<dt><strong><code>options</code></strong> :&ensp;<code><a title="musar.config.Options" href="#musar.config.Options">Options</a></code></dt>
+<dd>General parameters.</dd>
+<dt><strong><code>extensions</code></strong> :&ensp;<code>Set[str]</code></dt>
+<dd>Set of extensions for <code><a title="musar.action_convert" href="index.html#musar.action_convert">action_convert()</a></code>.</dd>
+<dt><strong><code>accessor_mgr</code></strong> :&ensp;<code><a title="musar.accessors.Manager" href="accessors.html#musar.accessors.Manager">Manager</a></code></dt>
+<dd>Accessors manager.</dd>
+<dt><strong><code>constraint_mgr</code></strong> :&ensp;<code><a title="musar.constraints.Manager" href="constraints.html#musar.constraints.Manager">Manager</a></code></dt>
+<dd>Constraints manager.</dd>
+<dt><strong><code>scope_mgr</code></strong> :&ensp;<code><a title="musar.scopes.Manager" href="scopes.html#musar.scopes.Manager">Manager</a></code></dt>
+<dd>Scopes manager.</dd>
+<dt><strong><code>cleaner_mgr</code></strong> :&ensp;<code><a title="musar.cleaners.Manager" href="cleaners.html#musar.cleaners.Manager">Manager</a></code></dt>
+<dd>Cleaners manager.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Config:  # pylint: disable=R0902
+    &#34;&#34;&#34;Global configuration.
+
+    Attributes
+    ----------
+    rules : List[musar.rules.Rule]
+        Rules that tracks should follow.
+    formats : List[musar.formats.Format]
+        Formats for cleaning the tag values.
+    options : musar.config.Options
+        General parameters.
+    extensions : Set[str]
+        Set of extensions for `musar.action_convert`.
+    accessor_mgr : musar.accessors.Manager
+        Accessors manager.
+    constraint_mgr : musar.constraints.Manager
+        Constraints manager.
+    scope_mgr : musar.scopes.Manager
+        Scopes manager.
+    cleaner_mgr : musar.cleaners.Manager
+        Cleaners manager.
+
+    &#34;&#34;&#34;
+
+    def __init__(self):
+        self.rules = list()
+        self.formats = list()
+        self.options = Options()
+        self.extensions = set()
+        self.accessor_mgr = accessors.Manager(self)
+        self.constraint_mgr = constraints.Manager()
+        self.scope_mgr = scopes.Manager()
+        self.cleaner_mgr = cleaners.Manager(self)
+
+    def __str__(self):
+        return &#34;[RULES]\n&#34; + &#34;\n&#34;.join(map(str, self.rules))\
+            + &#34;\n\n[FORMATS]\n&#34; + &#34;\n&#34;.join(map(str, self.formats))\
+            + &#34;\n\n[OPTIONS]\n&#34; + str(self.options)\
+            + &#34;\n\n[EXTENSIONS]\n&#34; + &#34;\n&#34;.join(self.extensions)
+
+    @classmethod
+    def from_file(cls, path):
+        &#34;&#34;&#34;Create a `Config` object from a text file.
+
+        Parameters
+        ----------
+        cls : type
+            Class to create.
+        path : str
+            Path to the text file to parse.
+
+        Returns
+        -------
+        musar.config.Config
+            Created config
+
+        &#34;&#34;&#34;
+        config = Config()
+        config.load(path)
+        return config
+
+    def _load_rule(self, line):
+        split = line.strip().split(&#34; &#34;)
+        if len(split) != 3:
+            return
+        accessor_name, constraint_name, scope_name = split
+        if accessor_name not in self.accessor_mgr:
+            return
+        if constraint_name not in self.constraint_mgr:
+            return
+        if scope_name not in self.scope_mgr:
+            return
+        self.rules.append(rules.Rule(
+            self.accessor_mgr[accessor_name],
+            self.constraint_mgr[constraint_name],
+            self.scope_mgr[scope_name]
+        ))
+
+    def _load_format(self, line):
+        split = line.strip().split(&#34; &#34;)
+        if len(split) == 0:
+            return
+        if split[0] not in self.accessor_mgr:
+            return
+        cleaners_ = list()
+        for cleaner_name in split[1:]:
+            if cleaner_name not in self.cleaner_mgr:
+                continue
+            cleaners_.append(self.cleaner_mgr[cleaner_name])
+        self.formats.append(formats.Format(
+            self.accessor_mgr[split[0]],
+            *cleaners_
+        ))
+
+    def _load_extension(self, line):
+        self.extensions.add(line.strip())
+
+    def _load_text(self, text):
+        current_category = None
+        for line in text.split(&#34;\n&#34;):
+            if line.strip() == &#34;&#34; or line.strip().startswith(&#34;#&#34;):
+                continue
+            match = re.search(r&#34;\[(.*?)\]&#34;, line)
+            if match is not None:
+                current_category = match.group(1)
+                continue
+            if current_category == &#34;RULES&#34;:
+                self._load_rule(line)
+            elif current_category == &#34;FORMATS&#34;:
+                self._load_format(line)
+            elif current_category == &#34;OPTIONS&#34;:
+                self.options.load(line)
+            elif current_category == &#34;EXTENSIONS&#34;:
+                self._load_extension(line)
+
+    def load(self, path):
+        &#34;&#34;&#34;Parse config from an external file.
+
+        Parameters
+        ----------
+        path : str
+            Path to the external config file.
+
+        &#34;&#34;&#34;
+        logging.info(&#34;Parsing file %s for config %s&#34;, path, repr(self))
+        with open(path) as infile:
+            self._load_text(infile.read())
+
+    def reset(self):
+        &#34;&#34;&#34;Reset the accessors memories.
+        &#34;&#34;&#34;
+        logging.info(&#34;Resetting config %s&#34;, repr(self))
+        for accessor in self.accessor_mgr.values():
+            del accessor.memory
+            accessor.memory = dict()
+
+    def edit(self):
+        &#34;&#34;&#34;Prompt user with a text editor for live editing the current config.
+        This will not modify the actual file.
+        &#34;&#34;&#34;
+        logging.info(&#34;Editing config %s&#34;, repr(self))
+        current_config = self.__str__()
+        editor = TextEditor()
+        new_config = editor(current_config)
+        self.rules = list()
+        self.formats = list()
+        self.options = Options()
+        self.extensions = set()
+        self._load_text(new_config.strip())</code></pre>
+</details>
+<h3>Static methods</h3>
+<dl>
+<dt id="musar.config.Config.from_file"><code class="name flex">
+<span>def <span class="ident">from_file</span></span>(<span>path)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Create a <code><a title="musar.config.Config" href="#musar.config.Config">Config</a></code> object from a text file.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>cls</code></strong> :&ensp;<code>type</code></dt>
+<dd>Class to create.</dd>
+<dt><strong><code>path</code></strong> :&ensp;<code>str</code></dt>
+<dd>Path to the text file to parse.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="musar.config.Config" href="#musar.config.Config">Config</a></code></dt>
+<dd>Created config</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def from_file(cls, path):
+    &#34;&#34;&#34;Create a `Config` object from a text file.
+
+    Parameters
+    ----------
+    cls : type
+        Class to create.
+    path : str
+        Path to the text file to parse.
+
+    Returns
+    -------
+    musar.config.Config
+        Created config
+
+    &#34;&#34;&#34;
+    config = Config()
+    config.load(path)
+    return config</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="musar.config.Config.edit"><code class="name flex">
+<span>def <span class="ident">edit</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Prompt user with a text editor for live editing the current config.
+This will not modify the actual file.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def edit(self):
+    &#34;&#34;&#34;Prompt user with a text editor for live editing the current config.
+    This will not modify the actual file.
+    &#34;&#34;&#34;
+    logging.info(&#34;Editing config %s&#34;, repr(self))
+    current_config = self.__str__()
+    editor = TextEditor()
+    new_config = editor(current_config)
+    self.rules = list()
+    self.formats = list()
+    self.options = Options()
+    self.extensions = set()
+    self._load_text(new_config.strip())</code></pre>
+</details>
+</dd>
+<dt id="musar.config.Config.load"><code class="name flex">
+<span>def <span class="ident">load</span></span>(<span>self, path)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Parse config from an external file.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>path</code></strong> :&ensp;<code>str</code></dt>
+<dd>Path to the external config file.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def load(self, path):
+    &#34;&#34;&#34;Parse config from an external file.
+
+    Parameters
+    ----------
+    path : str
+        Path to the external config file.
+
+    &#34;&#34;&#34;
+    logging.info(&#34;Parsing file %s for config %s&#34;, path, repr(self))
+    with open(path) as infile:
+        self._load_text(infile.read())</code></pre>
+</details>
+</dd>
+<dt id="musar.config.Config.reset"><code class="name flex">
+<span>def <span class="ident">reset</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Reset the accessors memories.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def reset(self):
+    &#34;&#34;&#34;Reset the accessors memories.
+    &#34;&#34;&#34;
+    logging.info(&#34;Resetting config %s&#34;, repr(self))
+    for accessor in self.accessor_mgr.values():
+        del accessor.memory
+        accessor.memory = dict()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="musar.config.Options"><code class="flex name class">
+<span>class <span class="ident">Options</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Namespace for simple parameters.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>cover_target_size</code></strong> :&ensp;<code>Tuple[int, int]</code></dt>
+<dd>Size covers will be resized to in <code><a title="musar.cleaners.Resize" href="cleaners.html#musar.cleaners.Resize">Resize</a></code>.</dd>
+<dt><strong><code>cover_target_format</code></strong> :&ensp;<code>str</code></dt>
+<dd>Image file format for the cover (in Pillow).
+See <code><a title="musar.accessors.Cover" href="accessors.html#musar.accessors.Cover">Cover</a></code>.</dd>
+<dt><strong><code>cover_target_encoding</code></strong> :&ensp;<code>str</code></dt>
+<dd>Color format for the cover (in Pillow).
+See <code><a title="musar.accessors.Cover" href="accessors.html#musar.accessors.Cover">Cover</a></code>.</dd>
+<dt><strong><code>youtube_dl_path</code></strong> :&ensp;<code>str</code></dt>
+<dd>Path to the <em>youtube-dl</em> executable.</dd>
+<dt><strong><code>mp3tag_path</code></strong> :&ensp;<code>str</code></dt>
+<dd>Path to the <em>Mp3tag</em> executable.</dd>
+<dt><strong><code>download_folder</code></strong> :&ensp;<code>str</code></dt>
+<dd>Root folder for downloaded files.</dd>
+<dt><strong><code>ffmpeg_path</code></strong> :&ensp;<code>str</code></dt>
+<dd>Path to the <em>FFmpeg</em> executable.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Options:
+    &#34;&#34;&#34;Namespace for simple parameters.
+
+    Attributes
+    ----------
+    cover_target_size : Tuple[int, int]
+        Size covers will be resized to in `musar.cleaners.Resize`.
+    cover_target_format : str
+        Image file format for the cover (in Pillow).
+        See `musar.accessors.Cover`.
+    cover_target_encoding : str
+        Color format for the cover (in Pillow).
+        See `musar.accessors.Cover`.
+    youtube_dl_path : str
+        Path to the *youtube-dl* executable.
+    mp3tag_path : str
+        Path to the *Mp3tag* executable.
+    download_folder : str
+        Root folder for downloaded files.
+    ffmpeg_path : str
+        Path to the *FFmpeg* executable.
+
+    &#34;&#34;&#34;
+
+    def __init__(self):
+        self.cover_target_size = 600, 600
+        self.cover_target_format = &#34;jpeg&#34;
+        self.cover_target_encoding = &#34;RBG&#34;
+        self.youtube_dl_path = &#34;youtube-dl&#34;
+        self.mp3tag_path = &#34;Mp3tag.exe&#34;
+        self.download_folder = &#34;downloads&#34;
+        self.ffmpeg_path = &#34;ffmpeg&#34;
+
+    def __str__(self):
+        return &#34;\n&#34;.join([
+            &#34;cover_target_size=%d,%d&#34; % self.cover_target_size,
+            &#34;cover_target_format=%s&#34; % self.cover_target_format,
+            &#34;cover_target_encoding=%s&#34; % self.cover_target_encoding,
+            &#34;youtube_dl_path=%s&#34; % self.youtube_dl_path,
+            &#34;mp3tag_path=%s&#34; % self.mp3tag_path,
+            &#34;download_folder=%s&#34; % self.download_folder,
+            &#34;ffmpeg_path=%s&#34; % self.ffmpeg_path
+        ])
+
+    def load(self, line):
+        &#34;&#34;&#34;Load a configuration file line.
+
+        Parameters
+        ----------
+        line : str
+            Line to parse.
+
+        &#34;&#34;&#34;
+        split = line.strip().split(&#34;=&#34;)
+        if len(split) != 2:
+            return
+        key, value = tuple(map(lambda s: s.strip(), split))
+        if key not in self.__dict__:
+            return
+        if key == &#34;cover_target_size&#34;:
+            value = tuple(map(lambda s: int(s.strip()), value.split(&#34;,&#34;)))
+        setattr(self, key, value)</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="musar.config.Options.load"><code class="name flex">
+<span>def <span class="ident">load</span></span>(<span>self, line)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Load a configuration file line.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>line</code></strong> :&ensp;<code>str</code></dt>
+<dd>Line to parse.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def load(self, line):
+    &#34;&#34;&#34;Load a configuration file line.
+
+    Parameters
+    ----------
+    line : str
+        Line to parse.
+
+    &#34;&#34;&#34;
+    split = line.strip().split(&#34;=&#34;)
+    if len(split) != 2:
+        return
+    key, value = tuple(map(lambda s: s.strip(), split))
+    if key not in self.__dict__:
+        return
+    if key == &#34;cover_target_size&#34;:
+        value = tuple(map(lambda s: int(s.strip()), value.split(&#34;,&#34;)))
+    setattr(self, key, value)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="musar" href="index.html">musar</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="musar.config.Config" href="#musar.config.Config">Config</a></code></h4>
+<ul class="">
+<li><code><a title="musar.config.Config.edit" href="#musar.config.Config.edit">edit</a></code></li>
+<li><code><a title="musar.config.Config.from_file" href="#musar.config.Config.from_file">from_file</a></code></li>
+<li><code><a title="musar.config.Config.load" href="#musar.config.Config.load">load</a></code></li>
+<li><code><a title="musar.config.Config.reset" href="#musar.config.Config.reset">reset</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="musar.config.Options" href="#musar.config.Options">Options</a></code></h4>
+<ul class="">
+<li><code><a title="musar.config.Options.load" href="#musar.config.Options.load">load</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

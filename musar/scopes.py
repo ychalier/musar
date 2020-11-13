@@ -1,13 +1,38 @@
+"""Scopes for grouping album tracks over some criteria.
+"""
+
 from . import accessors
 
 
 class Scope:
+    """Placeholder class for scopes.
+    """
+
+    NAME: str = None
+    """
+    Scope name for identification in the config.
+    """
 
     def iterate(self, folder):
+        """Iterate over the groups of tracks in a folder.
+
+        Parameters
+        ----------
+        folder : musar.folder.Folder
+            Target folder.
+
+        Returns
+        -------
+        Iterator[List[eyed3.mp3.Mp3AudioFile]]
+            Iterator over the grouped tracks.
+
+        """
         raise NotImplementedError()
 
 
 class Album(Scope):
+    """Album scope, all tracks are grouped together.
+    """
 
     NAME = "album"
 
@@ -16,6 +41,8 @@ class Album(Scope):
 
 
 class Disc(Scope):
+    """Disc scope, tracks are grouped by disc.
+    """
 
     NAME = "disc"
 
@@ -32,6 +59,8 @@ class Disc(Scope):
 
 
 class Track(Scope):
+    """Track scope, tracks are each in a single group.
+    """
 
     NAME = "track"
 
@@ -41,6 +70,13 @@ class Track(Scope):
 
 
 class Manager(dict):
+    """Manager for accessing all the scopes.
+
+    Attributes
+    ----------
+    Keys are scope names and values are scope instances.
+
+    """
 
     def __init__(self):
         super(Manager, self).__init__()

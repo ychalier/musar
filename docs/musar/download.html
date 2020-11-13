@@ -1,0 +1,1168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.1" />
+<title>musar.download API documentation</title>
+<meta name="description" content="Tools to download YouTube playlists and set the appropriate audio tags." />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>musar.download</code></h1>
+</header>
+<section id="section-intro">
+<p>Tools to download YouTube playlists and set the appropriate audio tags.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;Tools to download YouTube playlists and set the appropriate audio tags.
+&#34;&#34;&#34;
+
+import io
+import os
+import re
+import json
+import glob
+import logging
+import subprocess
+import requests
+import shadow_useragent
+import PIL.Image
+import eyed3
+from .misc import most_common_list_value
+
+
+def download_video(youtube_dl_path, video_url, output_filename):
+    &#34;&#34;&#34;Download a YouTube video using youtube-dl, and extract its audio.
+
+    Parameters
+    ----------
+    youtube_dl_path : str
+        Path to the youtube-dl executable.
+    video_url : str
+        URL of the YouTube video.
+    output_filename : str
+        Path for the output MP3 file.
+
+    &#34;&#34;&#34;
+    logging.info(&#34;Downloading YouTube video %s&#34;, video_url)
+    command = [
+        youtube_dl_path,
+        # &#34;--verbose&#34;,
+        &#34;--extract-audio&#34;,
+        &#34;--audio-format&#34;,
+        &#34;mp3&#34;,
+        &#34;--output&#34;,
+        output_filename,
+        video_url
+    ]
+    process = subprocess.Popen(
+        command,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE
+    )
+    process.wait()
+
+
+class YoutubePlaylistInfo:
+    &#34;&#34;&#34;Wrapper for a YouTube playlist metadata.
+
+    Attributes
+    ----------
+    tracks : Dict[index, str]
+        Keys are playlist indices and values are video titles.
+    album : str
+        Playlist title.
+    thumbnail_url : str
+        URL of the playlist&#39;s thumbnail.
+    thumbnail_data : PIL.Image.Image
+        Playlist&#39;s thumbnail.
+    artist : str
+        Most common channel accross playlist&#39;s videos.
+    year : str
+        Year information from user input.
+    genre : str
+        Genre information from user input.
+
+    &#34;&#34;&#34;
+
+    def __init__(self):
+        self.tracks = None
+        self.album = None
+        self.thumbnail_url = None
+        self.thumbnail_data = None
+        self.artist = None
+        self.year = None
+        self.genre = None
+
+    def parse_from_json(self, data):
+        &#34;&#34;&#34;Parse the JSON data available after an HTML request to the
+        YouTube playlist URL.
+
+        Parameters
+        ----------
+        data : Dict
+            JSON data extracted from the HTML request response.
+
+        Returns
+        -------
+        YoutubePlaylistInfo
+            Returns itself.
+
+        &#34;&#34;&#34;
+        logging.info(&#34;Parsing playlist JSON data&#34;)
+        self.tracks = dict()
+        channels = list()
+        video_array = data[&#34;contents&#34;][&#34;twoColumnBrowseResultsRenderer&#34;]\
+                          [&#34;tabs&#34;][0][&#34;tabRenderer&#34;][&#34;content&#34;]\
+                          [&#34;sectionListRenderer&#34;][&#34;contents&#34;][0]\
+                          [&#34;itemSectionRenderer&#34;][&#34;contents&#34;][0]\
+                          [&#34;playlistVideoListRenderer&#34;][&#34;contents&#34;]
+        for video_item in video_array:
+            item = video_item[&#34;playlistVideoRenderer&#34;]
+            self.tracks[item[&#34;index&#34;][&#34;simpleText&#34;]] = item[&#34;title&#34;][&#34;runs&#34;][0][&#34;text&#34;]
+            channels.append(item[&#34;shortBylineText&#34;][&#34;runs&#34;][0][&#34;text&#34;])
+        thumbnail_array = data[&#34;sidebar&#34;][&#34;playlistSidebarRenderer&#34;]\
+                              [&#34;items&#34;][0]\
+                              [&#34;playlistSidebarPrimaryInfoRenderer&#34;]\
+                              [&#34;thumbnailRenderer&#34;]\
+                              [&#34;playlistCustomThumbnailRenderer&#34;]\
+                              [&#34;thumbnail&#34;][&#34;thumbnails&#34;]
+        self.thumbnail_url = max(
+            thumbnail_array,
+            key=lambda item: item[&#34;width&#34;]
+        )[&#34;url&#34;]
+        self.album = data[&#34;sidebar&#34;][&#34;playlistSidebarRenderer&#34;][&#34;items&#34;][0]\
+                         [&#34;playlistSidebarPrimaryInfoRenderer&#34;]\
+                         [&#34;title&#34;][&#34;runs&#34;][0][&#34;text&#34;]
+        self.artist = most_common_list_value(channels)
+        return self
+
+    def fetch_thumbnail(self, headers):
+        &#34;&#34;&#34;Send a request for the thumbnail. Uses the `thumbnail_url` attribute
+        and writes response to the `thumbnail_data` attribute.
+
+        Parameters
+        ----------
+        headers : Dict[str, str]
+            Request HTTP headers.
+
+        &#34;&#34;&#34;
+        logging.info(&#34;Requesting thumbnail at %s&#34;, self.thumbnail_url)
+        response = requests.get(self.thumbnail_url, headers=headers)
+        self.thumbnail_data = PIL.Image.open(io.BytesIO(response.content))
+
+    def validate(self):
+        &#34;&#34;&#34;Ask for user input to validate the playlist info.
+        &#34;&#34;&#34;
+        print(&#34;The playlist contains %d tracks.&#34; % len(self.tracks))
+        for attr in [&#34;album&#34;, &#34;artist&#34;, &#34;year&#34;, &#34;genre&#34;]:
+            attr_value = getattr(self, attr)
+            uinput = input(&#34;%s: %s\n&gt;&gt;&gt; &#34; % (
+                attr,
+                &#34;?&#34; if attr_value is None else &#34;&#39;%s&#39;&#34; % attr_value
+            ))
+            if uinput.strip() != &#34;&#34;:
+                setattr(self, attr, uinput.strip())
+
+    def set_tags(self, pdf):
+        &#34;&#34;&#34;Set the tags to downloaded tracks from the playlist info.
+
+        Parameters
+        ----------
+        pdf : str
+            Path to the folder tracks were downloaded to.
+
+        &#34;&#34;&#34;
+        img_data = io.BytesIO()
+        self.thumbnail_data.convert(&#34;RGB&#34;).save(img_data, format=&#34;jpeg&#34;)
+        for filename in glob.glob(os.path.join(pdf, &#34;*.mp3&#34;)):
+            track_key = str(int(os.path.splitext(os.path.basename(filename))[0]) + 1)
+            audiofile = eyed3.load(filename)
+            audiofile.tag.title = self.tracks[track_key].strip()
+            audiofile.tag.artist = self.artist.strip()
+            audiofile.tag.album_artist = self.artist.strip()
+            audiofile.tag.album = self.album.strip()
+            audiofile.tag.track_num = (int(track_key), len(self.tracks))
+            audiofile.tag.disc_num = (1, 1)
+            audiofile.tag.genre = self.genre.strip()
+            audiofile.tag.recording_date = int(self.year.strip())
+            audiofile.tag.images.set(
+                eyed3.id3.frames.ImageFrame.FRONT_COVER,
+                img_data.getvalue(),
+                &#34;image/jpeg&#34;
+            )
+            audiofile.tag.save()
+
+
+def check_playlist_url(playlist_url):
+    &#34;&#34;&#34;Check if a playlist URL is well-formated.
+
+    Parameters
+    ----------
+    playlist_url : str
+        URL to a YouTube playlist.
+
+    Returns
+    -------
+    str
+        If the URL is well-formated, return the playlist ID. Else return `None`.
+
+    &#34;&#34;&#34;
+    match = re.match(
+        r&#34;https?://www\.youtube\.com/playlist\?list=(.+)&#34;,
+        playlist_url.strip()
+    )
+    if match is None:
+        raise ValueError(&#34;Incorrect URL: %s&#34; % playlist_url)
+    return match.group(1)
+
+
+class PlaylistDownloader:
+    &#34;&#34;&#34;Wrapper for YouTube playlist downloading processes.
+
+    Parameters
+    ----------
+    config : musar.config.Config
+        General configuration.
+
+    Attributes
+    ----------
+    html : str
+        Response from the playlist HTTP request
+    data : Dict
+        Parsed JSON data from the response `html`
+    info : YoutubePlaylistInfo
+        Playlist metadata.
+    headers : Dict[str, str]
+        Headers for HTTP requests.
+    config
+
+    &#34;&#34;&#34;
+
+    def __init__(self, config):
+        self.config = config
+        self.html = None
+        self.data = None
+        self.info = YoutubePlaylistInfo()
+        self.headers = {
+            &#34;User-Agent&#34;: &#34;{}&#34;.format(shadow_useragent.ShadowUserAgent().percent(0.05)),
+            &#34;Accept&#34;: &#34;text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#34;,
+            &#34;Accept-Language&#34;: &#34;en-US,en;q=0.5&#34;,
+            &#34;Connection&#34;: &#34;keep-alive&#34;,
+            &#34;Upgrade-Insecure-Requests&#34;: &#34;1&#34;,
+            &#34;Pragma&#34;: &#34;no-cache&#34;,
+            &#34;Cache-Control&#34;: &#34;no-cache&#34;,
+        }
+
+    def main(self,
+             playlist_url,
+             skip_download=False,
+             skip_tags=False,
+             edit_tags=False
+             ):
+        &#34;&#34;&#34;Download a YouTube playlist and set the tags to the audio tracks.
+
+        Parameters
+        ----------
+        playlist_url : str
+            URL of the playlist to download.
+        skip_download : bool
+            If `True`, no downloading occurs, simply tag setting for already
+            downloaded files. Files must be in the correct downloads folder.
+        skip_tags : bool
+            If `True`, tags are not automatically set to the tracks.
+        edit_tags : bool
+            If `True`, opens the Mp3tag program on the downloaded folder.
+
+        Returns
+        -------
+        str
+            Path to the folder tracks were downloaded to.
+
+        &#34;&#34;&#34;
+        playlist_id = check_playlist_url(playlist_url)
+        logging.info(&#34;Downloading playlist with id &#39;%s&#39;&#34;, playlist_id)
+        pdf = os.path.join(self.config.options.download_folder, playlist_id)
+        if not skip_download or not skip_tags:
+            self.html = request_playlist_html(playlist_url, self.headers)
+            self.data = extract_initial_data(self.html)
+        if not skip_download:
+            video_array = self.data[&#34;contents&#34;][&#34;twoColumnBrowseResultsRenderer&#34;]\
+                                   [&#34;tabs&#34;][0][&#34;tabRenderer&#34;][&#34;content&#34;]\
+                                   [&#34;sectionListRenderer&#34;][&#34;contents&#34;][0]\
+                                   [&#34;itemSectionRenderer&#34;][&#34;contents&#34;][0]\
+                                   [&#34;playlistVideoListRenderer&#34;][&#34;contents&#34;]
+            os.makedirs(pdf, exist_ok=False)
+            for i, video_item in enumerate(video_array):
+                print(&#34;Downloading %d of %d&#34; % (i + 1, len(video_array)))
+                video_id = video_item[&#34;playlistVideoRenderer&#34;][&#34;videoId&#34;]
+                video_url = &#34;https://www.youtube.com/watch?v=%s&#34; % video_id
+                output_filename = os.path.join(
+                    pdf,
+                    &#34;%s.%%(ext)s&#34; % str(i).zfill(3)
+                )
+                download_video(
+                    self.config.options.youtube_dl_path,
+                    video_url,
+                    output_filename
+                )
+        if not skip_tags:
+            self.info.parse_from_json(self.data)
+            self.info.validate()
+            self.info.fetch_thumbnail(self.headers)
+            self.info.set_tags(pdf)
+        if edit_tags:
+            command = [
+                self.config.options.mp3tag_path,
+                &#34;/fp&#34;,
+                os.path.realpath(pdf),
+            ]
+            process = subprocess.Popen(command)
+            process.wait()
+        os.startfile(pdf)
+        return pdf
+
+
+def request_playlist_html(playlist_url, headers):
+    &#34;&#34;&#34;Send a request to a YouTube playlist webpage.
+
+    Parameters
+    ----------
+    playlist_url : str
+        URL to the playlist webpage.
+    headers : Dict[str, str]
+        HTTP request headers.
+
+    Returns
+    -------
+    str
+        Response HTML
+
+    &#34;&#34;&#34;
+    logging.info(&#34;Requesting YouTube playlist at %s&#34;, playlist_url)
+    response = requests.get(playlist_url, headers=headers)
+    return response.text
+
+
+def extract_initial_data(html):
+    &#34;&#34;&#34;Extract and parse the JSON string from the HTML of a playlist webpage.
+
+    Parameters
+    ----------
+    html : str
+        HTML to extract the string from.
+
+    Returns
+    -------
+    Dict
+        Parsed JSON data.
+
+    &#34;&#34;&#34;
+    logging.info(&#34;Extracting JSON string from playlist HTML data&#34;)
+    for line in html.split(&#34;\n&#34;):
+        if line.strip().startswith(&#39;window[&#34;ytInitialData&#34;]&#39;):
+            return json.loads(line.strip()[26:-1])
+    return None</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="musar.download.check_playlist_url"><code class="name flex">
+<span>def <span class="ident">check_playlist_url</span></span>(<span>playlist_url)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Check if a playlist URL is well-formated.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>playlist_url</code></strong> :&ensp;<code>str</code></dt>
+<dd>URL to a YouTube playlist.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>If the URL is well-formated, return the playlist ID. Else return <code>None</code>.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def check_playlist_url(playlist_url):
+    &#34;&#34;&#34;Check if a playlist URL is well-formated.
+
+    Parameters
+    ----------
+    playlist_url : str
+        URL to a YouTube playlist.
+
+    Returns
+    -------
+    str
+        If the URL is well-formated, return the playlist ID. Else return `None`.
+
+    &#34;&#34;&#34;
+    match = re.match(
+        r&#34;https?://www\.youtube\.com/playlist\?list=(.+)&#34;,
+        playlist_url.strip()
+    )
+    if match is None:
+        raise ValueError(&#34;Incorrect URL: %s&#34; % playlist_url)
+    return match.group(1)</code></pre>
+</details>
+</dd>
+<dt id="musar.download.download_video"><code class="name flex">
+<span>def <span class="ident">download_video</span></span>(<span>youtube_dl_path, video_url, output_filename)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Download a YouTube video using youtube-dl, and extract its audio.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>youtube_dl_path</code></strong> :&ensp;<code>str</code></dt>
+<dd>Path to the youtube-dl executable.</dd>
+<dt><strong><code>video_url</code></strong> :&ensp;<code>str</code></dt>
+<dd>URL of the YouTube video.</dd>
+<dt><strong><code>output_filename</code></strong> :&ensp;<code>str</code></dt>
+<dd>Path for the output MP3 file.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def download_video(youtube_dl_path, video_url, output_filename):
+    &#34;&#34;&#34;Download a YouTube video using youtube-dl, and extract its audio.
+
+    Parameters
+    ----------
+    youtube_dl_path : str
+        Path to the youtube-dl executable.
+    video_url : str
+        URL of the YouTube video.
+    output_filename : str
+        Path for the output MP3 file.
+
+    &#34;&#34;&#34;
+    logging.info(&#34;Downloading YouTube video %s&#34;, video_url)
+    command = [
+        youtube_dl_path,
+        # &#34;--verbose&#34;,
+        &#34;--extract-audio&#34;,
+        &#34;--audio-format&#34;,
+        &#34;mp3&#34;,
+        &#34;--output&#34;,
+        output_filename,
+        video_url
+    ]
+    process = subprocess.Popen(
+        command,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE
+    )
+    process.wait()</code></pre>
+</details>
+</dd>
+<dt id="musar.download.extract_initial_data"><code class="name flex">
+<span>def <span class="ident">extract_initial_data</span></span>(<span>html)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Extract and parse the JSON string from the HTML of a playlist webpage.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>html</code></strong> :&ensp;<code>str</code></dt>
+<dd>HTML to extract the string from.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Dict</code></dt>
+<dd>Parsed JSON data.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def extract_initial_data(html):
+    &#34;&#34;&#34;Extract and parse the JSON string from the HTML of a playlist webpage.
+
+    Parameters
+    ----------
+    html : str
+        HTML to extract the string from.
+
+    Returns
+    -------
+    Dict
+        Parsed JSON data.
+
+    &#34;&#34;&#34;
+    logging.info(&#34;Extracting JSON string from playlist HTML data&#34;)
+    for line in html.split(&#34;\n&#34;):
+        if line.strip().startswith(&#39;window[&#34;ytInitialData&#34;]&#39;):
+            return json.loads(line.strip()[26:-1])
+    return None</code></pre>
+</details>
+</dd>
+<dt id="musar.download.request_playlist_html"><code class="name flex">
+<span>def <span class="ident">request_playlist_html</span></span>(<span>playlist_url, headers)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Send a request to a YouTube playlist webpage.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>playlist_url</code></strong> :&ensp;<code>str</code></dt>
+<dd>URL to the playlist webpage.</dd>
+<dt><strong><code>headers</code></strong> :&ensp;<code>Dict[str, str]</code></dt>
+<dd>HTTP request headers.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Response HTML</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def request_playlist_html(playlist_url, headers):
+    &#34;&#34;&#34;Send a request to a YouTube playlist webpage.
+
+    Parameters
+    ----------
+    playlist_url : str
+        URL to the playlist webpage.
+    headers : Dict[str, str]
+        HTTP request headers.
+
+    Returns
+    -------
+    str
+        Response HTML
+
+    &#34;&#34;&#34;
+    logging.info(&#34;Requesting YouTube playlist at %s&#34;, playlist_url)
+    response = requests.get(playlist_url, headers=headers)
+    return response.text</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="musar.download.PlaylistDownloader"><code class="flex name class">
+<span>class <span class="ident">PlaylistDownloader</span></span>
+<span>(</span><span>config)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Wrapper for YouTube playlist downloading processes.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>config</code></strong> :&ensp;<code><a title="musar.config.Config" href="config.html#musar.config.Config">Config</a></code></dt>
+<dd>General configuration.</dd>
+</dl>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>html</code></strong> :&ensp;<code>str</code></dt>
+<dd>Response from the playlist HTTP request</dd>
+<dt><strong><code>data</code></strong> :&ensp;<code>Dict</code></dt>
+<dd>Parsed JSON data from the response <code>html</code></dd>
+<dt><strong><code>info</code></strong> :&ensp;<code><a title="musar.download.YoutubePlaylistInfo" href="#musar.download.YoutubePlaylistInfo">YoutubePlaylistInfo</a></code></dt>
+<dd>Playlist metadata.</dd>
+<dt><strong><code>headers</code></strong> :&ensp;<code>Dict[str, str]</code></dt>
+<dd>Headers for HTTP requests.</dd>
+<dt><strong><code>config</code></strong></dt>
+<dd>&nbsp;</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class PlaylistDownloader:
+    &#34;&#34;&#34;Wrapper for YouTube playlist downloading processes.
+
+    Parameters
+    ----------
+    config : musar.config.Config
+        General configuration.
+
+    Attributes
+    ----------
+    html : str
+        Response from the playlist HTTP request
+    data : Dict
+        Parsed JSON data from the response `html`
+    info : YoutubePlaylistInfo
+        Playlist metadata.
+    headers : Dict[str, str]
+        Headers for HTTP requests.
+    config
+
+    &#34;&#34;&#34;
+
+    def __init__(self, config):
+        self.config = config
+        self.html = None
+        self.data = None
+        self.info = YoutubePlaylistInfo()
+        self.headers = {
+            &#34;User-Agent&#34;: &#34;{}&#34;.format(shadow_useragent.ShadowUserAgent().percent(0.05)),
+            &#34;Accept&#34;: &#34;text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#34;,
+            &#34;Accept-Language&#34;: &#34;en-US,en;q=0.5&#34;,
+            &#34;Connection&#34;: &#34;keep-alive&#34;,
+            &#34;Upgrade-Insecure-Requests&#34;: &#34;1&#34;,
+            &#34;Pragma&#34;: &#34;no-cache&#34;,
+            &#34;Cache-Control&#34;: &#34;no-cache&#34;,
+        }
+
+    def main(self,
+             playlist_url,
+             skip_download=False,
+             skip_tags=False,
+             edit_tags=False
+             ):
+        &#34;&#34;&#34;Download a YouTube playlist and set the tags to the audio tracks.
+
+        Parameters
+        ----------
+        playlist_url : str
+            URL of the playlist to download.
+        skip_download : bool
+            If `True`, no downloading occurs, simply tag setting for already
+            downloaded files. Files must be in the correct downloads folder.
+        skip_tags : bool
+            If `True`, tags are not automatically set to the tracks.
+        edit_tags : bool
+            If `True`, opens the Mp3tag program on the downloaded folder.
+
+        Returns
+        -------
+        str
+            Path to the folder tracks were downloaded to.
+
+        &#34;&#34;&#34;
+        playlist_id = check_playlist_url(playlist_url)
+        logging.info(&#34;Downloading playlist with id &#39;%s&#39;&#34;, playlist_id)
+        pdf = os.path.join(self.config.options.download_folder, playlist_id)
+        if not skip_download or not skip_tags:
+            self.html = request_playlist_html(playlist_url, self.headers)
+            self.data = extract_initial_data(self.html)
+        if not skip_download:
+            video_array = self.data[&#34;contents&#34;][&#34;twoColumnBrowseResultsRenderer&#34;]\
+                                   [&#34;tabs&#34;][0][&#34;tabRenderer&#34;][&#34;content&#34;]\
+                                   [&#34;sectionListRenderer&#34;][&#34;contents&#34;][0]\
+                                   [&#34;itemSectionRenderer&#34;][&#34;contents&#34;][0]\
+                                   [&#34;playlistVideoListRenderer&#34;][&#34;contents&#34;]
+            os.makedirs(pdf, exist_ok=False)
+            for i, video_item in enumerate(video_array):
+                print(&#34;Downloading %d of %d&#34; % (i + 1, len(video_array)))
+                video_id = video_item[&#34;playlistVideoRenderer&#34;][&#34;videoId&#34;]
+                video_url = &#34;https://www.youtube.com/watch?v=%s&#34; % video_id
+                output_filename = os.path.join(
+                    pdf,
+                    &#34;%s.%%(ext)s&#34; % str(i).zfill(3)
+                )
+                download_video(
+                    self.config.options.youtube_dl_path,
+                    video_url,
+                    output_filename
+                )
+        if not skip_tags:
+            self.info.parse_from_json(self.data)
+            self.info.validate()
+            self.info.fetch_thumbnail(self.headers)
+            self.info.set_tags(pdf)
+        if edit_tags:
+            command = [
+                self.config.options.mp3tag_path,
+                &#34;/fp&#34;,
+                os.path.realpath(pdf),
+            ]
+            process = subprocess.Popen(command)
+            process.wait()
+        os.startfile(pdf)
+        return pdf</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="musar.download.PlaylistDownloader.main"><code class="name flex">
+<span>def <span class="ident">main</span></span>(<span>self, playlist_url, skip_download=False, skip_tags=False, edit_tags=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Download a YouTube playlist and set the tags to the audio tracks.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>playlist_url</code></strong> :&ensp;<code>str</code></dt>
+<dd>URL of the playlist to download.</dd>
+<dt><strong><code>skip_download</code></strong> :&ensp;<code>bool</code></dt>
+<dd>If <code>True</code>, no downloading occurs, simply tag setting for already
+downloaded files. Files must be in the correct downloads folder.</dd>
+<dt><strong><code>skip_tags</code></strong> :&ensp;<code>bool</code></dt>
+<dd>If <code>True</code>, tags are not automatically set to the tracks.</dd>
+<dt><strong><code>edit_tags</code></strong> :&ensp;<code>bool</code></dt>
+<dd>If <code>True</code>, opens the Mp3tag program on the downloaded folder.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Path to the folder tracks were downloaded to.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def main(self,
+         playlist_url,
+         skip_download=False,
+         skip_tags=False,
+         edit_tags=False
+         ):
+    &#34;&#34;&#34;Download a YouTube playlist and set the tags to the audio tracks.
+
+    Parameters
+    ----------
+    playlist_url : str
+        URL of the playlist to download.
+    skip_download : bool
+        If `True`, no downloading occurs, simply tag setting for already
+        downloaded files. Files must be in the correct downloads folder.
+    skip_tags : bool
+        If `True`, tags are not automatically set to the tracks.
+    edit_tags : bool
+        If `True`, opens the Mp3tag program on the downloaded folder.
+
+    Returns
+    -------
+    str
+        Path to the folder tracks were downloaded to.
+
+    &#34;&#34;&#34;
+    playlist_id = check_playlist_url(playlist_url)
+    logging.info(&#34;Downloading playlist with id &#39;%s&#39;&#34;, playlist_id)
+    pdf = os.path.join(self.config.options.download_folder, playlist_id)
+    if not skip_download or not skip_tags:
+        self.html = request_playlist_html(playlist_url, self.headers)
+        self.data = extract_initial_data(self.html)
+    if not skip_download:
+        video_array = self.data[&#34;contents&#34;][&#34;twoColumnBrowseResultsRenderer&#34;]\
+                               [&#34;tabs&#34;][0][&#34;tabRenderer&#34;][&#34;content&#34;]\
+                               [&#34;sectionListRenderer&#34;][&#34;contents&#34;][0]\
+                               [&#34;itemSectionRenderer&#34;][&#34;contents&#34;][0]\
+                               [&#34;playlistVideoListRenderer&#34;][&#34;contents&#34;]
+        os.makedirs(pdf, exist_ok=False)
+        for i, video_item in enumerate(video_array):
+            print(&#34;Downloading %d of %d&#34; % (i + 1, len(video_array)))
+            video_id = video_item[&#34;playlistVideoRenderer&#34;][&#34;videoId&#34;]
+            video_url = &#34;https://www.youtube.com/watch?v=%s&#34; % video_id
+            output_filename = os.path.join(
+                pdf,
+                &#34;%s.%%(ext)s&#34; % str(i).zfill(3)
+            )
+            download_video(
+                self.config.options.youtube_dl_path,
+                video_url,
+                output_filename
+            )
+    if not skip_tags:
+        self.info.parse_from_json(self.data)
+        self.info.validate()
+        self.info.fetch_thumbnail(self.headers)
+        self.info.set_tags(pdf)
+    if edit_tags:
+        command = [
+            self.config.options.mp3tag_path,
+            &#34;/fp&#34;,
+            os.path.realpath(pdf),
+        ]
+        process = subprocess.Popen(command)
+        process.wait()
+    os.startfile(pdf)
+    return pdf</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="musar.download.YoutubePlaylistInfo"><code class="flex name class">
+<span>class <span class="ident">YoutubePlaylistInfo</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Wrapper for a YouTube playlist metadata.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>tracks</code></strong> :&ensp;<code>Dict[index, str]</code></dt>
+<dd>Keys are playlist indices and values are video titles.</dd>
+<dt><strong><code>album</code></strong> :&ensp;<code>str</code></dt>
+<dd>Playlist title.</dd>
+<dt><strong><code>thumbnail_url</code></strong> :&ensp;<code>str</code></dt>
+<dd>URL of the playlist's thumbnail.</dd>
+<dt><strong><code>thumbnail_data</code></strong> :&ensp;<code>PIL.Image.Image</code></dt>
+<dd>Playlist's thumbnail.</dd>
+<dt><strong><code>artist</code></strong> :&ensp;<code>str</code></dt>
+<dd>Most common channel accross playlist's videos.</dd>
+<dt><strong><code>year</code></strong> :&ensp;<code>str</code></dt>
+<dd>Year information from user input.</dd>
+<dt><strong><code>genre</code></strong> :&ensp;<code>str</code></dt>
+<dd>Genre information from user input.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class YoutubePlaylistInfo:
+    &#34;&#34;&#34;Wrapper for a YouTube playlist metadata.
+
+    Attributes
+    ----------
+    tracks : Dict[index, str]
+        Keys are playlist indices and values are video titles.
+    album : str
+        Playlist title.
+    thumbnail_url : str
+        URL of the playlist&#39;s thumbnail.
+    thumbnail_data : PIL.Image.Image
+        Playlist&#39;s thumbnail.
+    artist : str
+        Most common channel accross playlist&#39;s videos.
+    year : str
+        Year information from user input.
+    genre : str
+        Genre information from user input.
+
+    &#34;&#34;&#34;
+
+    def __init__(self):
+        self.tracks = None
+        self.album = None
+        self.thumbnail_url = None
+        self.thumbnail_data = None
+        self.artist = None
+        self.year = None
+        self.genre = None
+
+    def parse_from_json(self, data):
+        &#34;&#34;&#34;Parse the JSON data available after an HTML request to the
+        YouTube playlist URL.
+
+        Parameters
+        ----------
+        data : Dict
+            JSON data extracted from the HTML request response.
+
+        Returns
+        -------
+        YoutubePlaylistInfo
+            Returns itself.
+
+        &#34;&#34;&#34;
+        logging.info(&#34;Parsing playlist JSON data&#34;)
+        self.tracks = dict()
+        channels = list()
+        video_array = data[&#34;contents&#34;][&#34;twoColumnBrowseResultsRenderer&#34;]\
+                          [&#34;tabs&#34;][0][&#34;tabRenderer&#34;][&#34;content&#34;]\
+                          [&#34;sectionListRenderer&#34;][&#34;contents&#34;][0]\
+                          [&#34;itemSectionRenderer&#34;][&#34;contents&#34;][0]\
+                          [&#34;playlistVideoListRenderer&#34;][&#34;contents&#34;]
+        for video_item in video_array:
+            item = video_item[&#34;playlistVideoRenderer&#34;]
+            self.tracks[item[&#34;index&#34;][&#34;simpleText&#34;]] = item[&#34;title&#34;][&#34;runs&#34;][0][&#34;text&#34;]
+            channels.append(item[&#34;shortBylineText&#34;][&#34;runs&#34;][0][&#34;text&#34;])
+        thumbnail_array = data[&#34;sidebar&#34;][&#34;playlistSidebarRenderer&#34;]\
+                              [&#34;items&#34;][0]\
+                              [&#34;playlistSidebarPrimaryInfoRenderer&#34;]\
+                              [&#34;thumbnailRenderer&#34;]\
+                              [&#34;playlistCustomThumbnailRenderer&#34;]\
+                              [&#34;thumbnail&#34;][&#34;thumbnails&#34;]
+        self.thumbnail_url = max(
+            thumbnail_array,
+            key=lambda item: item[&#34;width&#34;]
+        )[&#34;url&#34;]
+        self.album = data[&#34;sidebar&#34;][&#34;playlistSidebarRenderer&#34;][&#34;items&#34;][0]\
+                         [&#34;playlistSidebarPrimaryInfoRenderer&#34;]\
+                         [&#34;title&#34;][&#34;runs&#34;][0][&#34;text&#34;]
+        self.artist = most_common_list_value(channels)
+        return self
+
+    def fetch_thumbnail(self, headers):
+        &#34;&#34;&#34;Send a request for the thumbnail. Uses the `thumbnail_url` attribute
+        and writes response to the `thumbnail_data` attribute.
+
+        Parameters
+        ----------
+        headers : Dict[str, str]
+            Request HTTP headers.
+
+        &#34;&#34;&#34;
+        logging.info(&#34;Requesting thumbnail at %s&#34;, self.thumbnail_url)
+        response = requests.get(self.thumbnail_url, headers=headers)
+        self.thumbnail_data = PIL.Image.open(io.BytesIO(response.content))
+
+    def validate(self):
+        &#34;&#34;&#34;Ask for user input to validate the playlist info.
+        &#34;&#34;&#34;
+        print(&#34;The playlist contains %d tracks.&#34; % len(self.tracks))
+        for attr in [&#34;album&#34;, &#34;artist&#34;, &#34;year&#34;, &#34;genre&#34;]:
+            attr_value = getattr(self, attr)
+            uinput = input(&#34;%s: %s\n&gt;&gt;&gt; &#34; % (
+                attr,
+                &#34;?&#34; if attr_value is None else &#34;&#39;%s&#39;&#34; % attr_value
+            ))
+            if uinput.strip() != &#34;&#34;:
+                setattr(self, attr, uinput.strip())
+
+    def set_tags(self, pdf):
+        &#34;&#34;&#34;Set the tags to downloaded tracks from the playlist info.
+
+        Parameters
+        ----------
+        pdf : str
+            Path to the folder tracks were downloaded to.
+
+        &#34;&#34;&#34;
+        img_data = io.BytesIO()
+        self.thumbnail_data.convert(&#34;RGB&#34;).save(img_data, format=&#34;jpeg&#34;)
+        for filename in glob.glob(os.path.join(pdf, &#34;*.mp3&#34;)):
+            track_key = str(int(os.path.splitext(os.path.basename(filename))[0]) + 1)
+            audiofile = eyed3.load(filename)
+            audiofile.tag.title = self.tracks[track_key].strip()
+            audiofile.tag.artist = self.artist.strip()
+            audiofile.tag.album_artist = self.artist.strip()
+            audiofile.tag.album = self.album.strip()
+            audiofile.tag.track_num = (int(track_key), len(self.tracks))
+            audiofile.tag.disc_num = (1, 1)
+            audiofile.tag.genre = self.genre.strip()
+            audiofile.tag.recording_date = int(self.year.strip())
+            audiofile.tag.images.set(
+                eyed3.id3.frames.ImageFrame.FRONT_COVER,
+                img_data.getvalue(),
+                &#34;image/jpeg&#34;
+            )
+            audiofile.tag.save()</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="musar.download.YoutubePlaylistInfo.fetch_thumbnail"><code class="name flex">
+<span>def <span class="ident">fetch_thumbnail</span></span>(<span>self, headers)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Send a request for the thumbnail. Uses the <code>thumbnail_url</code> attribute
+and writes response to the <code>thumbnail_data</code> attribute.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>headers</code></strong> :&ensp;<code>Dict[str, str]</code></dt>
+<dd>Request HTTP headers.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def fetch_thumbnail(self, headers):
+    &#34;&#34;&#34;Send a request for the thumbnail. Uses the `thumbnail_url` attribute
+    and writes response to the `thumbnail_data` attribute.
+
+    Parameters
+    ----------
+    headers : Dict[str, str]
+        Request HTTP headers.
+
+    &#34;&#34;&#34;
+    logging.info(&#34;Requesting thumbnail at %s&#34;, self.thumbnail_url)
+    response = requests.get(self.thumbnail_url, headers=headers)
+    self.thumbnail_data = PIL.Image.open(io.BytesIO(response.content))</code></pre>
+</details>
+</dd>
+<dt id="musar.download.YoutubePlaylistInfo.parse_from_json"><code class="name flex">
+<span>def <span class="ident">parse_from_json</span></span>(<span>self, data)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Parse the JSON data available after an HTML request to the
+YouTube playlist URL.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>data</code></strong> :&ensp;<code>Dict</code></dt>
+<dd>JSON data extracted from the HTML request response.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="musar.download.YoutubePlaylistInfo" href="#musar.download.YoutubePlaylistInfo">YoutubePlaylistInfo</a></code></dt>
+<dd>Returns itself.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def parse_from_json(self, data):
+    &#34;&#34;&#34;Parse the JSON data available after an HTML request to the
+    YouTube playlist URL.
+
+    Parameters
+    ----------
+    data : Dict
+        JSON data extracted from the HTML request response.
+
+    Returns
+    -------
+    YoutubePlaylistInfo
+        Returns itself.
+
+    &#34;&#34;&#34;
+    logging.info(&#34;Parsing playlist JSON data&#34;)
+    self.tracks = dict()
+    channels = list()
+    video_array = data[&#34;contents&#34;][&#34;twoColumnBrowseResultsRenderer&#34;]\
+                      [&#34;tabs&#34;][0][&#34;tabRenderer&#34;][&#34;content&#34;]\
+                      [&#34;sectionListRenderer&#34;][&#34;contents&#34;][0]\
+                      [&#34;itemSectionRenderer&#34;][&#34;contents&#34;][0]\
+                      [&#34;playlistVideoListRenderer&#34;][&#34;contents&#34;]
+    for video_item in video_array:
+        item = video_item[&#34;playlistVideoRenderer&#34;]
+        self.tracks[item[&#34;index&#34;][&#34;simpleText&#34;]] = item[&#34;title&#34;][&#34;runs&#34;][0][&#34;text&#34;]
+        channels.append(item[&#34;shortBylineText&#34;][&#34;runs&#34;][0][&#34;text&#34;])
+    thumbnail_array = data[&#34;sidebar&#34;][&#34;playlistSidebarRenderer&#34;]\
+                          [&#34;items&#34;][0]\
+                          [&#34;playlistSidebarPrimaryInfoRenderer&#34;]\
+                          [&#34;thumbnailRenderer&#34;]\
+                          [&#34;playlistCustomThumbnailRenderer&#34;]\
+                          [&#34;thumbnail&#34;][&#34;thumbnails&#34;]
+    self.thumbnail_url = max(
+        thumbnail_array,
+        key=lambda item: item[&#34;width&#34;]
+    )[&#34;url&#34;]
+    self.album = data[&#34;sidebar&#34;][&#34;playlistSidebarRenderer&#34;][&#34;items&#34;][0]\
+                     [&#34;playlistSidebarPrimaryInfoRenderer&#34;]\
+                     [&#34;title&#34;][&#34;runs&#34;][0][&#34;text&#34;]
+    self.artist = most_common_list_value(channels)
+    return self</code></pre>
+</details>
+</dd>
+<dt id="musar.download.YoutubePlaylistInfo.set_tags"><code class="name flex">
+<span>def <span class="ident">set_tags</span></span>(<span>self, pdf)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Set the tags to downloaded tracks from the playlist info.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>pdf</code></strong> :&ensp;<code>str</code></dt>
+<dd>Path to the folder tracks were downloaded to.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_tags(self, pdf):
+    &#34;&#34;&#34;Set the tags to downloaded tracks from the playlist info.
+
+    Parameters
+    ----------
+    pdf : str
+        Path to the folder tracks were downloaded to.
+
+    &#34;&#34;&#34;
+    img_data = io.BytesIO()
+    self.thumbnail_data.convert(&#34;RGB&#34;).save(img_data, format=&#34;jpeg&#34;)
+    for filename in glob.glob(os.path.join(pdf, &#34;*.mp3&#34;)):
+        track_key = str(int(os.path.splitext(os.path.basename(filename))[0]) + 1)
+        audiofile = eyed3.load(filename)
+        audiofile.tag.title = self.tracks[track_key].strip()
+        audiofile.tag.artist = self.artist.strip()
+        audiofile.tag.album_artist = self.artist.strip()
+        audiofile.tag.album = self.album.strip()
+        audiofile.tag.track_num = (int(track_key), len(self.tracks))
+        audiofile.tag.disc_num = (1, 1)
+        audiofile.tag.genre = self.genre.strip()
+        audiofile.tag.recording_date = int(self.year.strip())
+        audiofile.tag.images.set(
+            eyed3.id3.frames.ImageFrame.FRONT_COVER,
+            img_data.getvalue(),
+            &#34;image/jpeg&#34;
+        )
+        audiofile.tag.save()</code></pre>
+</details>
+</dd>
+<dt id="musar.download.YoutubePlaylistInfo.validate"><code class="name flex">
+<span>def <span class="ident">validate</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Ask for user input to validate the playlist info.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def validate(self):
+    &#34;&#34;&#34;Ask for user input to validate the playlist info.
+    &#34;&#34;&#34;
+    print(&#34;The playlist contains %d tracks.&#34; % len(self.tracks))
+    for attr in [&#34;album&#34;, &#34;artist&#34;, &#34;year&#34;, &#34;genre&#34;]:
+        attr_value = getattr(self, attr)
+        uinput = input(&#34;%s: %s\n&gt;&gt;&gt; &#34; % (
+            attr,
+            &#34;?&#34; if attr_value is None else &#34;&#39;%s&#39;&#34; % attr_value
+        ))
+        if uinput.strip() != &#34;&#34;:
+            setattr(self, attr, uinput.strip())</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="musar" href="index.html">musar</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="musar.download.check_playlist_url" href="#musar.download.check_playlist_url">check_playlist_url</a></code></li>
+<li><code><a title="musar.download.download_video" href="#musar.download.download_video">download_video</a></code></li>
+<li><code><a title="musar.download.extract_initial_data" href="#musar.download.extract_initial_data">extract_initial_data</a></code></li>
+<li><code><a title="musar.download.request_playlist_html" href="#musar.download.request_playlist_html">request_playlist_html</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="musar.download.PlaylistDownloader" href="#musar.download.PlaylistDownloader">PlaylistDownloader</a></code></h4>
+<ul class="">
+<li><code><a title="musar.download.PlaylistDownloader.main" href="#musar.download.PlaylistDownloader.main">main</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="musar.download.YoutubePlaylistInfo" href="#musar.download.YoutubePlaylistInfo">YoutubePlaylistInfo</a></code></h4>
+<ul class="">
+<li><code><a title="musar.download.YoutubePlaylistInfo.fetch_thumbnail" href="#musar.download.YoutubePlaylistInfo.fetch_thumbnail">fetch_thumbnail</a></code></li>
+<li><code><a title="musar.download.YoutubePlaylistInfo.parse_from_json" href="#musar.download.YoutubePlaylistInfo.parse_from_json">parse_from_json</a></code></li>
+<li><code><a title="musar.download.YoutubePlaylistInfo.set_tags" href="#musar.download.YoutubePlaylistInfo.set_tags">set_tags</a></code></li>
+<li><code><a title="musar.download.YoutubePlaylistInfo.validate" href="#musar.download.YoutubePlaylistInfo.validate">validate</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

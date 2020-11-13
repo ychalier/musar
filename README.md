@@ -12,6 +12,10 @@ The default configuration will ensure the following:
 - Each track has a track number and a disc number, and those numberings are complete (no missing tracks)
 - Covers are 600x600 JPEG images, and are specified as ID3 *Front Covers*
 
+<p align="center">
+  <img width="200" height="200" src="musar.svg">
+</p>
+
 ## Getting Started
 
 ### Prerequisites
@@ -96,6 +100,10 @@ Keyword | Description
 `download_folder`       | Location for downloaded tracks; the folder structure (one folder per playlist, under the specified location) is created by the program
 `ffmpeg_path`           | Path to a [FFmpeg](https://ffmpeg.org/) executable, for the `convert` feature
 
+## Documentation
+
+Documentation is available on https://ychalier.github.io/musar/. It is generated from docstrings using [pdoc](https://pdoc3.github.io/pdoc/).
+
 ## Contributing
 
 Contributions are welcomed. Open issues and pull requests when you want to submit something.
@@ -107,8 +115,8 @@ Contributions are welcomed. Open issues and pull requests when you want to submi
 - [x] ~~Add [FFmpeg](https://ffmpeg.org/) integration for converting audio files~~
 - [x] ~~Allow for basic config modifications from argument parsing~~
 - [x] ~~Allow for field value extension when possible~~
-- [ ] Enhance logging and progress output
-- [ ] Add docstrings & documentation
+- [x] ~~Enhance logging and progress output~~
+- [x] ~~Add docstrings & documentation~~
 
 ## License
 

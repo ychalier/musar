@@ -1,14 +1,39 @@
+"""Wrapper for configurable options and parameters.
+"""
 import re
+import logging
 from . import accessors
 from . import constraints
 from . import scopes
 from . import rules
 from . import cleaners
 from . import formats
-from .text_editor import TextEditor
+from .misc import TextEditor
 
 
 class Options:
+    """Namespace for simple parameters.
+
+    Attributes
+    ----------
+    cover_target_size : Tuple[int, int]
+        Size covers will be resized to in `musar.cleaners.Resize`.
+    cover_target_format : str
+        Image file format for the cover (in Pillow).
+        See `musar.accessors.Cover`.
+    cover_target_encoding : str
+        Color format for the cover (in Pillow).
+        See `musar.accessors.Cover`.
+    youtube_dl_path : str
+        Path to the *youtube-dl* executable.
+    mp3tag_path : str
+        Path to the *Mp3tag* executable.
+    download_folder : str
+        Root folder for downloaded files.
+    ffmpeg_path : str
+        Path to the *FFmpeg* executable.
+
+    """
 
     def __init__(self):
         self.cover_target_size = 600, 600
@@ -31,6 +56,14 @@ class Options:
         ])
 
     def load(self, line):
+        """Load a configuration file line.
+
+        Parameters
+        ----------
+        line : str
+            Line to parse.
+
+        """
         split = line.strip().split("=")
         if len(split) != 2:
             return
@@ -43,6 +76,28 @@ class Options:
 
 
 class Config:  # pylint: disable=R0902
+    """Global configuration.
+
+    Attributes
+    ----------
+    rules : List[musar.rules.Rule]
+        Rules that tracks should follow.
+    formats : List[musar.formats.Format]
+        Formats for cleaning the tag values.
+    options : musar.config.Options
+        General parameters.
+    extensions : Set[str]
+        Set of extensions for `musar.action_convert`.
+    accessor_mgr : musar.accessors.Manager
+        Accessors manager.
+    constraint_mgr : musar.constraints.Manager
+        Constraints manager.
+    scope_mgr : musar.scopes.Manager
+        Scopes manager.
+    cleaner_mgr : musar.cleaners.Manager
+        Cleaners manager.
+
+    """
 
     def __init__(self):
         self.rules = list()
@@ -62,6 +117,21 @@ class Config:  # pylint: disable=R0902
 
     @classmethod
     def from_file(cls, path):
+        """Create a `Config` object from a text file.
+
+        Parameters
+        ----------
+        cls : type
+            Class to create.
+        path : str
+            Path to the text file to parse.
+
+        Returns
+        -------
+        musar.config.Config
+            Created config
+
+        """
         config = Config()
         config.load(path)
         return config
@@ -121,15 +191,31 @@ class Config:  # pylint: disable=R0902
                 self._load_extension(line)
 
     def load(self, path):
+        """Parse config from an external file.
+
+        Parameters
+        ----------
+        path : str
+            Path to the external config file.
+
+        """
+        logging.info("Parsing file %s for config %s", path, repr(self))
         with open(path) as infile:
             self._load_text(infile.read())
 
     def reset(self):
+        """Reset the accessors memories.
+        """
+        logging.info("Resetting config %s", repr(self))
         for accessor in self.accessor_mgr.values():
             del accessor.memory
             accessor.memory = dict()
 
     def edit(self):
+        """Prompt user with a text editor for live editing the current config.
+        This will not modify the actual file.
+        """
+        logging.info("Editing config %s", repr(self))
         current_config = self.__str__()
         editor = TextEditor()
         new_config = editor(current_config)

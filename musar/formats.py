@@ -1,8 +1,26 @@
+"""Wrapper for applying several cleaners on one accessor value.
+"""
+
 from . import scopes
 from . import accessors
 
 
 class Format:
+    """Wrapper for applying several cleaners on one accessor value.
+
+    Parameters
+    ----------
+    accessor : musar.accessors.Accessor
+        Accessor on which applying the cleaners.
+    *cleaners : List[musar.cleaners.Cleaner]
+        Cleaners to apply.
+
+    Attributes
+    ----------
+    cleaners : List[musar.cleaners.Cleaner]
+    accessor : musar.accessors.Accessor
+
+    """
 
     def __init__(self, accessor, *cleaners):
         self.accessor = accessor
@@ -21,6 +39,14 @@ class Format:
         )
 
     def set(self, folder):
+        """Set the tags of tracks after applying cleaners.
+
+        Parameters
+        ----------
+        folder : musar.folder.Folder
+            Folder with tracks on which applying the cleaners.
+
+        """
         for track in folder:
             value = self.accessor.get(track)
             for cleaner in self.cleaners:
@@ -28,6 +54,20 @@ class Format:
             self.accessor.set(track, value)
 
     def prepare(self, folder):
+        """Prepare the accessors before clearing the tags. Sets the values in
+        memories and compute `musar.accessors.NumberAccessor` total value.
+
+        Parameters
+        ----------
+        folder : type
+            Description of parameter `folder`.
+
+        Returns
+        -------
+        type
+            Description of returned object.
+
+        """
         for track in folder:
             self.accessor.get(track)
         if isinstance(self.accessor, accessors.DiscNumber):

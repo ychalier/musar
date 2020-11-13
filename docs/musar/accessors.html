@@ -1,0 +1,1139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.1" />
+<title>musar.accessors API documentation</title>
+<meta name="description" content="Interface between eyed3 and musar." />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>musar.accessors</code></h1>
+</header>
+<section id="section-intro">
+<p>Interface between eyed3 and musar.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;Interface between eyed3 and musar.
+&#34;&#34;&#34;
+import io
+import PIL.Image
+import eyed3.id3.frames
+from .misc import HashableImage
+
+
+class Accessor:
+    &#34;&#34;&#34;Placeholder class for accessors.
+
+    Parameters
+    ----------
+    config : musar.config.Config
+        A reference for the config associated with the accessor.
+        This is used for accessors that depend on configurable parameters.
+
+    Attributes
+    ----------
+    memory : Dict[str, Union[int, str, musar.misc.HashableImage]]
+        Memory buffer for the getter. Keys are track fullpaths and values are
+        possible field values.
+    config : musar.config.Config
+
+    &#34;&#34;&#34;
+
+    NAME: str = None
+    &#34;&#34;&#34;
+    Accessor name for identification in the config.
+    &#34;&#34;&#34;
+
+    def __init__(self, config):
+        self.memory = dict()
+        self.config = config
+
+    def _get(self, song):
+        raise NotImplementedError()
+
+    def get(self, song):
+        &#34;&#34;&#34;Basic value getter.
+
+        Parameters
+        ----------
+        song : eyed3.mp3.Mp3AudioFile
+            Song to read the value from.
+
+        Returns
+        -------
+        Union[int, str, musar.misc.HashableImage]
+            Read value.
+
+        &#34;&#34;&#34;
+        if song is None:
+            return None
+        if song in self.memory:
+            return self.memory[song]
+        value = self._get(song)
+        self.memory[song] = value
+        return value
+
+    def set(self, song, value):
+        &#34;&#34;&#34;Abstract value setter.
+
+        Parameters
+        ----------
+        song : eyed3.mp3.Mp3AudioFile
+            Track to set the value to.
+        value : Union[int, str, musar.misc.HashableImage]
+            Value to set.
+
+        &#34;&#34;&#34;
+        raise NotImplementedError()
+
+
+class TagAccessor(Accessor):
+    &#34;&#34;&#34;Base class for simple accessors reading and setting tags without any
+    modification.
+
+    Parameters
+    ----------
+    config : musar.config.Config
+        Accessor config.
+    tag_name : str
+        Name of the `eyed3` tag involved.
+
+    Attributes
+    ----------
+    tag_name : str
+
+    &#34;&#34;&#34;
+
+    def __init__(self, config, tag_name):
+        Accessor.__init__(self, config)
+        self.tag_name = tag_name
+
+    def _get(self, song):
+        return getattr(song.tag, self.tag_name)
+
+    def set(self, song, value):
+        if song is not None:
+            setattr(song.tag, self.tag_name, value)
+
+
+class Title(TagAccessor):
+    &#34;&#34;&#34;Track title accessor.
+    &#34;&#34;&#34;
+
+    NAME = &#34;title&#34;
+
+    def __init__(self, config):
+        TagAccessor.__init__(self, config, &#34;title&#34;)
+
+
+class Album(TagAccessor):
+    &#34;&#34;&#34;Track album accessor.
+    &#34;&#34;&#34;
+
+    NAME = &#34;album&#34;
+
+    def __init__(self, config=None):
+        TagAccessor.__init__(self, config, &#34;album&#34;)
+
+
+class AlbumArtist(TagAccessor):
+    &#34;&#34;&#34;Track album artist accessor.
+    &#34;&#34;&#34;
+
+    NAME = &#34;album_artist&#34;
+
+    def __init__(self, config=None):
+        TagAccessor.__init__(self, config, &#34;album_artist&#34;)
+
+
+class Artist(TagAccessor):
+    &#34;&#34;&#34;Track artist accessor.
+    &#34;&#34;&#34;
+
+    NAME = &#34;artist&#34;
+
+    def __init__(self, config):
+        TagAccessor.__init__(self, config, &#34;artist&#34;)
+
+
+class Composer(TagAccessor):
+    &#34;&#34;&#34;Track composer accessor.
+    &#34;&#34;&#34;
+
+    NAME = &#34;composer&#34;
+
+    def __init__(self, config):
+        TagAccessor.__init__(self, config, &#34;composer&#34;)
+
+
+class NumberAccessor(TagAccessor):
+    &#34;&#34;&#34;Accessor for numbering fields (track number and disc number). eyed3
+    outputs value as a tuple: only the first element is considered.
+    &#34;&#34;&#34;
+
+    def _get(self, song):
+        return getattr(song.tag, self.tag_name)[0]
+
+
+class DiscNumber(NumberAccessor):
+    &#34;&#34;&#34;Track disc number accessor.
+    &#34;&#34;&#34;
+
+    NAME = &#34;disc_num&#34;
+
+    def __init__(self, config=None):
+        NumberAccessor.__init__(self, config, &#34;disc_num&#34;)
+
+
+class TrackNumber(NumberAccessor):
+    &#34;&#34;&#34;Track number accessor.
+    &#34;&#34;&#34;
+
+    NAME = &#34;track_num&#34;
+
+    def __init__(self, config):
+        NumberAccessor.__init__(self, config, &#34;track_num&#34;)
+
+
+class Genre(Accessor):
+    &#34;&#34;&#34;Track genre accessor. Genre is represented by its surface string.
+    &#34;&#34;&#34;
+
+    NAME = &#34;genre&#34;
+
+    def _get(self, song):
+        if song.tag.genre is None:
+            return None
+        return song.tag.genre.name
+
+    def set(self, song, value):
+        song.tag.genre = value
+
+
+class Year(Accessor):
+    &#34;&#34;&#34;Track year accessor. eyed3 uses dates but only the year is extracted.
+    &#34;&#34;&#34;
+
+    NAME = &#34;year&#34;
+
+    def _get(self, song):
+        if song.tag.best_release_date is None:
+            return None
+        return song.tag.best_release_date.year
+
+    def set(self, song, value):
+        song.tag.recording_date = value
+
+
+class Cover(Accessor):
+    &#34;&#34;&#34;Track cover accessor.
+    &#34;&#34;&#34;
+
+    NAME = &#34;cover&#34;
+
+    def _get(self, song):
+        if len(song.tag.images) == 0:
+            return None
+        return HashableImage(PIL.Image.open(io.BytesIO(song.tag.images[0].image_data)))
+
+    def set(self, song, value):
+        if value is None:
+            return
+        img_data = io.BytesIO()
+        value.image\
+            .convert(self.config.options.cover_target_encoding)\
+            .save(img_data, format=self.config.options.cover_target_format)
+        song.tag.images.set(
+            eyed3.id3.frames.ImageFrame.FRONT_COVER,
+            img_data.getvalue(),
+            &#34;image/%s&#34; % self.config.options.cover_target_format
+        )
+
+
+class Comment(Accessor):
+    &#34;&#34;&#34;Track comment accessor.
+    &#34;&#34;&#34;
+
+    NAME = &#34;comment&#34;
+
+    def _get(self, song):
+        if len(song.tag.comments) == 0:
+            return None
+        return song.tag.comments[0].text
+
+    def set(self, song, value):
+        song.tag.comments.set(value)
+
+
+class Manager(dict):
+    &#34;&#34;&#34;Manager for accessing all the accessors.
+
+    Parameters
+    ----------
+    config : musar.config.Config
+        Configuration that will be shared to all accessors.
+
+    Attributes
+    ----------
+    Keys are accessor names and values are accessor instances.
+
+    &#34;&#34;&#34;
+
+    def __init__(self, config):
+        super(Manager, self).__init__()
+        classes = [Title, Album, AlbumArtist, Artist, Genre, Comment,
+                   Cover, Year, Composer, DiscNumber, TrackNumber]
+        for cls in classes:
+            self[cls.NAME] = cls(config)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="musar.accessors.Accessor"><code class="flex name class">
+<span>class <span class="ident">Accessor</span></span>
+<span>(</span><span>config)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Placeholder class for accessors.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>config</code></strong> :&ensp;<code><a title="musar.config.Config" href="config.html#musar.config.Config">Config</a></code></dt>
+<dd>A reference for the config associated with the accessor.
+This is used for accessors that depend on configurable parameters.</dd>
+</dl>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>memory</code></strong> :&ensp;<code>Dict[str, Union[int, str, <a title="musar.misc.HashableImage" href="misc.html#musar.misc.HashableImage">HashableImage</a>]]</code></dt>
+<dd>Memory buffer for the getter. Keys are track fullpaths and values are
+possible field values.</dd>
+<dt><strong><code>config</code></strong> :&ensp;<code><a title="musar.config.Config" href="config.html#musar.config.Config">Config</a></code></dt>
+<dd>&nbsp;</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Accessor:
+    &#34;&#34;&#34;Placeholder class for accessors.
+
+    Parameters
+    ----------
+    config : musar.config.Config
+        A reference for the config associated with the accessor.
+        This is used for accessors that depend on configurable parameters.
+
+    Attributes
+    ----------
+    memory : Dict[str, Union[int, str, musar.misc.HashableImage]]
+        Memory buffer for the getter. Keys are track fullpaths and values are
+        possible field values.
+    config : musar.config.Config
+
+    &#34;&#34;&#34;
+
+    NAME: str = None
+    &#34;&#34;&#34;
+    Accessor name for identification in the config.
+    &#34;&#34;&#34;
+
+    def __init__(self, config):
+        self.memory = dict()
+        self.config = config
+
+    def _get(self, song):
+        raise NotImplementedError()
+
+    def get(self, song):
+        &#34;&#34;&#34;Basic value getter.
+
+        Parameters
+        ----------
+        song : eyed3.mp3.Mp3AudioFile
+            Song to read the value from.
+
+        Returns
+        -------
+        Union[int, str, musar.misc.HashableImage]
+            Read value.
+
+        &#34;&#34;&#34;
+        if song is None:
+            return None
+        if song in self.memory:
+            return self.memory[song]
+        value = self._get(song)
+        self.memory[song] = value
+        return value
+
+    def set(self, song, value):
+        &#34;&#34;&#34;Abstract value setter.
+
+        Parameters
+        ----------
+        song : eyed3.mp3.Mp3AudioFile
+            Track to set the value to.
+        value : Union[int, str, musar.misc.HashableImage]
+            Value to set.
+
+        &#34;&#34;&#34;
+        raise NotImplementedError()</code></pre>
+</details>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="musar.accessors.Comment" href="#musar.accessors.Comment">Comment</a></li>
+<li><a title="musar.accessors.Cover" href="#musar.accessors.Cover">Cover</a></li>
+<li><a title="musar.accessors.Genre" href="#musar.accessors.Genre">Genre</a></li>
+<li><a title="musar.accessors.TagAccessor" href="#musar.accessors.TagAccessor">TagAccessor</a></li>
+<li><a title="musar.accessors.Year" href="#musar.accessors.Year">Year</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="musar.accessors.Accessor.NAME"><code class="name">var <span class="ident">NAME</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Accessor name for identification in the config.</p></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="musar.accessors.Accessor.get"><code class="name flex">
+<span>def <span class="ident">get</span></span>(<span>self, song)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Basic value getter.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>song</code></strong> :&ensp;<code>eyed3.mp3.Mp3AudioFile</code></dt>
+<dd>Song to read the value from.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Union[int, str, <a title="musar.misc.HashableImage" href="misc.html#musar.misc.HashableImage">HashableImage</a>]</code></dt>
+<dd>Read value.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get(self, song):
+    &#34;&#34;&#34;Basic value getter.
+
+    Parameters
+    ----------
+    song : eyed3.mp3.Mp3AudioFile
+        Song to read the value from.
+
+    Returns
+    -------
+    Union[int, str, musar.misc.HashableImage]
+        Read value.
+
+    &#34;&#34;&#34;
+    if song is None:
+        return None
+    if song in self.memory:
+        return self.memory[song]
+    value = self._get(song)
+    self.memory[song] = value
+    return value</code></pre>
+</details>
+</dd>
+<dt id="musar.accessors.Accessor.set"><code class="name flex">
+<span>def <span class="ident">set</span></span>(<span>self, song, value)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Abstract value setter.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>song</code></strong> :&ensp;<code>eyed3.mp3.Mp3AudioFile</code></dt>
+<dd>Track to set the value to.</dd>
+<dt><strong><code>value</code></strong> :&ensp;<code>Union[int, str, <a title="musar.misc.HashableImage" href="misc.html#musar.misc.HashableImage">HashableImage</a>]</code></dt>
+<dd>Value to set.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set(self, song, value):
+    &#34;&#34;&#34;Abstract value setter.
+
+    Parameters
+    ----------
+    song : eyed3.mp3.Mp3AudioFile
+        Track to set the value to.
+    value : Union[int, str, musar.misc.HashableImage]
+        Value to set.
+
+    &#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="musar.accessors.Album"><code class="flex name class">
+<span>class <span class="ident">Album</span></span>
+<span>(</span><span>config=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Track album accessor.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Album(TagAccessor):
+    &#34;&#34;&#34;Track album accessor.
+    &#34;&#34;&#34;
+
+    NAME = &#34;album&#34;
+
+    def __init__(self, config=None):
+        TagAccessor.__init__(self, config, &#34;album&#34;)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="musar.accessors.TagAccessor" href="#musar.accessors.TagAccessor">TagAccessor</a></li>
+<li><a title="musar.accessors.Accessor" href="#musar.accessors.Accessor">Accessor</a></li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="musar.accessors.TagAccessor" href="#musar.accessors.TagAccessor">TagAccessor</a></b></code>:
+<ul class="hlist">
+<li><code><a title="musar.accessors.TagAccessor.NAME" href="#musar.accessors.Accessor.NAME">NAME</a></code></li>
+<li><code><a title="musar.accessors.TagAccessor.get" href="#musar.accessors.Accessor.get">get</a></code></li>
+<li><code><a title="musar.accessors.TagAccessor.set" href="#musar.accessors.Accessor.set">set</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="musar.accessors.AlbumArtist"><code class="flex name class">
+<span>class <span class="ident">AlbumArtist</span></span>
+<span>(</span><span>config=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Track album artist accessor.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class AlbumArtist(TagAccessor):
+    &#34;&#34;&#34;Track album artist accessor.
+    &#34;&#34;&#34;
+
+    NAME = &#34;album_artist&#34;
+
+    def __init__(self, config=None):
+        TagAccessor.__init__(self, config, &#34;album_artist&#34;)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="musar.accessors.TagAccessor" href="#musar.accessors.TagAccessor">TagAccessor</a></li>
+<li><a title="musar.accessors.Accessor" href="#musar.accessors.Accessor">Accessor</a></li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="musar.accessors.TagAccessor" href="#musar.accessors.TagAccessor">TagAccessor</a></b></code>:
+<ul class="hlist">
+<li><code><a title="musar.accessors.TagAccessor.NAME" href="#musar.accessors.Accessor.NAME">NAME</a></code></li>
+<li><code><a title="musar.accessors.TagAccessor.get" href="#musar.accessors.Accessor.get">get</a></code></li>
+<li><code><a title="musar.accessors.TagAccessor.set" href="#musar.accessors.Accessor.set">set</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="musar.accessors.Artist"><code class="flex name class">
+<span>class <span class="ident">Artist</span></span>
+<span>(</span><span>config)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Track artist accessor.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Artist(TagAccessor):
+    &#34;&#34;&#34;Track artist accessor.
+    &#34;&#34;&#34;
+
+    NAME = &#34;artist&#34;
+
+    def __init__(self, config):
+        TagAccessor.__init__(self, config, &#34;artist&#34;)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="musar.accessors.TagAccessor" href="#musar.accessors.TagAccessor">TagAccessor</a></li>
+<li><a title="musar.accessors.Accessor" href="#musar.accessors.Accessor">Accessor</a></li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="musar.accessors.TagAccessor" href="#musar.accessors.TagAccessor">TagAccessor</a></b></code>:
+<ul class="hlist">
+<li><code><a title="musar.accessors.TagAccessor.NAME" href="#musar.accessors.Accessor.NAME">NAME</a></code></li>
+<li><code><a title="musar.accessors.TagAccessor.get" href="#musar.accessors.Accessor.get">get</a></code></li>
+<li><code><a title="musar.accessors.TagAccessor.set" href="#musar.accessors.Accessor.set">set</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="musar.accessors.Comment"><code class="flex name class">
+<span>class <span class="ident">Comment</span></span>
+<span>(</span><span>config)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Track comment accessor.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Comment(Accessor):
+    &#34;&#34;&#34;Track comment accessor.
+    &#34;&#34;&#34;
+
+    NAME = &#34;comment&#34;
+
+    def _get(self, song):
+        if len(song.tag.comments) == 0:
+            return None
+        return song.tag.comments[0].text
+
+    def set(self, song, value):
+        song.tag.comments.set(value)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="musar.accessors.Accessor" href="#musar.accessors.Accessor">Accessor</a></li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="musar.accessors.Accessor" href="#musar.accessors.Accessor">Accessor</a></b></code>:
+<ul class="hlist">
+<li><code><a title="musar.accessors.Accessor.NAME" href="#musar.accessors.Accessor.NAME">NAME</a></code></li>
+<li><code><a title="musar.accessors.Accessor.get" href="#musar.accessors.Accessor.get">get</a></code></li>
+<li><code><a title="musar.accessors.Accessor.set" href="#musar.accessors.Accessor.set">set</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="musar.accessors.Composer"><code class="flex name class">
+<span>class <span class="ident">Composer</span></span>
+<span>(</span><span>config)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Track composer accessor.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Composer(TagAccessor):
+    &#34;&#34;&#34;Track composer accessor.
+    &#34;&#34;&#34;
+
+    NAME = &#34;composer&#34;
+
+    def __init__(self, config):
+        TagAccessor.__init__(self, config, &#34;composer&#34;)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="musar.accessors.TagAccessor" href="#musar.accessors.TagAccessor">TagAccessor</a></li>
+<li><a title="musar.accessors.Accessor" href="#musar.accessors.Accessor">Accessor</a></li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="musar.accessors.TagAccessor" href="#musar.accessors.TagAccessor">TagAccessor</a></b></code>:
+<ul class="hlist">
+<li><code><a title="musar.accessors.TagAccessor.NAME" href="#musar.accessors.Accessor.NAME">NAME</a></code></li>
+<li><code><a title="musar.accessors.TagAccessor.get" href="#musar.accessors.Accessor.get">get</a></code></li>
+<li><code><a title="musar.accessors.TagAccessor.set" href="#musar.accessors.Accessor.set">set</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="musar.accessors.Cover"><code class="flex name class">
+<span>class <span class="ident">Cover</span></span>
+<span>(</span><span>config)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Track cover accessor.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Cover(Accessor):
+    &#34;&#34;&#34;Track cover accessor.
+    &#34;&#34;&#34;
+
+    NAME = &#34;cover&#34;
+
+    def _get(self, song):
+        if len(song.tag.images) == 0:
+            return None
+        return HashableImage(PIL.Image.open(io.BytesIO(song.tag.images[0].image_data)))
+
+    def set(self, song, value):
+        if value is None:
+            return
+        img_data = io.BytesIO()
+        value.image\
+            .convert(self.config.options.cover_target_encoding)\
+            .save(img_data, format=self.config.options.cover_target_format)
+        song.tag.images.set(
+            eyed3.id3.frames.ImageFrame.FRONT_COVER,
+            img_data.getvalue(),
+            &#34;image/%s&#34; % self.config.options.cover_target_format
+        )</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="musar.accessors.Accessor" href="#musar.accessors.Accessor">Accessor</a></li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="musar.accessors.Accessor" href="#musar.accessors.Accessor">Accessor</a></b></code>:
+<ul class="hlist">
+<li><code><a title="musar.accessors.Accessor.NAME" href="#musar.accessors.Accessor.NAME">NAME</a></code></li>
+<li><code><a title="musar.accessors.Accessor.get" href="#musar.accessors.Accessor.get">get</a></code></li>
+<li><code><a title="musar.accessors.Accessor.set" href="#musar.accessors.Accessor.set">set</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="musar.accessors.DiscNumber"><code class="flex name class">
+<span>class <span class="ident">DiscNumber</span></span>
+<span>(</span><span>config=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Track disc number accessor.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class DiscNumber(NumberAccessor):
+    &#34;&#34;&#34;Track disc number accessor.
+    &#34;&#34;&#34;
+
+    NAME = &#34;disc_num&#34;
+
+    def __init__(self, config=None):
+        NumberAccessor.__init__(self, config, &#34;disc_num&#34;)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="musar.accessors.NumberAccessor" href="#musar.accessors.NumberAccessor">NumberAccessor</a></li>
+<li><a title="musar.accessors.TagAccessor" href="#musar.accessors.TagAccessor">TagAccessor</a></li>
+<li><a title="musar.accessors.Accessor" href="#musar.accessors.Accessor">Accessor</a></li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="musar.accessors.NumberAccessor" href="#musar.accessors.NumberAccessor">NumberAccessor</a></b></code>:
+<ul class="hlist">
+<li><code><a title="musar.accessors.NumberAccessor.NAME" href="#musar.accessors.Accessor.NAME">NAME</a></code></li>
+<li><code><a title="musar.accessors.NumberAccessor.get" href="#musar.accessors.Accessor.get">get</a></code></li>
+<li><code><a title="musar.accessors.NumberAccessor.set" href="#musar.accessors.Accessor.set">set</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="musar.accessors.Genre"><code class="flex name class">
+<span>class <span class="ident">Genre</span></span>
+<span>(</span><span>config)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Track genre accessor. Genre is represented by its surface string.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Genre(Accessor):
+    &#34;&#34;&#34;Track genre accessor. Genre is represented by its surface string.
+    &#34;&#34;&#34;
+
+    NAME = &#34;genre&#34;
+
+    def _get(self, song):
+        if song.tag.genre is None:
+            return None
+        return song.tag.genre.name
+
+    def set(self, song, value):
+        song.tag.genre = value</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="musar.accessors.Accessor" href="#musar.accessors.Accessor">Accessor</a></li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="musar.accessors.Accessor" href="#musar.accessors.Accessor">Accessor</a></b></code>:
+<ul class="hlist">
+<li><code><a title="musar.accessors.Accessor.NAME" href="#musar.accessors.Accessor.NAME">NAME</a></code></li>
+<li><code><a title="musar.accessors.Accessor.get" href="#musar.accessors.Accessor.get">get</a></code></li>
+<li><code><a title="musar.accessors.Accessor.set" href="#musar.accessors.Accessor.set">set</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="musar.accessors.Manager"><code class="flex name class">
+<span>class <span class="ident">Manager</span></span>
+<span>(</span><span>config)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Manager for accessing all the accessors.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>config</code></strong> :&ensp;<code><a title="musar.config.Config" href="config.html#musar.config.Config">Config</a></code></dt>
+<dd>Configuration that will be shared to all accessors.</dd>
+</dl>
+<h2 id="attributes">Attributes</h2>
+<p>Keys are accessor names and values are accessor instances.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Manager(dict):
+    &#34;&#34;&#34;Manager for accessing all the accessors.
+
+    Parameters
+    ----------
+    config : musar.config.Config
+        Configuration that will be shared to all accessors.
+
+    Attributes
+    ----------
+    Keys are accessor names and values are accessor instances.
+
+    &#34;&#34;&#34;
+
+    def __init__(self, config):
+        super(Manager, self).__init__()
+        classes = [Title, Album, AlbumArtist, Artist, Genre, Comment,
+                   Cover, Year, Composer, DiscNumber, TrackNumber]
+        for cls in classes:
+            self[cls.NAME] = cls(config)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>builtins.dict</li>
+</ul>
+</dd>
+<dt id="musar.accessors.NumberAccessor"><code class="flex name class">
+<span>class <span class="ident">NumberAccessor</span></span>
+<span>(</span><span>config, tag_name)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Accessor for numbering fields (track number and disc number). eyed3
+outputs value as a tuple: only the first element is considered.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class NumberAccessor(TagAccessor):
+    &#34;&#34;&#34;Accessor for numbering fields (track number and disc number). eyed3
+    outputs value as a tuple: only the first element is considered.
+    &#34;&#34;&#34;
+
+    def _get(self, song):
+        return getattr(song.tag, self.tag_name)[0]</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="musar.accessors.TagAccessor" href="#musar.accessors.TagAccessor">TagAccessor</a></li>
+<li><a title="musar.accessors.Accessor" href="#musar.accessors.Accessor">Accessor</a></li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="musar.accessors.DiscNumber" href="#musar.accessors.DiscNumber">DiscNumber</a></li>
+<li><a title="musar.accessors.TrackNumber" href="#musar.accessors.TrackNumber">TrackNumber</a></li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="musar.accessors.TagAccessor" href="#musar.accessors.TagAccessor">TagAccessor</a></b></code>:
+<ul class="hlist">
+<li><code><a title="musar.accessors.TagAccessor.NAME" href="#musar.accessors.Accessor.NAME">NAME</a></code></li>
+<li><code><a title="musar.accessors.TagAccessor.get" href="#musar.accessors.Accessor.get">get</a></code></li>
+<li><code><a title="musar.accessors.TagAccessor.set" href="#musar.accessors.Accessor.set">set</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="musar.accessors.TagAccessor"><code class="flex name class">
+<span>class <span class="ident">TagAccessor</span></span>
+<span>(</span><span>config, tag_name)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Base class for simple accessors reading and setting tags without any
+modification.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>config</code></strong> :&ensp;<code><a title="musar.config.Config" href="config.html#musar.config.Config">Config</a></code></dt>
+<dd>Accessor config.</dd>
+<dt><strong><code>tag_name</code></strong> :&ensp;<code>str</code></dt>
+<dd>Name of the <code>eyed3</code> tag involved.</dd>
+</dl>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>tag_name</code></strong> :&ensp;<code>str</code></dt>
+<dd>&nbsp;</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class TagAccessor(Accessor):
+    &#34;&#34;&#34;Base class for simple accessors reading and setting tags without any
+    modification.
+
+    Parameters
+    ----------
+    config : musar.config.Config
+        Accessor config.
+    tag_name : str
+        Name of the `eyed3` tag involved.
+
+    Attributes
+    ----------
+    tag_name : str
+
+    &#34;&#34;&#34;
+
+    def __init__(self, config, tag_name):
+        Accessor.__init__(self, config)
+        self.tag_name = tag_name
+
+    def _get(self, song):
+        return getattr(song.tag, self.tag_name)
+
+    def set(self, song, value):
+        if song is not None:
+            setattr(song.tag, self.tag_name, value)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="musar.accessors.Accessor" href="#musar.accessors.Accessor">Accessor</a></li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="musar.accessors.Album" href="#musar.accessors.Album">Album</a></li>
+<li><a title="musar.accessors.AlbumArtist" href="#musar.accessors.AlbumArtist">AlbumArtist</a></li>
+<li><a title="musar.accessors.Artist" href="#musar.accessors.Artist">Artist</a></li>
+<li><a title="musar.accessors.Composer" href="#musar.accessors.Composer">Composer</a></li>
+<li><a title="musar.accessors.NumberAccessor" href="#musar.accessors.NumberAccessor">NumberAccessor</a></li>
+<li><a title="musar.accessors.Title" href="#musar.accessors.Title">Title</a></li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="musar.accessors.Accessor" href="#musar.accessors.Accessor">Accessor</a></b></code>:
+<ul class="hlist">
+<li><code><a title="musar.accessors.Accessor.NAME" href="#musar.accessors.Accessor.NAME">NAME</a></code></li>
+<li><code><a title="musar.accessors.Accessor.get" href="#musar.accessors.Accessor.get">get</a></code></li>
+<li><code><a title="musar.accessors.Accessor.set" href="#musar.accessors.Accessor.set">set</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="musar.accessors.Title"><code class="flex name class">
+<span>class <span class="ident">Title</span></span>
+<span>(</span><span>config)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Track title accessor.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Title(TagAccessor):
+    &#34;&#34;&#34;Track title accessor.
+    &#34;&#34;&#34;
+
+    NAME = &#34;title&#34;
+
+    def __init__(self, config):
+        TagAccessor.__init__(self, config, &#34;title&#34;)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="musar.accessors.TagAccessor" href="#musar.accessors.TagAccessor">TagAccessor</a></li>
+<li><a title="musar.accessors.Accessor" href="#musar.accessors.Accessor">Accessor</a></li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="musar.accessors.TagAccessor" href="#musar.accessors.TagAccessor">TagAccessor</a></b></code>:
+<ul class="hlist">
+<li><code><a title="musar.accessors.TagAccessor.NAME" href="#musar.accessors.Accessor.NAME">NAME</a></code></li>
+<li><code><a title="musar.accessors.TagAccessor.get" href="#musar.accessors.Accessor.get">get</a></code></li>
+<li><code><a title="musar.accessors.TagAccessor.set" href="#musar.accessors.Accessor.set">set</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="musar.accessors.TrackNumber"><code class="flex name class">
+<span>class <span class="ident">TrackNumber</span></span>
+<span>(</span><span>config)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Track number accessor.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class TrackNumber(NumberAccessor):
+    &#34;&#34;&#34;Track number accessor.
+    &#34;&#34;&#34;
+
+    NAME = &#34;track_num&#34;
+
+    def __init__(self, config):
+        NumberAccessor.__init__(self, config, &#34;track_num&#34;)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="musar.accessors.NumberAccessor" href="#musar.accessors.NumberAccessor">NumberAccessor</a></li>
+<li><a title="musar.accessors.TagAccessor" href="#musar.accessors.TagAccessor">TagAccessor</a></li>
+<li><a title="musar.accessors.Accessor" href="#musar.accessors.Accessor">Accessor</a></li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="musar.accessors.NumberAccessor" href="#musar.accessors.NumberAccessor">NumberAccessor</a></b></code>:
+<ul class="hlist">
+<li><code><a title="musar.accessors.NumberAccessor.NAME" href="#musar.accessors.Accessor.NAME">NAME</a></code></li>
+<li><code><a title="musar.accessors.NumberAccessor.get" href="#musar.accessors.Accessor.get">get</a></code></li>
+<li><code><a title="musar.accessors.NumberAccessor.set" href="#musar.accessors.Accessor.set">set</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="musar.accessors.Year"><code class="flex name class">
+<span>class <span class="ident">Year</span></span>
+<span>(</span><span>config)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Track year accessor. eyed3 uses dates but only the year is extracted.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Year(Accessor):
+    &#34;&#34;&#34;Track year accessor. eyed3 uses dates but only the year is extracted.
+    &#34;&#34;&#34;
+
+    NAME = &#34;year&#34;
+
+    def _get(self, song):
+        if song.tag.best_release_date is None:
+            return None
+        return song.tag.best_release_date.year
+
+    def set(self, song, value):
+        song.tag.recording_date = value</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="musar.accessors.Accessor" href="#musar.accessors.Accessor">Accessor</a></li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="musar.accessors.Accessor" href="#musar.accessors.Accessor">Accessor</a></b></code>:
+<ul class="hlist">
+<li><code><a title="musar.accessors.Accessor.NAME" href="#musar.accessors.Accessor.NAME">NAME</a></code></li>
+<li><code><a title="musar.accessors.Accessor.get" href="#musar.accessors.Accessor.get">get</a></code></li>
+<li><code><a title="musar.accessors.Accessor.set" href="#musar.accessors.Accessor.set">set</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="musar" href="index.html">musar</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="musar.accessors.Accessor" href="#musar.accessors.Accessor">Accessor</a></code></h4>
+<ul class="">
+<li><code><a title="musar.accessors.Accessor.NAME" href="#musar.accessors.Accessor.NAME">NAME</a></code></li>
+<li><code><a title="musar.accessors.Accessor.get" href="#musar.accessors.Accessor.get">get</a></code></li>
+<li><code><a title="musar.accessors.Accessor.set" href="#musar.accessors.Accessor.set">set</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="musar.accessors.Album" href="#musar.accessors.Album">Album</a></code></h4>
+</li>
+<li>
+<h4><code><a title="musar.accessors.AlbumArtist" href="#musar.accessors.AlbumArtist">AlbumArtist</a></code></h4>
+</li>
+<li>
+<h4><code><a title="musar.accessors.Artist" href="#musar.accessors.Artist">Artist</a></code></h4>
+</li>
+<li>
+<h4><code><a title="musar.accessors.Comment" href="#musar.accessors.Comment">Comment</a></code></h4>
+</li>
+<li>
+<h4><code><a title="musar.accessors.Composer" href="#musar.accessors.Composer">Composer</a></code></h4>
+</li>
+<li>
+<h4><code><a title="musar.accessors.Cover" href="#musar.accessors.Cover">Cover</a></code></h4>
+</li>
+<li>
+<h4><code><a title="musar.accessors.DiscNumber" href="#musar.accessors.DiscNumber">DiscNumber</a></code></h4>
+</li>
+<li>
+<h4><code><a title="musar.accessors.Genre" href="#musar.accessors.Genre">Genre</a></code></h4>
+</li>
+<li>
+<h4><code><a title="musar.accessors.Manager" href="#musar.accessors.Manager">Manager</a></code></h4>
+</li>
+<li>
+<h4><code><a title="musar.accessors.NumberAccessor" href="#musar.accessors.NumberAccessor">NumberAccessor</a></code></h4>
+</li>
+<li>
+<h4><code><a title="musar.accessors.TagAccessor" href="#musar.accessors.TagAccessor">TagAccessor</a></code></h4>
+</li>
+<li>
+<h4><code><a title="musar.accessors.Title" href="#musar.accessors.Title">Title</a></code></h4>
+</li>
+<li>
+<h4><code><a title="musar.accessors.TrackNumber" href="#musar.accessors.TrackNumber">TrackNumber</a></code></h4>
+</li>
+<li>
+<h4><code><a title="musar.accessors.Year" href="#musar.accessors.Year">Year</a></code></h4>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

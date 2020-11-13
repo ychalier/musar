@@ -1,14 +1,38 @@
+"""Implementation of constraints over sets of values.
+"""
 import os
 import json
 
 
 class Constraint:
+    """Placeholder class for constraints.
+    """
+
+    NAME: str = None
+    """
+    Constraint name for identification in the config.
+    """
 
     def validate(self, values):
+        """Check if the contrainst is respected over given values.
+
+        Parameters
+        ----------
+        values : List[Union[int, str, musar.misc.HashableImage]]
+            Field values.
+
+        Returns
+        -------
+        bool
+            Whether the constraint is respected or not.
+
+        """
         raise NotImplementedError()
 
 
 class Existing(Constraint):
+    """At least one value is not `None`.
+    """
 
     NAME = "existing"
 
@@ -17,6 +41,8 @@ class Existing(Constraint):
 
 
 class Unique(Constraint):
+    """All values are the same.
+    """
 
     NAME = "unique"
 
@@ -25,6 +51,8 @@ class Unique(Constraint):
 
 
 class Distinct(Constraint):
+    """All values are different.
+    """
 
     NAME = "distinct"
 
@@ -34,6 +62,10 @@ class Distinct(Constraint):
 
 
 class Ordered(Constraint):
+    """The **set** of values contains all values between its minimum and its
+    maximum.
+
+    """
 
     NAME = "ordered"
 
@@ -48,6 +80,14 @@ class Ordered(Constraint):
 
 
 class ValidGenre(Constraint):
+    """The genre is a valid ID3 genre.
+
+    Attributes
+    ----------
+    valid_genres : Set[str]
+        Set of valid ID3 genres.
+
+    """
 
     NAME = "valid_genre"
 
@@ -65,6 +105,8 @@ class ValidGenre(Constraint):
 
 
 class ValidCover(Constraint):
+    """The cover has a square shape.
+    """
 
     NAME = "valid_cover"
 
@@ -77,6 +119,13 @@ class ValidCover(Constraint):
 
 
 class Manager(dict):
+    """Manager for accessing all the constraints.
+
+    Attributes
+    ----------
+    Keys are constraint names and values are constraint instances.
+
+    """
 
     def __init__(self):
         super(Manager, self).__init__()

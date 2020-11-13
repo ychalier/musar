@@ -1,3 +1,5 @@
+"""User interface for main module features.
+"""
 import argparse
 import logging
 import os
@@ -11,6 +13,14 @@ import musar.download
 
 
 def build_format_parser(base_parser):
+    """Sets the arguments of the format parser.
+
+    Parameters
+    ----------
+    base_parser : argparse._SubParsersAction
+        Action subparser.
+
+    """
     parser = base_parser.add_parser("format")
     parser.add_argument(
         "-e",
@@ -54,6 +64,14 @@ def build_format_parser(base_parser):
 
 
 def build_download_parser(base_parser):
+    """Sets the arguments of the download parser.
+
+    Parameters
+    ----------
+    base_parser : argparse._SubParsersAction
+        Action subparser.
+
+    """
     parser = base_parser.add_parser("download")
     parser.add_argument(
         "playlist_url",
@@ -82,6 +100,14 @@ def build_download_parser(base_parser):
 
 
 def build_index_parser(base_parser):
+    """Sets the arguments of the index parser.
+
+    Parameters
+    ----------
+    base_parser : argparse._SubParsersAction
+        Action subparser.
+
+    """
     parser = base_parser.add_parser("index")
     parser.add_argument(
         "folder",
@@ -94,6 +120,14 @@ def build_index_parser(base_parser):
 
 
 def build_convert_parser(base_parser):
+    """Sets the arguments of the convert parser.
+
+    Parameters
+    ----------
+    base_parser : argparse._SubParsersAction
+        Action subparser.
+
+    """
     parser = base_parser.add_parser("convert")
     parser.add_argument(
         "folder",
@@ -112,6 +146,14 @@ def build_convert_parser(base_parser):
 
 
 def build_argument_parser():
+    """Builds the argument parser.
+
+    Returns
+    -------
+    argparse.ArgumentParser
+        Built argument parser.
+
+    """
     description = (
         "Manage and standardize your music library."
     )
@@ -160,6 +202,8 @@ def build_argument_parser():
 
 
 def main():
+    """Parse arguments and start actions.
+    """
     args = build_argument_parser().parse_args()
     if not args.verbose:
         eyed3.log.setLevel("ERROR")
