@@ -30,10 +30,28 @@ Those binaries are not required for the main feature (action called `format`) of
 
 ### Installation
 
+#### Option 1. From the repository
+
 Clone the repository, and install the module with:
 
 ```
 python setup.py install
+```
+
+#### Option 2. From the release
+
+Download the latest release and install it with pip:
+
+```
+pip install musar-2.0.0.tar.gz
+```
+
+#### Option 3. From the package repository
+
+Install it from my package repository:
+
+```
+pip install --extra-index-url="https://packages.chalier.fr" musar
 ```
 
 ### Usage
