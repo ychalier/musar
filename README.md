@@ -49,6 +49,7 @@ Tag         | Line Syntax                    | Purpose
 `[RULES]`   | `<field> <constraint> <scope>` | Set of logic rules for validating an album; resulting constraint is the conjunction of all the rules
 `[FORMATS]` | `<field> <cleaner>*`           | List of cleaners to apply to a tag value when formatting (ignored fields will simply be removed from the output file)
 `[OPTIONS]` | `<key>=<value>`                | Map of general purpose options
+`[EXTENSIONS]` | One extension, withtout `'.'`, per line | List of files to look for when converting folder content to mp3
 
 Fields, constraints, scopes and cleaners are keywords that correspond to a proper implementation in the module. Here is the list of available keywords:
 
