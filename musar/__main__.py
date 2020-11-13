@@ -13,6 +13,12 @@ import musar.download
 def build_format_parser(base_parser):
     parser = base_parser.add_parser("format")
     parser.add_argument(
+        "-e",
+        "--extend",
+        type=str,
+        help="comma separated list of fields to extend"
+    )
+    parser.add_argument(
         "-c",
         "--check-only",
         action="store_true",
@@ -175,7 +181,8 @@ def main():
             args.force,
             args.rename,
             args.rename_hierarchy,
-            args.explore
+            args.explore,
+            list(map(lambda s: s.strip(), args.extend.split(",")))
         )
     elif args.action == "download":
         musar.action_download(

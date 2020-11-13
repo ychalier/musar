@@ -2,7 +2,7 @@
 """The Music Archivist
 """
 
-__version__ = "1.4.0"
+__version__ = "1.5.0"
 __author__ = "Yohan Chalier"
 __license__ = "MIT"
 __email__ = "yohan@chalier.fr"
@@ -17,7 +17,7 @@ import slugify
 
 from .config import Config
 from .download import PlaylistDownloader
-from .folder import Folder
+from .folder import Folder, extract_most_common_value
 
 
 class Namespace:
@@ -49,6 +49,33 @@ def action_check(config, folder):
             logging.info("Violated %s", rule)
             valid = False
     return valid
+
+
+def most_common_list_value(values):
+    occurrences = dict()
+    for value in values:
+        occurrences.setdefault(value, 0)
+        occurrences[value] += 1
+    return max(occurrences.items(), key=lambda x: x[1])[0]
+
+
+def action_extend(config, folder, fields):
+    for field in fields:
+        if field not in config.accessor_mgr:
+            logging.error("Wrong accessor name: '%s'", field)
+            continue
+        values = list()
+        for track in folder:
+            value = config.accessor_mgr[field].get(track)
+            if value is not None:
+                values.append(value)
+        if len(values) == 0:
+            logging.error("Could not expand field %s: no non-null value found", field)
+            continue
+        common_value = most_common_list_value(values)
+        logging.info("Selected common value %s for field %s", common_value, field)
+        for track in folder:
+            config.accessor_mgr[field].set(track, common_value)
 
 
 def action_clean(config, folder):
@@ -93,11 +120,14 @@ def action_format(
         force=False,
         rename=False,
         rename_hierarchy=False,
-        explore=False
+        explore=False,
+        extend=None
         ):
     for folder in iter_folders(root, explore, allow_empty=False):
         valid = action_check(config, folder)
         if not check_only and (valid or force):
+            if extend is not None and len(extend) > 0:
+                action_extend(config, folder, extend)
             action_clean(config, folder)
             if rename or rename_hierarchy:
                 action_rename(folder, rename)

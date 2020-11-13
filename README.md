@@ -106,7 +106,7 @@ Contributions are welcomed. Open issues and pull requests when you want to submi
 - [x] ~~Add [youtube-dl](https://youtube-dl.org/) integration for downloading YouTube playlists~~
 - [x] ~~Add [FFmpeg](https://ffmpeg.org/) integration for converting audio files~~
 - [x] ~~Allow for basic config modifications from argument parsing~~
-- [ ] Allow for field value extension when possible
+- [x] ~~Allow for field value extension when possible~~
 - [ ] Enhance logging and progress output
 - [ ] Add docstrings & documentation
 
