@@ -1,0 +1,1 @@
+from musar.__main__ import *

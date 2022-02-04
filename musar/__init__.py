@@ -2,7 +2,7 @@
 """The Music Archivist, a Python module for validating and formatting audio tags.
 """
 
-__version__ = "2.0.0"
+__version__ = "2.0.1"
 __author__ = "Yohan Chalier"
 __license__ = "MIT"
 __email__ = "yohan@chalier.fr"
@@ -38,7 +38,7 @@ def load_config(path, edit=False):
 
     """
     logging.info("Loading config from %s", os.path.realpath(path))
-    config = Config.from_file(path)
+    config = Config.from_file(os.path.realpath(path))
     if edit:
         config.edit()
     return config
@@ -64,7 +64,7 @@ def iter_folders(top, explore=False, allow_empty=False):
 
     """
     logging.info("Exploring folders from %s", os.path.realpath(top))
-    for root, _, _ in os.walk(top, topdown=True):
+    for root, _, _ in os.walk(os.path.realpath(top), topdown=True):
         logging.info("Exploring folder %s", os.path.realpath(root))
         folder = Folder(root)
         folder.load()

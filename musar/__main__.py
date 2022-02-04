@@ -1,6 +1,7 @@
 """User interface for main module features.
 """
 import argparse
+from curses import raw
 import logging
 import os
 import eyed3
@@ -26,6 +27,7 @@ def build_format_parser(base_parser):
         "-e",
         "--extend",
         type=str,
+        default="",
         help="comma separated list of fields to extend"
     )
     parser.add_argument(
@@ -201,6 +203,12 @@ def build_argument_parser():
     return parser
 
 
+def fix_powershell_folder(raw_folder):
+    if raw_folder.endswith("\""):
+        return raw_folder[:-1]
+    return raw_folder
+
+
 def main():
     """Parse arguments and start actions.
     """
@@ -220,7 +228,7 @@ def main():
     if args.action == "format":
         musar.action_format(
             config,
-            args.folder,
+            fix_powershell_folder(args.folder),
             args.check_only,
             args.force,
             args.rename,
@@ -239,13 +247,13 @@ def main():
         )
     elif args.action == "index":
         musar.action_index(
-            args.folder,
+            fix_powershell_folder(args.folder),
             args.output
         )
     elif args.action == "convert":
         musar.action_convert(
             config,
-            args.folder,
+            fix_powershell_folder(args.folder),
             args.explore,
             args.remove_original
         )
