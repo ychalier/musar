@@ -135,6 +135,8 @@ Contributions are welcomed. Open issues and pull requests when you want to submi
 - [x] ~~Allow for field value extension when possible~~
 - [x] ~~Enhance logging and progress output~~
 - [x] ~~Add docstrings & documentation~~
+- [ ] Modify the architecture for supporting other file formats
+- [ ] Add support for FLAC
 
 ## License
 
